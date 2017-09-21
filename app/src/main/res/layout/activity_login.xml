@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="32dp"
+    android:layout_marginRight="32dp"
+    tools:context="br.com.fiap.am.amproject.LoginActivity"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/et_user"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:paddingLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text_shape"
+        android:hint="Usuário"
+        />
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/et_user"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/edit_text_shape"
+        android:hint="Senha"
+        />
+
+    <Button
+        android:layout_below="@+id/et_password"
+        android:background="@drawable/button_shape"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Login"
+        android:textColor="@color/colorSecondaryText"
+        android:onClick="doLogin"/>
+
+</RelativeLayout>
