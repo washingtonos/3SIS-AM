@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
@@ -17,18 +19,24 @@ public class MenuActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Button button = (Button)findViewById(R.id.button_ler_qr_code);
             switch (item.getItemId()) {
                 case R.id.navigation_buy:
                     mTextMessage.setText(R.string.title_buy);
+                    button = (Button)findViewById(R.id.button_ler_qr_code);
+                    button.setVisibility(View.VISIBLE);
                     return true;
                 case R.id.navigation_sell:
                     mTextMessage.setText(R.string.title_sell);
+                    button.setVisibility(View.INVISIBLE);
                     return true;
                 case R.id.navigation_transactions:
                     mTextMessage.setText(R.string.title_transactions);
+                    button.setVisibility(View.INVISIBLE);
                     return true;
                 case R.id.navigation_account:
                     mTextMessage.setText(R.string.title_account);
+                    button.setVisibility(View.INVISIBLE);
                     return true;
             }
             return false;
@@ -50,4 +58,8 @@ public class MenuActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
     }
 
+    public void callQrCodeReader(View view) {
+
+
+    }
 }
