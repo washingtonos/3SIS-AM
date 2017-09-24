@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">AmProject</string>
     <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_buy">Comprar</string>
+    <string name="title_sell">Vender</string>
+    <string name="title_account">Conta</string>
+    <string name="title_activity_confirmar_compra">ConfirmarCompra</string>
+    <string name="title_activity_comprovante">ComprovanteActivity</string>
 </resources>

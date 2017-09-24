@@ -8,29 +8,63 @@
     android:orientation="vertical"
     tools:context="br.com.fiap.am.amproject.MenuActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_menuactivity"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/AppTheme"
+        app:theme="@style/AppTheme">
+
+    </android.support.v7.widget.Toolbar>
+
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:id="@+id/rl_conta"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/title_home" />
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/imv_qrcode"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:background="@drawable/focus_selector"
+                android:layout_marginBottom="64dp"/>
+            <Button
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_shape"
+                android:layout_below="@+id/imv_qrcode"
+                android:id="@+id/button_ler_qr_code"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:onClick="callQrCodeReader"
+                android:textSize="18sp"
+                android:text="Escanear QR Code"
+                android:textAllCaps="false"/>
+
+
+    </RelativeLayout>
 
     </FrameLayout>
+
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:itemIconTint="@color/colorSecondary"
+        app:itemTextColor="@color/colorSecondaryLight"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/navigation" />
 
