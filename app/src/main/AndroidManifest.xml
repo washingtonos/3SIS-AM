@@ -9,28 +9,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity" >
+        <activity
+            android:name=".LoginActivity"
+            android:label="Entrar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FirstActivity" />
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu" />
+        <activity
+            android:name=".ConfirmarCompraActivity"
+            android:label="@string/title_activity_confirmar_compra"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ComprovanteActivity"
+            android:label="@string/title_activity_comprovante"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MenuActivity"
-            android:label="@string/title_activity_menu">
-
+        <activity android:name=".CadastrarVendaNomeProdutoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
         </activity>
-        <activity
-            android:name=".ConfirmarCompra"
-            android:label="@string/title_activity_confirmar_compra"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ComprovanteActivity"
-            android:label="@string/title_activity_comprovante"
-            android:theme="@style/AppTheme">
-
+        <activity android:name=".DefinirPrecoVendaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CadastrarVendaNomeProdutoActivity" />
         </activity>
+        <activity android:name=".BuscarImagensActivity"></activity>
     </application>
 
 </manifest>

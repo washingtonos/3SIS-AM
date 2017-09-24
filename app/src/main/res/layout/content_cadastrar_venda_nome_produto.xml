@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="br.com.fiap.am.amproject.CadastrarVendaNomeProdutoActivity"
+    android:gravity="center|top">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Para vender, voce precisa cadastrar o seu produto"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"
+        />
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:paddingLeft="5dp"
+        android:inputType="text"
+        android:maxLength="50"
+        android:background="@drawable/edit_text_shape"
+        android:layout_marginBottom="32dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Digite o que voce gostaria de vender"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Ex.:Televisao 40 pol,Playstation 4 500 gb, etc"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Max. 50 caracteres"
+        android:layout_marginBottom="64dp"/>
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:text="Proximo"
+        android:textAllCaps="false"
+        android:onClick="callSetSellPrice"/>
+
+
+</LinearLayout>
