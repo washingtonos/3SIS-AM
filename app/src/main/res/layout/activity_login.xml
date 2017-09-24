@@ -8,9 +8,18 @@
     android:layout_marginRight="32dp"
     tools:context="br.com.fiap.am.amproject.LoginActivity"
     android:gravity="center">
+    <TextView
+        android:gravity="center"
+        android:id="@+id/tv_texto_cpf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Utilize seu CPF e Senha para realizar o login"
+        />
 
     <EditText
+        android:layout_below="@+id/tv_texto_cpf"
         android:id="@+id/et_user"
+        android:layout_marginTop="64dp"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:paddingLeft="5dp"
         android:layout_width="match_parent"
@@ -31,11 +40,23 @@
 
     <Button
         android:layout_below="@+id/et_password"
+        android:id="@+id/bt_entrar"
         android:background="@drawable/button_shape"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Login"
         android:textColor="@color/colorSecondaryText"
         android:onClick="doLogin"/>
+
+    <TextView
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/bt_entrar"
+        android:gravity="center"
+        android:id="@+id/tv_esqueci_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Esqueci minha Senha"
+        android:onClick="recuperarSenha"
+        />
 
 </RelativeLayout>
