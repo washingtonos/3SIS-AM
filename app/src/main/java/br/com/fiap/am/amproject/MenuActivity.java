@@ -45,7 +45,7 @@ public class MenuActivity extends AppCompatActivity {
                     button.setVisibility(View.INVISIBLE);
                     listView.setVisibility(View.VISIBLE);
                     imageViewQrCode.setVisibility(View.INVISIBLE);
-                    fab.setVisibility(View.INVISIBLE);
+                    fab.setVisibility(View.GONE);
                     menuAsynTaskManager.execute("account");
                     return true;
                 case R.id.navigation_buy:
@@ -53,7 +53,7 @@ public class MenuActivity extends AppCompatActivity {
                     button.setVisibility(View.VISIBLE);
                     listView.setVisibility(View.INVISIBLE);
                     imageViewQrCode.setVisibility(View.VISIBLE);
-                    fab.setVisibility(View.INVISIBLE);
+                    fab.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_sell:
                     //mTextMessage.setText(R.string.title_sell);
@@ -99,7 +99,7 @@ public class MenuActivity extends AppCompatActivity {
         menuAsynTaskManager.execute("account");
 
         fab = (FloatingActionButton) findViewById(R.id.fbt_add);
-        fab.setVisibility(View.INVISIBLE);
+        fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,6 +188,7 @@ public class MenuActivity extends AppCompatActivity {
                         listaItensConta.add("item 1");
                         listaItensConta.add("item 2");
                          adapter = new ArrayAdapter(MenuActivity.this,android.R.layout.simple_list_item_1,listaItensConta);
+
                         listView.setAdapter(adapter);
                         break;
                     case "sell":

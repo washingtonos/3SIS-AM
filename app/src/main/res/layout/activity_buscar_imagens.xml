@@ -8,7 +8,13 @@
     tools:context="br.com.fiap.am.amproject.BuscarImagensActivity">
     
     <android.support.v7.widget.Toolbar
-        android:layout_width=""
-        android:layout_height=""></android.support.v7.widget.Toolbar>
+        android:id="@+id/tb_buscar_imagens"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:popupTheme="@style/AppTheme"
+        android:background="@color/colorPrimary"/>
+
+    <include layout="@layout/content_buscar_imagens"/>
 
 </LinearLayout>
