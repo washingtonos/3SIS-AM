@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imv_deu_certo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check_black_24dp"/>
+    <TextView
+        android:id="@+id/tv_deu_certo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deu Certo!"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/colorSecondary"/>
+
+    <TextView
+        android:id="@+id/tv_informacoes_sobre_venda"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:text="Informacoes sobre sua venda"
+        android:gravity="center"
+        android:textColor="@color/colorSecondary"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/tv_para_vender_basta"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:text="Para Vender basta apenas mostrar esse QR Code"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textColor="@color/colorSecondary"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="Vendedor:"
+        android:background="@color/colorPrimaryDark"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="Nome:"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/colorPrimaryDark"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="Preco:"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="16dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR CODE"
+            />
+        <ImageView
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/focus_selector"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_quero_registrar_esse_produto"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:text="Quero registrar esse produto"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callRecordOfSell"/>
+    <Button
+        android:id="@+id/bt_nao_desisti_da_ideia"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="center"
+        android:text="Nao, desisti da ideia"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callReturnToMenu"
+        />
+
+    <Button
+        android:id="@+id/bt_nao_quero_vender_agora"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:text="Nao quero vender agora"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callReturnToMenu"/>
+
+</LinearLayout>

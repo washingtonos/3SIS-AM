@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,6 +20,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Toolbar toolbar = (Toolbar)findViewById(R.id.tb_login);
+        setSupportActionBar(toolbar);
+
+       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         userEt = (EditText) findViewById(R.id.et_user);
         passwordEt = (EditText) findViewById(R.id.et_password);
     }
@@ -27,6 +33,10 @@ public class LoginActivity extends AppCompatActivity {
 
         ValidateLogin validateLogin = new ValidateLogin();
         validateLogin.execute(userEt.getText().toString(),passwordEt.getText().toString());
+    }
+
+    public void recuperarSenha(View view) {
+        Toast.makeText(getApplicationContext(),"Recuperar Senha",Toast.LENGTH_SHORT).show();
     }
 
     private class ValidateLogin extends AsyncTask<String,Void,Boolean>{
