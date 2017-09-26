@@ -9,13 +9,12 @@
     android:weightSum="1">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/tb_cadastro"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="@string/cadastro_Cadastro" />
+        android:elevation="4dp"
+        android:popupTheme="@style/AppTheme"/>
 
     <TextView
         android:id="@+id/tv_preencherInformacoes"
@@ -161,7 +160,17 @@
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
         android:background="@drawable/button_shape"
         android:text="@string/cadastrar_Cadastro" />
+
+    <TextView
+        android:id="@+id/tv_jaTemConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:onClick="haveAnAccount"
+        android:text="Já possuo uma conta" />
 </LinearLayout>

@@ -67,7 +67,13 @@
                 android:value=".BuscarImagensActivity" />
         </activity>
 
-        <activity android:name=".CadastroActivity"/>
+        <activity
+            android:name=".CadastroActivity"
+            android:label="Cadastro">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FirstActivity" />
+        </activity>
     </application>
 
 </manifest>
