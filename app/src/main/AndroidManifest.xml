@@ -13,37 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
 
-        <activity android:name=".InicioActivity">
+        <activity android:name=".FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
 
-=======
->>>>>>> 59e3f7f3afacabf307d7eb969a4dea5222c6d9c9
         <activity
             android:name=".LoginActivity"
             android:label="Entrar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FirstActivity" />
-<<<<<<< HEAD
-
         </activity>
-        <activity
-            android:name=".MenuActivity"
 
-            android:label="@string/title_activity_menu" />
-=======
-        </activity>
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu" >
->>>>>>> 59e3f7f3afacabf307d7eb969a4dea5222c6d9c9
-
         </activity>
 
         <activity
@@ -54,15 +43,7 @@
             android:name=".ComprovanteActivity"
             android:label="@string/title_activity_comprovante"
             android:theme="@style/AppTheme" />
-<<<<<<< HEAD
-=======
-        <activity android:name=".FirstActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".CadastrarVendaNomeProdutoActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -84,32 +65,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BuscarImagensActivity" />
->>>>>>> 59e3f7f3afacabf307d7eb969a4dea5222c6d9c9
-
-        <activity android:name=".FirstActivity"/>
-          
-        <activity android:name=".CadastrarVendaNomeProdutoActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MenuActivity" />
         </activity>
-        <activity android:name=".DefinirPrecoVendaActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CadastrarVendaNomeProdutoActivity" />
-        </activity>
-        <activity android:name=".BuscarImagensActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DefinirPrecoVendaActivity" />
-        </activity>
-        <activity android:name=".InformacoesSobreVendaActivity"
-            android:label="Vender"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".BuscarImagensActivity" />
-
 
         <activity android:name=".CadastroActivity"/>
     </application>
