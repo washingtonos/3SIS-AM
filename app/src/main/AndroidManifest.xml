@@ -22,8 +22,12 @@
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu" >
+            android:label="@string/title_activity_menu">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ConfirmarCompraActivity"
@@ -55,13 +59,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DefinirPrecoVendaActivity" />
         </activity>
-        <activity android:name=".InformacoesSobreVendaActivity"
+        <activity
+            android:name=".InformacoesSobreVendaActivity"
             android:label="Vender"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BuscarImagensActivity" />
-
+        </activity>
+        <activity android:name=".EditarPerfilActivity"
+            android:label="Editar Perfil">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
         </activity>
     </application>
 

@@ -123,12 +123,18 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
         switch (item.getItemId()){
 
-            case R.id.item_configuracao:
+            case R.id.item_editar_perfil:
+                intent = new Intent(MenuActivity.this,EditarPerfilActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.item_editar_cartao:
                 break;
             case R.id.item_sair:
-                Intent intent = new Intent(MenuActivity.this,LoginActivity.class);
+                intent = new Intent(MenuActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
