@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bandeira_cartoes">
+        <item>Bandeira</item>
+        <item>Visa</item>
+        <item>Mastercard</item>
+    </string-array>
+</resources>

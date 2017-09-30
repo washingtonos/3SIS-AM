@@ -67,11 +67,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BuscarImagensActivity" />
         </activity>
-        <activity android:name=".EditarPerfilActivity"
+        <activity
+            android:name=".EditarPerfilActivity"
             android:label="Editar Perfil">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
+        </activity>
+        <activity android:name=".EditarCartaoActivity"
+            android:label="Editar Cartao">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+
         </activity>
     </application>
 

@@ -132,6 +132,8 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.item_editar_cartao:
+                intent = new Intent(MenuActivity.this,EditarCartaoActivity.class);
+                startActivity(intent);
                 break;
             case R.id.item_sair:
                 intent = new Intent(MenuActivity.this,LoginActivity.class);

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Editar dados do cartao"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryText"/>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginBottom="64dp">
+        <ImageView
+            android:src="@drawable/ic_person_outline_black_24dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin">
+
+            <TextView
+                android:id="@+id/tv_nome_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nome"
+                android:textSize="12sp"/>
+            <EditText
+                android:layout_below="@+id/tv_nome_editar_cartao"
+                android:id="@+id/et_nome_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+
+            <TextView
+                android:id="@+id/tv_numerocartao_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_nome_editar_cartao"
+                android:text="Numero"
+                android:textSize="12sp" />
+            <EditText
+                android:layout_below="@id/tv_numerocartao_editar_cartao"
+                android:id="@+id/et_numerocartao_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                />
+            <GridLayout
+                android:id="@+id/gl_data_codseg_cartao"
+                android:layout_below="@+id/et_numerocartao_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2">
+                <TextView
+                    android:id="@+id/tv_data_venc_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cod.Seg."
+                    android:layout_columnWeight="1"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:textSize="12sp"/>
+                <EditText
+                    android:layout_columnWeight="1"
+                    android:id="@+id/et_data_venc_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="32dp"
+                    android:inputType="number"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    />
+                <TextView
+                    android:id="@+id/tv_cod_seg_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Data Venc."
+                    android:layout_columnWeight="4"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:textSize="12sp"/>
+                <EditText
+                    android:layout_columnWeight="4"
+                    android:id="@+id/et_cod_seg_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    />
+
+            </GridLayout>
+
+        </RelativeLayout>
+
+    </GridLayout>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:entries="@array/bandeira_cartoes"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="32dp"
+        ></Spinner>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Usar o mesmo endereco para fatura?"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sim"
+            android:enabled="true"
+            android:layout_marginRight="64dp"
+
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Nao"/>
+    </RadioGroup>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1"
+        android:layout_gravity="fill_horizontal"
+        android:layout_marginBottom="64dp"
+        >
+        <ImageView
+            android:src="@drawable/ic_credit_card_black_24dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_gravity="fill_horizontal">
+            <TextView
+                android:id="@+id/tv_rua_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rua"
+                android:textSize="12sp"
+                />
+            <EditText
+                android:layout_below="@+id/tv_rua_editar_cartao"
+                android:id="@+id/et_rua_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:foregroundGravity="fill_horizontal"
+
+                />
+
+            <GridLayout
+                android:id="@+id/gl_numero_complemento_editarcartao"
+                android:layout_below="@+id/et_rua_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2">
+                <TextView
+                    android:id="@+id/tv_numero_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Numero"
+                    android:layout_columnWeight="1"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:textSize="12sp"/>
+                <EditText
+                    android:layout_columnWeight="1"
+                    android:id="@+id/et_numero_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    />
+                <TextView
+                    android:id="@+id/tv_complemento_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Complemento"
+                    android:layout_columnWeight="4"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:textSize="12sp"/>
+                <EditText
+                    android:layout_columnWeight="4"
+                    android:id="@+id/et_complemento_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    />
+
+            </GridLayout>
+
+            <TextView
+                android:layout_below="@+id/gl_numero_complemento_editarcartao"
+                android:id="@+id/tv_bairro_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bairro"
+                android:textSize="12sp"/>
+            <EditText
+                android:layout_below="@+id/tv_bairro_editar_cartao"
+                android:id="@+id/et_bairro_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:foregroundGravity="fill_horizontal"
+                />
+
+            <TextView
+                android:layout_below="@+id/et_bairro_editar_cartao"
+                android:id="@+id/tv_cidade_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cidade"
+                android:textSize="12sp"/>
+            <EditText
+                android:layout_below="@+id/tv_cidade_editar_cartao"
+                android:id="@+id/et_cidade_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:foregroundGravity="fill_horizontal"
+                />
+
+            <GridLayout
+                android:id="@+id/gl_estado_cep_editarcartao"
+                android:layout_below="@+id/et_cidade_editar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2">
+                <TextView
+                    android:id="@+id/tv_estado_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Estado"
+                    android:layout_columnWeight="1"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:textSize="12sp"/>
+                <EditText
+                    android:layout_columnWeight="1"
+                    android:id="@+id/et_estado_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    />
+                <TextView
+                    android:id="@+id/tv_cep_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cep"
+                    android:layout_columnWeight="4"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:textSize="12sp"/>
+                <EditText
+                    android:layout_columnWeight="4"
+                    android:id="@+id/et_cep_editar_cartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    />
+
+            </GridLayout>
+
+
+        </RelativeLayout>
+
+    </GridLayout>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:textAllCaps="false"
+        android:text="Confirmar Edicao"
+        android:textColor="@color/colorPrimaryText"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="64dp"
+        />
+
+</LinearLayout>
