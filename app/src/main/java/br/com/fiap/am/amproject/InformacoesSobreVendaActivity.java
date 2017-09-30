@@ -1,6 +1,8 @@
 package br.com.fiap.am.amproject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.media.VolumeProviderCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +24,12 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity {
     Button btQueroRegistrarEsseProduto;
     Button btDesistiDaIdeia;
     Button btNaoQueroVenderAgora;
+    Button btQueroVenderAgora;
+    Button btVendaAvulsa;
     TextView tvInformacoesSobreVenda;
     TextView tvParaVenderBasta;
+    ImageView imvImagemProduto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +53,14 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity {
         imvDeuCerto = (ImageView)findViewById(R.id.imv_deu_certo);
         imvDeuCerto.setVisibility(View.GONE);
 
+        imvImagemProduto = (ImageView)findViewById(R.id.imv_imagem_produto);
+
+
         btQueroRegistrarEsseProduto = (Button)findViewById(R.id.bt_quero_registrar_esse_produto);
         btDesistiDaIdeia = (Button)findViewById(R.id.bt_nao_desisti_da_ideia);
         btNaoQueroVenderAgora = (Button)findViewById(R.id.bt_nao_quero_vender_agora);
+        btVendaAvulsa = (Button)findViewById(R.id.bt_venda_avulsa);
+        btQueroVenderAgora = (Button)findViewById(R.id.bt_quero_vender_agora);
 
 
         Bundle extras = getIntent().getExtras();
@@ -63,8 +74,13 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity {
                 btNaoQueroVenderAgora.setVisibility(View.GONE);
                 btQueroRegistrarEsseProduto.setVisibility(View.VISIBLE);
                 btDesistiDaIdeia.setVisibility(View.VISIBLE);
+                btQueroVenderAgora.setVisibility(View.GONE);
                 tvInformacoesSobreVenda.setVisibility(View.VISIBLE);
                 tvParaVenderBasta.setVisibility(View.GONE);
+
+
+
+                imvImagemProduto.setImageBitmap(BitmapFactory.decodeFile(extras.getString("path")));
 
             }else{
                 btNaoQueroVenderAgora.setVisibility(View.VISIBLE);
@@ -94,6 +110,9 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity {
 
         btQueroRegistrarEsseProduto.setVisibility(View.GONE);
 
+        btVendaAvulsa.setVisibility(View.GONE);
+        btQueroVenderAgora.setVisibility(View.VISIBLE);
+
 
         btDesistiDaIdeia.setVisibility(View.GONE);
 
@@ -111,4 +130,12 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void callGerarQrCode(View view) {
+
+
+    }
+
+
+
 }

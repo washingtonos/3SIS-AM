@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
-        android:text="Para Vender basta apenas mostrar esse QR Code"
+        android:text="Para vender agora, clique em 'Quero vender agora' e aguarde o QR code ser gerado"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
@@ -74,13 +74,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="QR CODE"
+            android:text="Imagem"
             />
         <ImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:id="@+id/imv_imagem_produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/focus_selector"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
     </LinearLayout>
 
@@ -95,6 +95,19 @@
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callRecordOfSell"/>
+
+    <Button
+        android:id="@+id/bt_venda_avulsa"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:text="Venda avulsa"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callGerarQrCode"/>
+
     <Button
         android:id="@+id/bt_nao_desisti_da_ideia"
         android:layout_width="250dp"
@@ -106,6 +119,19 @@
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callReturnToMenu"
+        />
+
+    <Button
+        android:id="@+id/bt_quero_vender_agora"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="center"
+        android:text="Quero vender agora"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callGerarQrCode"
         />
 
     <Button
