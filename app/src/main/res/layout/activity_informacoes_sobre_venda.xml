@@ -16,9 +16,11 @@
         android:popupTheme="@style/AppTheme"/>
 
     <ScrollView
+        android:id="@+id/sv_informacoessobrevenda"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
         >
         <include layout="@layout/content_informacoes_sobre_venda"/>
     </ScrollView>
