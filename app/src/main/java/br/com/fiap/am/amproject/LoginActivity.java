@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText userEt;
@@ -49,7 +52,14 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String...params) {
-
+            try{
+                URL url = new URL("");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/json");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             if(params[0].equals("fiap")&&params[1].equals("fiap")){
                 return true;
             }else{

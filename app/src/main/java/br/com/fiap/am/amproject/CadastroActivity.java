@@ -18,7 +18,8 @@ import java.net.URL;
 
 public class CadastroActivity extends AppCompatActivity {
 
-    private EditText etCpf, etnome, etSenha, etConfirmaSenha, etRua, etBairro, etComplemneto;
+    private EditText etCpf, etnome, etSenha, etConfirmaSenha,
+                etRua, etNumero,etComplemneto, etBairro, etCidade, etEstado, etCep;
     private ProgressDialog progress;
 
     @Override
@@ -35,15 +36,22 @@ public class CadastroActivity extends AppCompatActivity {
         etSenha = (EditText) findViewById(R.id.et_Senha);
         etConfirmaSenha = (EditText) findViewById(R.id.et_ConfirmaSenha);
         etRua = (EditText) findViewById(R.id.et_Rua);
-        etBairro = (EditText) findViewById(R.id.et_Bairro);
+        etNumero = (EditText) findViewById(R.id.et_Numero);
         etComplemneto = (EditText) findViewById(R.id.et_Complemento);
+        etBairro = (EditText) findViewById(R.id.et_Bairro);
+        etCidade = (EditText) findViewById(R.id.et_Cidade);
+        etEstado = (EditText) findViewById(R.id.et_Estado);
+        etCep = (EditText) findViewById(R.id.et_Cep);
+
 
     }
 
     public void Cadastrar(View view){
         CadastroUsuarioTask task = new CadastroUsuarioTask();
         task.execute(etCpf.getText().toString(), etnome.getText().toString(), etSenha.getText().toString(),
-                     etConfirmaSenha.getText().toString(),etRua.getText().toString(),etBairro.getText().toString(),etComplemneto.getText().toString());
+                     etConfirmaSenha.getText().toString(),etRua.getText().toString(),etNumero.getText().toString(),
+                     etComplemneto.getText().toString(),etBairro.getText().toString(),etCidade.getText().toString(),
+                     etEstado.getText().toString(),etCep.getText().toString());
 
     }
 
@@ -57,10 +65,8 @@ public class CadastroActivity extends AppCompatActivity {
 
         @Override
         protected Integer doInBackground(String... params) {
-            URL url = null;
-
             try {
-                url = new URL("");
+                URL url = new URL("");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
@@ -72,8 +78,13 @@ public class CadastroActivity extends AppCompatActivity {
                 json.key("senha").value(params[2]);
                 json.key("confSenha").value(params[3]);
                 json.key("rua").value(params[4]);
-                json.key("bairro").value(params[5]);
+                json.key("numero").value(params[5]);
                 json.key("complemento").value(params[6]);
+                json.key("bairro").value(params[7]);
+                json.key("cidade").value(params[8]);
+                json.key("estado").value(params[9]);
+                json.key("cep").value(params[10]);
+
                 json.endObject();
 
                 OutputStreamWriter stream = new OutputStreamWriter(connection.getOutputStream());
