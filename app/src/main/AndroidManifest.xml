@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +28,13 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
 
+        <activity android:name=".FirstActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".LoginActivity"
@@ -43,6 +52,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ConfirmarCompraActivity"
             android:label="@string/title_activity_confirmar_compra"
@@ -51,13 +61,7 @@
             android:name=".ComprovanteActivity"
             android:label="@string/title_activity_comprovante"
             android:theme="@style/AppTheme" />
-        <activity android:name=".FirstActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".CadastrarVendaNomeProdutoActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -93,7 +97,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
+        </activity>
 
+        <activity
+            android:name=".CadastroActivity"
+            android:label="Cadastro">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FirstActivity" />
         </activity>
     </application>
 

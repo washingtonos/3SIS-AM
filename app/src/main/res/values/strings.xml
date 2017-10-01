@@ -6,4 +6,27 @@
     <string name="title_account">Conta</string>
     <string name="title_activity_confirmar_compra">ConfirmarCompra</string>
     <string name="title_activity_comprovante">ComprovanteActivity</string>
+    <string name="ola_inicio">Olá :)</string>
+    <string name="para_acessar_o_aplicativo_inicio">Para acessar o aplicativo, você precisa ser cadastrado</string>
+    <string name="voc_j_possui_conta_inicio">Você já possui conta?</string>
+    <string name="j_possuo_conta_inicio">Já possuo conta</string>
+    <string name="quero_me_cadastrar_inicio">Quero me cadastrar</string>
+    <string name="cadastrar_Cadastro">Cadastrar</string>
+    <string name="complemento_Cadastro">Complemento</string>
+    <string name="bairro_Cadastro">Bairro</string>
+    <string name="rua_Cadastro">Rua</string>
+    <string name="confirme_sua_senha_Cadastro">Confirme sua senha*</string>
+    <string name="senha_Cadastro">Senha*</string>
+    <string name="nome_Cadastro">Nome*</string>
+    <string name="cpf_Cadastro">CPF*</string>
+    <string name="suas_informa_es_estar_o_sempre_protegidas_por_n_s_Cadastro">Suas informações estarão sempre protegidas por nós</string>
+    <string name="voc_precisa_preencher_apenas_as_informa_es_obrigat_rias_Cadastro">* Você precisa preencher apenas as informações obrigatórias</string>
+    <string name="cadastro_Cadastro">Cadastro</string>
+    <string name="bloqueado">bloqueio</string>
+    <string name="j_possuo_uma_conta_Cadastro">Já possuo uma conta</string>
+    <string name="cep_Cadastro">Cep</string>
+    <string name="estado_Cadastro">Estado</string>
+    <string name="cidade_Cadastro">Cidade</string>
+    <string name="numero_Cadastro">Número</string>
+    <string name="endereco_Cadastro">Endereço</string>
 </resources>
