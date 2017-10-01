@@ -6,6 +6,9 @@
         android:name="android.hardware.camera2"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +16,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="br.com.fiap.am.amproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
+
+
         <activity
             android:name=".LoginActivity"
             android:label="Entrar">
@@ -22,8 +36,12 @@
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu" >
+            android:label="@string/title_activity_menu">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ConfirmarCompraActivity"
@@ -55,12 +73,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DefinirPrecoVendaActivity" />
         </activity>
-        <activity android:name=".InformacoesSobreVendaActivity"
+        <activity
+            android:name=".InformacoesSobreVendaActivity"
             android:label="Vender"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".BuscarImagensActivity" />
+        </activity>
+        <activity
+            android:name=".EditarPerfilActivity"
+            android:label="Editar Perfil">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+        <activity android:name=".EditarCartaoActivity"
+            android:label="Editar Cartao">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
 
         </activity>
     </application>

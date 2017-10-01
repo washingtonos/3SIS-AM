@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:id="@+id/imv_deu_certo"
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.8"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
         android:text="Informacoes sobre sua venda"
         android:gravity="center"
         android:textColor="@color/colorSecondary"
@@ -32,36 +34,87 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
-        android:text="Para Vender basta apenas mostrar esse QR Code"
+        android:text="Para vender agora, clique em 'Quero vender agora' e aguarde o QR code ser gerado"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:gravity="center"
         android:textColor="@color/colorSecondary"
         android:textSize="12sp"/>
 
     <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_nome_vendedor_informacoessobrevenda"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:text="Vendedor:"
-        android:background="@color/colorPrimaryDark"/>
+        />
     <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_nome_produto_informacoessobrevenda"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:text="Nome:"/>
-    <TextView
+
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:background="@color/colorPrimaryDark"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:text="Preco:"/>
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+
+        android:paddingRight="@dimen/activity_horizontal_margin">
+        <TextView
+            android:id="@+id/tv_preco_produto_informacoessobrevenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="64dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="Preco:"/>
+        <LinearLayout
+            android:id="@+id/ll_qtd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <Button
+                android:id="@+id/bt_adicionar_qtd"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_shape"
+                android:text="+"/>
+            <EditText
+                android:id="@+id/et_qtd_produto_informacoessobrevenda"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                android:text="1"
+                android:gravity="center"
+                />
+            <Button
+                android:id="@+id/bt_remover_qtd"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_shape"
+                android:text="-" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -74,13 +127,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="QR CODE"
+            android:text="Imagem"
             />
         <ImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:id="@+id/imv_imagem_produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/focus_selector"
+            android:foregroundGravity="center"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
     </LinearLayout>
 
@@ -95,6 +150,19 @@
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callRecordOfSell"/>
+
+    <Button
+        android:id="@+id/bt_venda_avulsa"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:text="Venda avulsa"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callGerarQrCode"/>
+
     <Button
         android:id="@+id/bt_nao_desisti_da_ideia"
         android:layout_width="250dp"
@@ -106,6 +174,19 @@
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callReturnToMenu"
+        />
+
+    <Button
+        android:id="@+id/bt_quero_vender_agora"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="center"
+        android:text="Quero vender agora"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callGerarQrCode"
         />
 
     <Button

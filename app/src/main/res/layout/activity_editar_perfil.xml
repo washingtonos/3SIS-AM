@@ -5,26 +5,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.fiap.am.amproject.InformacoesSobreVendaActivity">
+    tools:context="br.com.fiap.am.amproject.EditarPerfilActivity"
+    >
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_informacoes_sobre_venda"
+        android:id="@+id/tb_editar_perfil"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:popupTheme="@style/AppTheme"/>
+        android:background="@color/colorPrimary"
+        android:popupTheme="@style/AppTheme"
+        ></android.support.v7.widget.Toolbar>
 
     <ScrollView
-        android:id="@+id/sv_informacoessobrevenda"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        >
-        <include layout="@layout/content_informacoes_sobre_venda"/>
+        android:layout_height="match_parent">
+        <include layout="@layout/content_editar_perfil"/>
     </ScrollView>
-
-
-
 </LinearLayout>

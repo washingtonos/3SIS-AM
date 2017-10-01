@@ -14,6 +14,7 @@
         android:textSize="18sp"
         />
     <EditText
+        android:id="@+id/et_preco_produto_definirprecovenda"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:paddingLeft="5dp"
