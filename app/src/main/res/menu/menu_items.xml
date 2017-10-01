@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item_configuracao"
-        android:title="Configuracao"/>
+        android:id="@+id/item_editar_perfil"
+        android:title="Editar Perfil"/>
+
+    <item
+        android:id="@+id/item_editar_cartao"
+        android:title="Editar Cartao"/>
+
     <item
         android:id="@+id/item_sair"
         android:title="Sair"/>

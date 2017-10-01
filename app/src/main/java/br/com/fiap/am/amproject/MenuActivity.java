@@ -18,7 +18,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -31,6 +33,7 @@ public class MenuActivity extends AppCompatActivity {
     private ListView listView;
     private ImageView imageViewQrCode;
     private FloatingActionButton fab;
+    LinearLayout linearLayoutAccount;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -82,6 +85,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //Capturar Listview
         listView = (ListView) findViewById(R.id.lv_historico);
+        listView.setVisibility(View.GONE);
 
         //Capturar Imagem de QrCode
         imageViewQrCode = (ImageView)findViewById(R.id.imv_qrcode);
@@ -119,12 +123,20 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
         switch (item.getItemId()){
 
-            case R.id.item_configuracao:
+            case R.id.item_editar_perfil:
+                intent = new Intent(MenuActivity.this,EditarPerfilActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.item_editar_cartao:
+                intent = new Intent(MenuActivity.this,EditarCartaoActivity.class);
+                startActivity(intent);
                 break;
             case R.id.item_sair:
-                Intent intent = new Intent(MenuActivity.this,LoginActivity.class);
+                intent = new Intent(MenuActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -187,7 +199,7 @@ public class MenuActivity extends AppCompatActivity {
                         listaItensConta.removeAll(listaItensConta);
                         listaItensConta.add("item 1");
                         listaItensConta.add("item 2");
-                         adapter = new ArrayAdapter(MenuActivity.this,android.R.layout.simple_list_item_1,listaItensConta);
+                        adapter = new ArrayAdapter(MenuActivity.this,android.R.layout.simple_list_item_1,listaItensConta);
 
                         listView.setAdapter(adapter);
                         break;
