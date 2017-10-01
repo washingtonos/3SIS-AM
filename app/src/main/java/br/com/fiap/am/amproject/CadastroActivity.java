@@ -16,6 +16,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import br.com.fiap.am.model.Usuario;
+
 public class CadastroActivity extends AppCompatActivity {
 
     private EditText etCpf, etnome, etSenha, etConfirmaSenha,
@@ -71,19 +73,19 @@ public class CadastroActivity extends AppCompatActivity {
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
 
+
                 JSONStringer json = new JSONStringer();
                 json.object();
-                json.key("cpf").value(params[0]);
-                json.key("nome").value(params[1]);
-                json.key("senha").value(params[2]);
-                json.key("confSenha").value(params[3]);
-                json.key("rua").value(params[4]);
-                json.key("numero").value(params[5]);
-                json.key("complemento").value(params[6]);
-                json.key("bairro").value(params[7]);
-                json.key("cidade").value(params[8]);
-                json.key("estado").value(params[9]);
-                json.key("cep").value(params[10]);
+                json.key("Cpf").value(params[0]);
+                json.key("Nome").value(params[1]);
+                json.key("Senha").value(params[2]);
+                json.key("Rua").value(params[3]);
+                json.key("Numero").value(params[4]);
+                json.key("Complemento").value(params[5]);
+                json.key("Bairro").value(params[6]);
+                json.key("Cidade").value(params[7]);
+                json.key("Estado").value(params[8]);
+                json.key("Cep").value(params[9]);
 
                 json.endObject();
 
