@@ -18,8 +18,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONStringer;
 import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import br.com.fiap.am.model.ProdutoParaVender;
 
 public class InformacoesSobreVendaActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,6 +62,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     private String valorUnitarioMecadoria;
 
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +121,8 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 //pegar os extras
                 String nomeProduto = extras.getString("nomeProduto");
                 valorUnitarioMecadoria = extras.getString("precoProduto");
-                Bitmap bitmap = BitmapFactory.decodeFile(extras.getString("path"));
+                path = extras.getString("path");
+                Bitmap bitmap = BitmapFactory.decodeFile(path);
 
                 //Setar visibilidade de elementos na tela
                 btNaoQueroVenderAgora.setVisibility(View.GONE);
@@ -168,7 +183,12 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
         btNaoQueroVenderAgora.setVisibility(View.VISIBLE);
 
 
-
+        String nome[] = tvNomeVenda.getText().toString().split(" ");
+        String preco[] = tvPrecoVenda.getText().toString().split(" ");
+        String qtd = etQtd.getText().toString();
+        VenderProdutoAgora vender = new VenderProdutoAgora();
+        String pathForJSon = path.replace('/','-');
+        vender.execute(nome[1],preco[1],qtd,pathForJSon);
 
 
 
@@ -200,8 +220,8 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 tvPrecoVenda.setText("Preco: "+multiplicarPorQtd(etQtd.getText().toString()));
                 break;
             case R.id.bt_quero_vender_agora:
-                VenderProdutoAgora vender = new VenderProdutoAgora();
-                vender.execute();
+
+
                 break;
         }
 
@@ -239,15 +259,65 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     private class VenderProdutoAgora extends AsyncTask<String, Void,String>{
 
-        ProgressDialog progress = ProgressDialog.show(getApplicationContext(),"Gravar informacoes","Aguarde enquanto guardamos as informacoes da sua venda");
+        private ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(InformacoesSobreVendaActivity.this,"Gravar informacoes","Aguarde enquanto guardamos as informacoes da sua venda");
+        }
 
         @Override
         protected String doInBackground(String... strings) {
 
+            URL url = null;
 
+            try{
+                url = new URL("http://10.0.2.2:8080/api/ProdutoParaVenderWeb/");
+                HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type","application/json");
+                ProdutoParaVender ppv = new ProdutoParaVender();
+                ppv.setNome(strings[0]);
+                ppv.setPreco(strings[1]);
+                ppv.setDescricao("descricao");
+                ppv.setQuantidade(strings[2]);
+                ppv.setImagemUrl(strings[3]);
+                ppv.setUsuarioId("8w7re8");
+                Gson gson = new Gson();
+                gson.toJson(ppv);
+
+
+                /*JSONStringer json = new JSONStringer();
+                json.object();
+                json.key("Nome").value(strings[0]);
+                json.key("Preco").value(strings[1]);
+                json.key("Descricao").value("");
+                json.key("Quantidade").value(strings[2]);
+                json.key("ImagemUrl").value(strings[3]);
+                json.key("UsuarioId").value("942794837");
+                json.endObject();*/
+
+
+                OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
+                osw.write(gson.toString());
+                osw.close();
+
+                return connection.getResponseMessage();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            progress.dismiss();
+            System.out.println(s);
+            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
         }
     }
 }

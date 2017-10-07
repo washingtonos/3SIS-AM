@@ -31,6 +31,7 @@ public class BuscarImagensActivity extends AppCompatActivity {
     static final int TAKE_PICTURE_CODE = 1;
     static final int OPEN_LOCAL_FOLDER=2;
     private static final int MY_PERMISSION_WRITE_EXTERNAL_STORAGE = 1;
+    private static final int MY_PERMISSION_CAMERA = 2;
     private String imagePhotoPath;
     private File image;
     private String nomeProduto;
@@ -64,9 +65,10 @@ public class BuscarImagensActivity extends AppCompatActivity {
 
     public void callCamera(View view) {
 
-        if(ContextCompat.checkSelfPermission(BuscarImagensActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(BuscarImagensActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED&&
+                ContextCompat.checkSelfPermission(BuscarImagensActivity.this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
 
-            ActivityCompat.requestPermissions(BuscarImagensActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},MY_PERMISSION_WRITE_EXTERNAL_STORAGE);
+            ActivityCompat.requestPermissions(BuscarImagensActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,   Manifest.permission.CAMERA},MY_PERMISSION_WRITE_EXTERNAL_STORAGE);
         }else{
 
             /*Intent intentTakePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

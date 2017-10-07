@@ -13,6 +13,8 @@ import android.widget.Toast;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import br.com.fiap.am.model.Usuario;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText userEt;
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     public void doLogin(View view) {
 
         ValidateLogin validateLogin = new ValidateLogin();
+        Usuario usuario = new Usuario();
         validateLogin.execute(userEt.getText().toString(),passwordEt.getText().toString());
     }
 

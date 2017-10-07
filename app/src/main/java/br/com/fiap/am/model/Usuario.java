@@ -9,12 +9,6 @@ public class Usuario {
     private String senha;
     private double cpf;
 
-    public Usuario(String nome, String senha, double cpf) {
-        this.nome = nome;
-        this.senha = senha;
-        this.cpf = cpf;
-    }
-
     public String getNome() {
         return nome;
     }
