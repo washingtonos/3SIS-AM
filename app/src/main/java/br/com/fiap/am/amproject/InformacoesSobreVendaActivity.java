@@ -11,6 +11,7 @@ import android.support.v4.media.VolumeProviderCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -30,6 +31,7 @@ import org.json.JSONStringer;
 import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -68,6 +70,8 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
     private String valorUnitarioMecadoria;
 
     private String path;
+
+    private String idProduto;
 
     private SharedPreferences sp;
 
@@ -187,7 +191,113 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     public void callGerarQrCode(View view) {
 
+        String nomeProduto[] = tvNomeVenda.getText().toString().split(" ");
+        String preco[] = tvPrecoVenda.getText().toString().split(" ");
+        String descricao = "";
+        String qtd = etQtd.getText().toString();
+        String usuarioId = sp.getString("id",null);
+        GerarQrCode gerarQrCode = new GerarQrCode();
+        gerarQrCode.execute(nomeProduto[1],preco[1],qtd,usuarioId,idProduto);
 
+
+    }
+
+    private class GerarQrCode extends AsyncTask<String, Void, String>{
+
+        ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            progress= ProgressDialog.show(InformacoesSobreVendaActivity.this,"QR Code","Estamos gerando o Qr Code");
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            URL url = null;
+
+            try {
+                url= new URL("http://192.168.1.36:52993/api/QrCodeWeb");
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type","application/json; charset=UTF8");
+
+                JSONObject jsonProduto = new JSONObject();
+                jsonProduto.put("Nome",strings[0]);
+                jsonProduto.put("Preco",strings[1]);
+                jsonProduto.put("Descricao","");
+                jsonProduto.put("Quantidade",strings[2]);
+                jsonProduto.put("UsuarioId",strings[3]);
+                jsonProduto.put("Id",strings[4]);
+
+                JSONObject jsonQrCode = new JSONObject();
+                jsonQrCode.put("DataHora","2017-09-30T14:54:00");
+                jsonQrCode.put("ProdutoParaVender",jsonProduto);
+
+
+                OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
+                osw.write(jsonQrCode.toString());
+                osw.close();
+
+                if(connection.getResponseCode()==200){
+
+                    String linha = "";
+                    StringBuilder builder = new StringBuilder();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    while ((linha=reader.readLine())!=null){
+                        builder.append(linha);
+                    }
+
+                    connection.disconnect();
+
+                    return builder.toString();
+                }
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            progress.dismiss();
+            JSONObject jsonResponse = null;
+            boolean deuErro=false;
+            String mensagemErro="";
+            try {
+                jsonResponse = new JSONObject(s);
+                String imagemCodificada = jsonResponse.getString("ImagemCodificada");
+                byte[] imageDecode = Base64.decode(imagemCodificada,Base64.DEFAULT);
+                Bitmap decodeImage = BitmapFactory.decodeByteArray(imageDecode,0,imageDecode.length);
+                imvImagemProduto.setImageBitmap(Bitmap.createScaledBitmap(decodeImage,360,360,false));
+                //Bitmap bitmap = BitmapFactory.
+
+                /*String nomeProduto = jsonObjectProduto.getString("Nome");
+                String precoProduto = jsonObjectProduto.getString("Preco");*/
+                //usuarioId = jsonObjectProduto.getString("UsuarioId");
+                /*
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("id",idUsuario);
+                editor.putString("nome",nomeUsuario);
+                editor.putString("senha",senhaUsuario);
+                editor.putString("cpf",cpfUsuario);
+                editor.commit();*/
+
+                deuErro = jsonResponse.getBoolean("DeuErro");
+                mensagemErro = jsonResponse.getString("MensagemRetorno");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -329,12 +439,12 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
             String mensagemErro="";
             try {
                 jsonResponse = new JSONObject(s);
-                /*JSONObject jsonObjectUsuario = jsonResponse.getJSONObject("Usuario");
-                String idUsuario = jsonObjectUsuario.getString("Id");
-                String nomeUsuario = jsonObjectUsuario.getString("Nome");
-                String senhaUsuario = jsonObjectUsuario.getString("Senha");
-                String cpfUsuario = jsonObjectUsuario.getString("Cpf");
-
+                JSONObject jsonObjectProduto = jsonResponse.getJSONObject("ProdutoParaVender");
+                idProduto = jsonObjectProduto.getString("Id");
+                /*String nomeProduto = jsonObjectProduto.getString("Nome");
+                String precoProduto = jsonObjectProduto.getString("Preco");*/
+                //usuarioId = jsonObjectProduto.getString("UsuarioId");
+                /*
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("id",idUsuario);
