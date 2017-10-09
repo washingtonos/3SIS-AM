@@ -187,7 +187,6 @@
         android:text="Quero vender agora"
         android:textSize="12sp"
         android:textAllCaps="false"
-        android:onClick="callGerarQrCode"
         />
 
     <Button

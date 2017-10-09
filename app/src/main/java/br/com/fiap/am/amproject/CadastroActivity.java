@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import java.io.OutputStreamWriter;
@@ -68,29 +69,33 @@ public class CadastroActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(String... params) {
             try {
-                URL url = new URL("");
+                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/CadastroUsuarioWeb");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
 
 
-                JSONStringer json = new JSONStringer();
-                json.object();
-                json.key("Cpf").value(params[0]);
-                json.key("Nome").value(params[1]);
-                json.key("Senha").value(params[2]);
-                json.key("Rua").value(params[3]);
-                json.key("Numero").value(params[4]);
-                json.key("Complemento").value(params[5]);
-                json.key("Bairro").value(params[6]);
-                json.key("Cidade").value(params[7]);
-                json.key("Estado").value(params[8]);
-                json.key("Cep").value(params[9]);
+                JSONObject jsonParamsUsuario = new JSONObject();
+                jsonParamsUsuario.put("Nome",params[1]);
+                jsonParamsUsuario.put("Cpf",params[0]);
+                jsonParamsUsuario.put("Senha",params[2]);
 
-                json.endObject();
+                JSONObject jsonUsuarioObject = new JSONObject();
+                jsonUsuarioObject.put("Usuario",jsonParamsUsuario);
+
+                JSONObject jsonParamsEndereco = new JSONObject();
+                jsonParamsEndereco.put("Rua",params[3]);
+                jsonParamsEndereco.put("Numero",params[4]);
+                jsonParamsEndereco.put("Bairro",params[6]);
+                jsonParamsEndereco.put("Complemento",params[5]);
+                jsonParamsEndereco.put("Estado",params[8]);
+                jsonParamsEndereco.put("Cidade",params[7]);
+                jsonParamsEndereco.put("Cep",params[9]);
+
+                jsonUsuarioObject.put("EnderecoUsuario",jsonParamsEndereco);
 
                 OutputStreamWriter stream = new OutputStreamWriter(connection.getOutputStream());
-                stream.write(json.toString());
+                stream.write(jsonUsuarioObject.toString());
                 stream.close();
 
                 return connection.getResponseCode();
@@ -104,8 +109,11 @@ public class CadastroActivity extends AppCompatActivity {
         protected void onPostExecute(Integer s) {
             progress.dismiss();
 
-            if (s == 201){
+            if (s == 200){
                 Toast.makeText(CadastroActivity.this, "Cadastro Realizado!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(CadastroActivity.this,LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
             else{
                 Toast.makeText(CadastroActivity.this, "Erro ao realizar cadastro", Toast.LENGTH_LONG).show();
@@ -116,5 +124,6 @@ public class CadastroActivity extends AppCompatActivity {
     public void haveAnAccount(View view) {
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 }

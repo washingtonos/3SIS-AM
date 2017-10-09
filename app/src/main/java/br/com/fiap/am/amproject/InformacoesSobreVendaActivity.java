@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.text.IDNA;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v4.media.VolumeProviderCompat;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -191,13 +193,13 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     public void callGerarQrCode(View view) {
 
-        String nomeProduto[] = tvNomeVenda.getText().toString().split(" ");
+        /*String nomeProduto[] = tvNomeVenda.getText().toString().split(" ");
         String preco[] = tvPrecoVenda.getText().toString().split(" ");
         String descricao = "";
         String qtd = etQtd.getText().toString();
         String usuarioId = sp.getString("id",null);
         GerarQrCode gerarQrCode = new GerarQrCode();
-        gerarQrCode.execute(nomeProduto[1],preco[1],qtd,usuarioId,idProduto);
+        gerarQrCode.execute(nomeProduto[1],preco[1],qtd,usuarioId,idProduto);*/
 
 
     }
@@ -217,7 +219,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
             URL url = null;
 
             try {
-                url= new URL("http://192.168.1.36:52993/api/QrCodeWeb");
+                url= new URL("http://paguefacilbinatron.azurewebsites.net/api/QrCodeWeb");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
@@ -230,6 +232,9 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 jsonProduto.put("Quantidade",strings[2]);
                 jsonProduto.put("UsuarioId",strings[3]);
                 jsonProduto.put("Id",strings[4]);
+
+
+
 
                 JSONObject jsonQrCode = new JSONObject();
                 jsonQrCode.put("DataHora","2017-09-30T14:54:00");
@@ -268,6 +273,12 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
         @Override
         protected void onPostExecute(String s) {
+            scInformacoesSobreVenda.pageScroll(View.FOCUS_UP);
+            imvDeuCerto.setVisibility(View.GONE);
+            tvDeuCerto.setVisibility(View.GONE);
+            tvParaVenderBasta.setVisibility(View.GONE);
+            tvInformacoesSobreVenda.setVisibility(View.VISIBLE);
+
             progress.dismiss();
             JSONObject jsonResponse = null;
             boolean deuErro=false;
@@ -294,6 +305,13 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
                 deuErro = jsonResponse.getBoolean("DeuErro");
                 mensagemErro = jsonResponse.getString("MensagemRetorno");
+
+                if(deuErro==false){
+                    return;
+
+                }else{
+                    Toast.makeText(getApplicationContext(),mensagemErro,Toast.LENGTH_SHORT).show();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -315,7 +333,13 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 tvPrecoVenda.setText("Preco: "+multiplicarPorQtd(etQtd.getText().toString()));
                 break;
             case R.id.bt_quero_vender_agora:
-
+                String nomeProduto[] = tvNomeVenda.getText().toString().split(" ");
+                String preco[] = tvPrecoVenda.getText().toString().split(" ");
+                String descricao = "";
+                String qtd = etQtd.getText().toString();
+                String usuarioId = sp.getString("id",null);
+                GerarQrCode gerarQrCode = new GerarQrCode();
+                gerarQrCode.execute(nomeProduto[1],preco[1],qtd,usuarioId,idProduto);
 
                 break;
         }
@@ -367,7 +391,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
             URL url = null;
 
             try{
-                url = new URL("http://192.168.1.36:52993/api/ProdutoParaVenderWeb/");
+                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/");
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type","application/json");
@@ -389,16 +413,6 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
                 JSONObject produtoParaVender = new JSONObject();
                 produtoParaVender.put("ProdutoParaVender",produtoObject);
-
-                /*JSONStringer json = new JSONStringer();
-                json.object();
-                json.key("Nome").value(strings[0]);
-                json.key("Preco").value(strings[1]);
-                json.key("Descricao").value("");
-                json.key("Quantidade").value(strings[2]);
-                json.key("ImagemUrl").value(strings[3]);
-                json.key("UsuarioId").value("942794837");
-                json.endObject();*/
 
 
                 OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
@@ -484,7 +498,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
                 btAdicionarQuantidade.setOnClickListener(InformacoesSobreVendaActivity.this);
                 btRemoverQuantidade.setOnClickListener(InformacoesSobreVendaActivity.this);
-
+                btQueroVenderAgora.setOnClickListener(InformacoesSobreVendaActivity.this);
 
                 btDesistiDaIdeia.setVisibility(View.GONE);
 
