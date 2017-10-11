@@ -135,6 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:foregroundGravity="center"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
     </LinearLayout>
@@ -186,7 +187,6 @@
         android:text="Quero vender agora"
         android:textSize="12sp"
         android:textAllCaps="false"
-        android:onClick="callGerarQrCode"
         />
 
     <Button

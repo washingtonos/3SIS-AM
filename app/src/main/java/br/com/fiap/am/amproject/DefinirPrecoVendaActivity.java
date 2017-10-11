@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class DefinirPrecoVendaActivity extends AppCompatActivity {
 
     private EditText etPrecoProduto;
     private String nomeProduto;
+    private TextView porQuantoVoceVende;
+    private TextView definaValorVenda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +25,17 @@ public class DefinirPrecoVendaActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        porQuantoVoceVende = (TextView)findViewById(R.id.tv_por_quanto_voce_vende);
+        definaValorVenda = (TextView)findViewById(R.id.tv_defina_valor_venda);
+
         //Capturar nome de Produto de activity anterior
 
         Bundle extras = getIntent().getExtras();
         if(extras!=null){
 
             nomeProduto = extras.getString("nomeProduto");
+            porQuantoVoceVende.setText("Por quanto você quer vender o/a "+nomeProduto);
+            definaValorVenda.setText("vender o/a "+nomeProduto);
         }
 
 
