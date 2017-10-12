@@ -3,8 +3,10 @@ package br.com.fiap.am.amproject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -19,12 +21,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.fiap.am.model.ProdutoParaVender;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -32,6 +47,10 @@ public class MenuActivity extends AppCompatActivity {
     private ImageView imageViewQrCode;
     private FloatingActionButton fab;
     LinearLayout linearLayoutAccount;
+    private ListView llProdutoCadastrado;
+    private String nomes[];
+    private String precos [];
+    private String paths [];
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -57,11 +76,14 @@ public class MenuActivity extends AppCompatActivity {
                     fab.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_sell:
-                    //mTextMessage.setText(R.string.title_sell);
                     button.setVisibility(View.INVISIBLE);
                     imageViewQrCode.setVisibility(View.INVISIBLE);
                     fab.setVisibility(View.VISIBLE);
-                    menuAsynTaskManager.execute("sell");
+                    ListAllItemsToSell laits = new ListAllItemsToSell();
+                    String id = loadSharedPreferences();
+                    laits.execute();
+                    llProdutoCadastrado.setVisibility(View.VISIBLE);
+                    listView.setVisibility(View.GONE);
                     return true;
 
             }
@@ -69,6 +91,95 @@ public class MenuActivity extends AppCompatActivity {
         }
 
     };
+
+
+    private class ListAllItemsToSell extends AsyncTask<String,Void,String>{
+
+        ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(MenuActivity.this,"Aguarde","Carregando Itens");
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept","application/json");
+
+                if(connection.getResponseCode()==200){
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder builder = new StringBuilder();
+                    String linha = "";
+
+                    while((linha=reader.readLine())!=null){
+
+                        builder.append(linha);
+                    }
+
+                    connection.disconnect();
+
+                    return builder.toString();
+
+                }else {
+
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar os produtos",Toast.LENGTH_SHORT).show();
+
+                }
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            progress.dismiss();
+
+            try {
+
+                ArrayList<ProdutoParaVender> listaDeProdutos = new ArrayList<ProdutoParaVender>();
+                int index=0;
+                //JSONObject jsonObjectDadosProdutoParaVender = new JSONObject(s);
+                JSONArray arrayOsItems = new JSONArray(s);
+                for (int i = 0;i<arrayOsItems.length();i++){
+
+                    JSONObject jsonObject = (JSONObject)arrayOsItems.get(i);
+
+
+
+                    if(jsonObject.getString("UsuarioId").equals(loadSharedPreferences())){
+                        ProdutoParaVender ppv = new ProdutoParaVender();
+                        ppv.setNome(jsonObject.getString("Nome"));
+                        ppv.setPreco(jsonObject.getString("Preco"));
+                        ppv.setImagemUrl(jsonObject.getString("ImagemUrl"));
+                        listaDeProdutos.add(ppv);
+
+                    }
+                }
+
+
+                llProdutoCadastrado.setAdapter(new CustomAdapter(MenuActivity.this,listaDeProdutos));
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            super.onPostExecute(s);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +195,9 @@ public class MenuActivity extends AppCompatActivity {
         //Capturar Listview
         listView = (ListView) findViewById(R.id.lv_historico);
         listView.setVisibility(View.GONE);
+
+        llProdutoCadastrado = (ListView)findViewById(R.id.ll_itens_cadastrados);
+        llProdutoCadastrado.setVisibility(View.GONE);
 
         //Capturar Imagem de QrCode
         imageViewQrCode = (ImageView)findViewById(R.id.imv_qrcode);
@@ -205,17 +319,18 @@ public class MenuActivity extends AppCompatActivity {
 
                         listView.setAdapter(adapter);
                         break;
-                    case "sell":
-                        List<String> listaItensVenda = new ArrayList<String>();
-                        listaItensVenda.removeAll(listaItensVenda);
-                        listaItensVenda.add("item 2");
-                        listaItensVenda.add("item 3");
-                        adapter = new ArrayAdapter(MenuActivity.this,android.R.layout.simple_list_item_1,listaItensVenda);
-                        listView.setAdapter(adapter);
                 }
             }
 
             super.onPostExecute(s);
         }
     }
+
+    private String loadSharedPreferences(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        return sp.getString("id",null);
+    }
+
+
 }

@@ -58,7 +58,26 @@
             </ListView>
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:id="@+id/rl_produtos"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <ListView
+                    android:id="@+id/ll_itens_cadastrados"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></ListView>
+            </ScrollView>
+
+        </RelativeLayout>
+
 
     </FrameLayout>
 

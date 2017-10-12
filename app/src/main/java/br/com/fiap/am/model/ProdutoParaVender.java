@@ -1,5 +1,8 @@
 package br.com.fiap.am.model;
 
+import android.widget.ImageView;
+import android.widget.TextView;
+
 /**
  * Created by Renan Lima on 02/10/2017.
  */
@@ -11,7 +14,35 @@ public class ProdutoParaVender {
     private String descricao;
     private String quantidade;
     private String imagemUrl;
-    private String UsuarioId;
+    private String usuarioId;
+    private TextView precoProduto;
+    private TextView nomeProduto;
+    private ImageView imagemProduto;
+
+
+    public ImageView getImagemProduto() {
+        return imagemProduto;
+    }
+
+    public void setImagemProduto(ImageView imagemProduto) {
+        this.imagemProduto = imagemProduto;
+    }
+
+    public TextView getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(TextView nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
+    public TextView getPrecoProduto() {
+        return precoProduto;
+    }
+
+    public void setPrecoProduto(TextView precoProduto) {
+        this.precoProduto = precoProduto;
+    }
 
     public String getNome() {
         return nome;
@@ -54,10 +85,10 @@ public class ProdutoParaVender {
     }
 
     public String getUsuarioId() {
-        return UsuarioId;
+        return usuarioId;
     }
 
     public void setUsuarioId(String usuarioId) {
-        UsuarioId = usuarioId;
+        this.usuarioId = usuarioId;
     }
 }
