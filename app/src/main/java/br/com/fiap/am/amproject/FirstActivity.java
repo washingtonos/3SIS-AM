@@ -19,7 +19,7 @@ public class FirstActivity extends AppCompatActivity {
     }
 
     public void wantToSignUp(View view) {
-        Intent intent = new Intent(FirstActivity.this,CadastroActivity.class);
+        Intent intent = new Intent(FirstActivity.this,CadastrarUsuarioActivity.class);
         startActivity(intent);
     }
 }

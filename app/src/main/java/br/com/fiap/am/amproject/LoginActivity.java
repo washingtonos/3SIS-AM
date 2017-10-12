@@ -93,6 +93,9 @@ public class LoginActivity extends AppCompatActivity {
                     connection.disconnect();
 
                     return builder.toString();
+                }else if(connection.getResponseCode()==500){
+                    Toast.makeText(getApplicationContext(),"Ops, erro do servidor, tente novamente.",Toast.LENGTH_SHORT).show();
+
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"Ocorreu um erro, tente novamente",Toast.LENGTH_SHORT).show();
@@ -100,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
             }catch (Exception e){
                 e.printStackTrace();
+
             }
 
             return null;
@@ -111,35 +115,40 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject jsonResponse = null;
             boolean deuErro=true;
             String mensagemErro="";
-            try {
-                jsonResponse = new JSONObject(s);
-                deuErro = jsonResponse.getBoolean("DeuErro");
-                mensagemErro = jsonResponse.getString("MensagemRetorno");
-                if(deuErro==false){
-                    JSONObject jsonObjectUsuario = jsonResponse.getJSONObject("Usuario");
-                    String idUsuario = jsonObjectUsuario.getString("Id");
-                    String nomeUsuario = jsonObjectUsuario.getString("Nome");
-                    String senhaUsuario = jsonObjectUsuario.getString("Senha");
-                    String cpfUsuario = jsonObjectUsuario.getString("Cpf");
+            if(s!=null){
 
-                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("id",idUsuario);
-                    editor.putString("nome",nomeUsuario);
-                    editor.putString("senha",senhaUsuario);
-                    editor.putString("cpf",cpfUsuario);
-                    editor.commit();
+                try {
+                    jsonResponse = new JSONObject(s);
+                    deuErro = jsonResponse.getBoolean("DeuErro");
+                    mensagemErro = jsonResponse.getString("MensagemRetorno");
+                    if(deuErro==false){
+                        JSONObject jsonObjectUsuario = jsonResponse.getJSONObject("Usuario");
+                        String idUsuario = jsonObjectUsuario.getString("Id");
+                        String nomeUsuario = jsonObjectUsuario.getString("Nome");
+                        String senhaUsuario = jsonObjectUsuario.getString("Senha");
+                        String cpfUsuario = jsonObjectUsuario.getString("Cpf");
 
-                    Intent intent = new Intent(LoginActivity.this,MenuActivity.class);
-                    startActivity(intent);
-                }else {
-                    Toast.makeText(getApplicationContext(),mensagemErro,Toast.LENGTH_SHORT).show();
+                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("id",idUsuario);
+                        editor.putString("nome",nomeUsuario);
+                        editor.putString("senha",senhaUsuario);
+                        editor.putString("cpf",cpfUsuario);
+                        editor.commit();
+
+                        Intent intent = new Intent(LoginActivity.this,MenuActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(getApplicationContext(),mensagemErro,Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
                 }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-
             }
+
 
 
         }

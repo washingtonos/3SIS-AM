@@ -7,26 +7,26 @@
     android:gravity="center"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
     android:layout_marginRight="@dimen/activity_horizontal_margin"
-    tools:context="br.com.fiap.am.amproject.EditarCartaoActivity">
+    tools:context="br.com.fiap.am.amproject.CadastrarCartaoActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar dados do cartao"
+        android:text="Cadastrar dados do cartao"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:textColor="@color/colorPrimaryText"/>
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="1"
         android:layout_gravity="fill_horizontal"
-        android:layout_marginBottom="64dp">
-        <ImageView
-            android:src="@drawable/ic_person_outline_black_24dp"
-            />
+        android:layout_marginBottom="64dp"
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <ImageView android:src="@drawable/ic_person_outline_black_24dp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -34,77 +34,81 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
             <TextView
-                android:id="@+id/tv_nome_editar_cartao"
+                android:id="@+id/tv_nome_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
+
             <EditText
-                android:layout_below="@+id/tv_nome_editar_cartao"
-                android:id="@+id/et_nome_editar_cartao"
+                android:id="@+id/et_nome_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                />
+                android:layout_below="@+id/tv_nome_cadastrar_cartao"
+                android:inputType="text" />
 
             <TextView
-                android:id="@+id/tv_numerocartao_editar_cartao"
+                android:id="@+id/tv_numerocartao_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/et_nome_editar_cartao"
+                android:layout_below="@id/et_nome_cadastrar_cartao"
                 android:text="Numero"
                 android:textSize="12sp" />
+
             <EditText
-                android:layout_below="@id/tv_numerocartao_editar_cartao"
-                android:id="@+id/et_numerocartao_editar_cartao"
+                android:id="@+id/et_numerocartao_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                />
+                android:layout_below="@id/tv_numerocartao_cadastrar_cartao"
+                android:inputType="number" />
+
             <GridLayout
                 android:id="@+id/gl_data_codseg_cartao"
-                android:layout_below="@+id/et_numerocartao_editar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/et_numerocartao_cadastrar_cartao"
                 android:columnCount="2"
                 android:rowCount="2">
+
                 <TextView
-                    android:id="@+id/tv_data_venc_editar_cartao"
+                    android:id="@+id/tv_cod_seg_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_row="0"
                     android:text="Cod.Seg."
-                    android:layout_columnWeight="1"
-                    android:layout_column="0"
-                    android:layout_row="0"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
+
                 <EditText
-                    android:layout_columnWeight="1"
-                    android:id="@+id/et_data_venc_editar_cartao"
+                    android:id="@+id/et_cod_seg_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
                     android:layout_marginRight="32dp"
+                    android:layout_row="1"
                     android:inputType="number"
-                    android:layout_column="0"
-                    android:layout_row="1"
-                    />
+                    android:maxLength="3" />
+
                 <TextView
-                    android:id="@+id/tv_cod_seg_editar_cartao"
+                    android:id="@+id/tv_data_venc_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Venc."
-                    android:layout_columnWeight="4"
                     android:layout_column="1"
+                    android:layout_columnWeight="4"
                     android:layout_row="0"
-                    android:textSize="12sp"/>
+                    android:text="Data Venc."
+                    android:textSize="12sp" />
+
                 <EditText
-                    android:layout_columnWeight="4"
-                    android:id="@+id/et_cod_seg_editar_cartao"
+                    android:id="@+id/et_data_venc_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="date"
                     android:layout_column="1"
+                    android:layout_columnWeight="4"
                     android:layout_row="1"
-                    />
+                    android:inputType="date" />
 
             </GridLayout>
 
@@ -113,7 +117,7 @@
     </GridLayout>
 
     <Spinner
-        android:id="@+id/sp_bandeira_editar_cartao"
+        android:id="@+id/sp_bandeira_cadastrar_cartao"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:entries="@array/bandeira_cartoes"
@@ -130,14 +134,14 @@
         android:layout_marginBottom="32dp"/>
 
     <RadioGroup
-        android:id="@+id/rg_sim_nao_editar_cartao"
+        android:id="@+id/rg_sim_nao_cadastrar_cartao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         >
         <RadioButton
-            android:id="@+id/rb_sim_editar_cartao"
+            android:id="@+id/rb_sim_cadastrar_cartao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sim"
@@ -146,7 +150,7 @@
 
             />
         <RadioButton
-            android:id="@+id/rb_nao_editar_cartao"
+            android:id="@+id/rb_nao_cadastrar_cartao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -171,15 +175,15 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_gravity="fill_horizontal">
             <TextView
-                android:id="@+id/tv_rua_editar_cartao"
+                android:id="@+id/tv_rua_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Rua"
                 android:textSize="12sp"
                 />
             <EditText
-                android:layout_below="@+id/tv_rua_editar_cartao"
-                android:id="@+id/et_rua_editar_cartao"
+                android:layout_below="@+id/tv_rua_cadastrar_cartao"
+                android:id="@+id/et_rua_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -188,14 +192,14 @@
                 />
 
             <GridLayout
-                android:id="@+id/gl_numero_complemento_editarcartao"
-                android:layout_below="@+id/et_rua_editar_cartao"
+                android:id="@+id/gl_numero_complemento_cadastrarcartao"
+                android:layout_below="@+id/et_rua_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
                 android:rowCount="2">
                 <TextView
-                    android:id="@+id/tv_numero_editar_cartao"
+                    android:id="@+id/tv_numero_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Numero"
@@ -205,7 +209,7 @@
                     android:textSize="12sp"/>
                 <EditText
                     android:layout_columnWeight="1"
-                    android:id="@+id/et_numero_editar_cartao"
+                    android:id="@+id/et_numero_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -213,7 +217,7 @@
                     android:layout_row="1"
                     />
                 <TextView
-                    android:id="@+id/tv_complemento_editar_cartao"
+                    android:id="@+id/tv_complemento_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Complemento"
@@ -223,7 +227,7 @@
                     android:textSize="12sp"/>
                 <EditText
                     android:layout_columnWeight="4"
-                    android:id="@+id/et_complemento_editar_cartao"
+                    android:id="@+id/et_complemento_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -234,15 +238,15 @@
             </GridLayout>
 
             <TextView
-                android:layout_below="@+id/gl_numero_complemento_editarcartao"
-                android:id="@+id/tv_bairro_editar_cartao"
+                android:layout_below="@+id/gl_numero_complemento_cadastrarcartao"
+                android:id="@+id/tv_bairro_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Bairro"
                 android:textSize="12sp"/>
             <EditText
-                android:layout_below="@+id/tv_bairro_editar_cartao"
-                android:id="@+id/et_bairro_editar_cartao"
+                android:layout_below="@+id/tv_bairro_cadastrar_cartao"
+                android:id="@+id/et_bairro_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -250,15 +254,15 @@
                 />
 
             <TextView
-                android:layout_below="@+id/et_bairro_editar_cartao"
-                android:id="@+id/tv_cidade_editar_cartao"
+                android:layout_below="@+id/et_bairro_cadastrar_cartao"
+                android:id="@+id/tv_cidade_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Cidade"
                 android:textSize="12sp"/>
             <EditText
-                android:layout_below="@+id/tv_cidade_editar_cartao"
-                android:id="@+id/et_cidade_editar_cartao"
+                android:layout_below="@+id/tv_cidade_cadastrar_cartao"
+                android:id="@+id/et_cidade_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -266,14 +270,14 @@
                 />
 
             <GridLayout
-                android:id="@+id/gl_estado_cep_editarcartao"
-                android:layout_below="@+id/et_cidade_editar_cartao"
+                android:id="@+id/gl_estado_cep_cadastrarcartao"
+                android:layout_below="@+id/et_cidade_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
                 android:rowCount="2">
                 <TextView
-                    android:id="@+id/tv_estado_editar_cartao"
+                    android:id="@+id/tv_estado_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Estado"
@@ -283,7 +287,7 @@
                     android:textSize="12sp"/>
                 <EditText
                     android:layout_columnWeight="1"
-                    android:id="@+id/et_estado_editar_cartao"
+                    android:id="@+id/et_estado_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -291,7 +295,7 @@
                     android:layout_row="1"
                     />
                 <TextView
-                    android:id="@+id/tv_cep_editar_cartao"
+                    android:id="@+id/tv_cep_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cep"
@@ -301,7 +305,7 @@
                     android:textSize="12sp"/>
                 <EditText
                     android:layout_columnWeight="4"
-                    android:id="@+id/et_cep_editar_cartao"
+                    android:id="@+id/et_cep_cadastrar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -317,6 +321,7 @@
     </GridLayout>
 
     <Button
+        android:id="@+id/bt_cadastrar_cartao"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:textAllCaps="false"

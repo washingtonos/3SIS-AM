@@ -53,10 +53,11 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         btSendCadastro.setOnClickListener(this);
 
         loadFields();
-        String idUsuario = getSharedPreferences();
+        String infos = getSharedPreferences();
+        String splitParaPegarId[] = infos.split(",");
 
         GetAllInformationsAboutUser gainf = new GetAllInformationsAboutUser();
-        gainf.execute(idUsuario);
+        gainf.execute(splitParaPegarId[0]);
     }
 
     @Override
@@ -64,8 +65,11 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()){
             case R.id.bt_confirma_edicao_perfil:
                 SendAllInformationsToUpdate satb = new SendAllInformationsToUpdate();
-                String id = getSharedPreferences();
-                satb.execute(id,nomeUsuario.getText().toString(),
+                String dados = getSharedPreferences();
+                String [] infos = dados.split(",");
+
+                satb.execute(infos[0],nomeUsuario.getText().toString(),
+                        infos[1],
                         cpfUsuario.getText().toString(),
                         ruaUsuario.getText().toString(),
                         numeroUsuario.getText().toString(),
@@ -101,36 +105,22 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
 
                 JSONObject jsonParamsUsuario = new JSONObject();
                 jsonParamsUsuario.put("Nome",params[1]);
-                jsonParamsUsuario.put("Cpf",params[2]);
+                jsonParamsUsuario.put("Senha",params[2]);
+                jsonParamsUsuario.put("Cpf",params[3]);
 
                 JSONObject jsonUsuarioObject = new JSONObject();
                 jsonUsuarioObject.put("Usuario",jsonParamsUsuario);
 
                 JSONObject jsonParamsEndereco = new JSONObject();
-                jsonParamsEndereco.put("Rua",params[3]);
-                jsonParamsEndereco.put("Numero",params[4]);
-                jsonParamsEndereco.put("Bairro",params[5]);
-                jsonParamsEndereco.put("Complemento",params[6]);
-                jsonParamsEndereco.put("Estado",params[7]);
+                jsonParamsEndereco.put("Rua",params[4]);
+                jsonParamsEndereco.put("Numero",params[5]);
+                jsonParamsEndereco.put("Bairro",params[6]);
+                jsonParamsEndereco.put("Complemento",params[7]);
+                jsonParamsEndereco.put("Estado",params[8]);
                 jsonParamsEndereco.put("Cidade",params[9]);
                 jsonParamsEndereco.put("Cep",params[10]);
 
                 jsonUsuarioObject.put("EnderecoUsuario",jsonParamsEndereco);
-
-                /*JSONStringer json = new JSONStringer();
-                json.object();
-                json.key("Cpf").value(params[0]);
-                json.key("Nome").value(params[1]);
-                json.key("Senha").value(params[2]);
-                json.key("Rua").value(params[3]);
-                json.key("Numero").value(params[4]);
-                json.key("Complemento").value(params[5]);
-                json.key("Bairro").value(params[6]);
-                json.key("Cidade").value(params[7]);
-                json.key("Estado").value(params[8]);
-                json.key("Cep").value(params[9]);
-
-                json.endObject();*/
 
                 OutputStreamWriter stream = new OutputStreamWriter(connection.getOutputStream());
                 stream.write(jsonUsuarioObject.toString());
@@ -265,8 +255,13 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
     private String getSharedPreferences(){
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                StringBuilder builder = new StringBuilder();
+                        builder.append(sp.getString("id",null));
+                        builder.append(",");
+                        builder.append(sp.getString("senha",null));
 
-                return sp.getString("id",null);
+                return builder.toString();
+
     }
 
 }

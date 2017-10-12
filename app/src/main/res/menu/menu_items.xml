@@ -3,6 +3,9 @@
     <item
         android:id="@+id/item_editar_perfil"
         android:title="Editar Perfil"/>
+    <item
+        android:id="@+id/item_cadastrar_cartao"
+        android:title="Cartao"/>
 
     <item
         android:id="@+id/item_editar_cartao"

@@ -40,6 +40,7 @@
                 android:id="@+id/et_cpf_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:inputType="number"
                 />
             <TextView

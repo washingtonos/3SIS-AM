@@ -6,10 +6,9 @@
         android:name="android.hardware.camera2"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -25,16 +24,16 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity android:name=".FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LoginActivity"
             android:label="Entrar">
@@ -44,11 +43,7 @@
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu">
-
-
-        </activity>
-
+            android:label="@string/title_activity_menu"></activity>
         <activity
             android:name=".ConfirmarCompraActivity"
             android:label="@string/title_activity_confirmar_compra"
@@ -57,7 +52,6 @@
             android:name=".ComprovanteActivity"
             android:label="@string/title_activity_comprovante"
             android:theme="@style/AppTheme" />
-
         <activity android:name=".CadastrarVendaNomeProdutoActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -88,19 +82,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
-        <activity android:name=".EditarCartaoActivity"
+        <activity
+            android:name=".EditarCartaoActivity"
             android:label="Editar Cartao">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
-
         <activity
-            android:name=".CadastroActivity"
+            android:name=".CadastrarUsuarioActivity"
             android:label="Cadastro">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FirstActivity" />
+        </activity>
+        <activity android:name=".CadastrarCartaoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
         </activity>
     </application>
 

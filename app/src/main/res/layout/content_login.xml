@@ -26,8 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/edit_text_shape"
-        android:inputType="text"
-        android:hint="Usuário"
+        android:inputType="number"
+        android:maxLength="11"
+        android:hint="Cpf"
         />
     <EditText
         android:id="@+id/et_password"

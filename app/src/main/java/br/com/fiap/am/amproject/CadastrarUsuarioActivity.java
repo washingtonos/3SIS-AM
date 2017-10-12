@@ -11,15 +11,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import br.com.fiap.am.model.Usuario;
-
-public class CadastroActivity extends AppCompatActivity {
+public class CadastrarUsuarioActivity extends AppCompatActivity {
 
     private EditText etCpf, etnome, etSenha, etConfirmaSenha,
                 etRua, etNumero,etComplemneto, etBairro, etCidade, etEstado, etCep;
@@ -28,7 +25,7 @@ public class CadastroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadastro);
+        setContentView(R.layout.activity_cadastrar_usuario);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_cadastro);
         setSupportActionBar(toolbar);
@@ -62,7 +59,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(CadastroActivity.this, "Aguarde...", "Realizando cadastro");
+            progress = ProgressDialog.show(CadastrarUsuarioActivity.this, "Aguarde...", "Realizando cadastro");
             super.onPreExecute();
         }
 
@@ -110,13 +107,13 @@ public class CadastroActivity extends AppCompatActivity {
             progress.dismiss();
 
             if (s == 200){
-                Toast.makeText(CadastroActivity.this, "Cadastro Realizado!", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(CadastroActivity.this,LoginActivity.class);
+                Toast.makeText(CadastrarUsuarioActivity.this, "Cadastro Realizado!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(CadastrarUsuarioActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
             else{
-                Toast.makeText(CadastroActivity.this, "Erro ao realizar cadastro", Toast.LENGTH_LONG).show();
+                Toast.makeText(CadastrarUsuarioActivity.this, "Erro ao realizar cadastro", Toast.LENGTH_LONG).show();
             }
         }
     }
