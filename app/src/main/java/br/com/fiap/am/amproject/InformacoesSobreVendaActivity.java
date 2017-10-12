@@ -217,7 +217,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
             URL url = null;
 
             try {
-                url= new URL("http://192.168.1.36:52993/api/QrCodeWeb");
+                url= new URL("http://paguefacilbinatron.azurewebsites.net/api/QrCodeWeb");
 
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
@@ -367,7 +367,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
             URL url = null;
 
             try{
-                url = new URL("http://192.168.1.36:52993/api/ProdutoParaVenderWeb/");
+                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/");
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type","application/json");

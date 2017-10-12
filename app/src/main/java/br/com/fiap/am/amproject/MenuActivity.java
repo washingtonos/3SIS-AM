@@ -1,6 +1,7 @@
 package br.com.fiap.am.amproject;
 
 import android.app.Activity;
+import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,17 +22,30 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import br.com.fiap.am.bean.Item;
+import br.com.fiap.am.model.CustomAdapter;
 
 public class MenuActivity extends AppCompatActivity {
 
     private ListView listView;
+    private ListView listaVenda;
     private ImageView imageViewQrCode;
     private FloatingActionButton fab;
     LinearLayout linearLayoutAccount;
@@ -44,26 +59,26 @@ public class MenuActivity extends AppCompatActivity {
             Button button = (Button)findViewById(R.id.button_ler_qr_code);
             switch (item.getItemId()) {
                 case R.id.navigation_my_account:
-                   // mTextMessage.setText(R.string.title_account);
-                    button.setVisibility(View.INVISIBLE);
-                    listView.setVisibility(View.VISIBLE);
-                    imageViewQrCode.setVisibility(View.INVISIBLE);
+                    // mTextMessage.setText(R.string.title_account);
+                    button.setVisibility(View.GONE);
+                    listaVenda.setVisibility(View.VISIBLE);
+                    imageViewQrCode.setVisibility(View.GONE);
                     fab.setVisibility(View.GONE);
-                    menuAsynTaskManager.execute("account");
                     return true;
                 case R.id.navigation_buy:
                     //mTextMessage.setText(R.string.title_buy);
                     button.setVisibility(View.VISIBLE);
-                    listView.setVisibility(View.INVISIBLE);
+                    listaVenda.setVisibility(View.GONE);
                     imageViewQrCode.setVisibility(View.VISIBLE);
                     fab.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_sell:
                     //mTextMessage.setText(R.string.title_sell);
-                    button.setVisibility(View.INVISIBLE);
-                    imageViewQrCode.setVisibility(View.INVISIBLE);
+                    button.setVisibility(View.GONE);
+                    listaVenda.setVisibility(View.VISIBLE);
+                    imageViewQrCode.setVisibility(View.GONE);
                     fab.setVisibility(View.VISIBLE);
-                    menuAsynTaskManager.execute("sell");
+                    menuAsynTaskManager.execute();
                     return true;
 
             }
@@ -85,7 +100,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //Capturar Listview
         listView = (ListView) findViewById(R.id.lv_historico);
-        listView.setVisibility(View.GONE);
+        listaVenda = (ListView) findViewById(R.id.listaCustom);
 
         //Capturar Imagem de QrCode
         imageViewQrCode = (ImageView)findViewById(R.id.imv_qrcode);
@@ -100,7 +115,7 @@ public class MenuActivity extends AppCompatActivity {
         setSupportActionBar(mToolBar);
 
         MenuAsynTaskManager menuAsynTaskManager = new MenuAsynTaskManager();
-        menuAsynTaskManager.execute("account");
+        menuAsynTaskManager.execute();
 
         fab = (FloatingActionButton) findViewById(R.id.fbt_add);
         fab.setVisibility(View.GONE);
@@ -185,35 +200,70 @@ public class MenuActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            return strings[0];
+
+
+
+            try{
+
+                StringBuilder sb;
+                String linha;
+
+                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept", "application/json");
+
+                int i = connection.getResponseCode();
+
+                if(connection.getResponseCode() == 200){
+                    BufferedReader stream =
+                            new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+                    linha = "";
+                    sb = new StringBuilder();
+                    while((linha = stream.readLine()) != null){
+                        sb.append(linha);
+                    }
+
+                    connection.disconnect();
+
+                    return sb.toString();
+                }else {
+                    Log.i("Erro no http",String.valueOf(connection.getResponseCode()));
+                }
+
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+
+
+            return null;
         }
 
         @Override
         protected void onPostExecute(String s) {
-            progressDialog.dismiss();
-            ArrayAdapter adapter;
-            if(!s.equals("")){
-                switch (s){
-                    case "account":
-                        List<String> listaItensConta = new ArrayList<String>();
-                        listaItensConta.removeAll(listaItensConta);
-                        listaItensConta.add("item 1");
-                        listaItensConta.add("item 2");
-                        adapter = new ArrayAdapter(MenuActivity.this,android.R.layout.simple_list_item_1,listaItensConta);
+           progressDialog.dismiss();
+           // ArrayAdapter adapter;
+            CustomAdapter adapter;
+            if(s != null) {
 
-                        listView.setAdapter(adapter);
-                        break;
-                    case "sell":
-                        List<String> listaItensVenda = new ArrayList<String>();
-                        listaItensVenda.removeAll(listaItensVenda);
-                        listaItensVenda.add("item 2");
-                        listaItensVenda.add("item 3");
-                        adapter = new ArrayAdapter(MenuActivity.this,android.R.layout.simple_list_item_1,listaItensVenda);
-                        listView.setAdapter(adapter);
+                try {
+
+                    JSONArray jsonArray = new JSONArray(s);
+                    adapter = new CustomAdapter(jsonArray, MenuActivity.this);
+                    listaVenda.setAdapter(adapter);
+
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-            }
+            }else{
+                Toast.makeText(MenuActivity.this,"Errando ainda ", Toast.LENGTH_LONG).show();
 
-            super.onPostExecute(s);
+            }
         }
+
     }
 }

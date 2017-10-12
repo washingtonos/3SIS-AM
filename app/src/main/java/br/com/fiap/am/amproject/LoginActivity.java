@@ -69,7 +69,8 @@ public class LoginActivity extends AppCompatActivity {
             URL url = null;
 
             try{
-                url = new URL("http://192.168.1.36:52993/api/LoginWeb");
+                //url = new URL("http://192.168.1.36:52993/api/LoginWeb");
+                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/LoginWeb");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
