@@ -73,18 +73,18 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
                 String param = cardId();
                 saitu.execute(
                         param,
-                        etNomeCartao.getText().toString(),
                         etNumeroCartao.getText().toString(),
-                        etCodigoSeg.getText().toString(),
+                        etNomeCartao.getText().toString(),
                         etDataVenc.getText().toString(),
                         spBandeira.getSelectedItem().toString(),
+                        etCodigoSeg.getText().toString(),
                         etRuaEnderecoCartao.getText().toString(),
                         etNumeroEnderecoCartao.getText().toString(),
-                        etComplementoEnderecoCartao.getText().toString(),
                         etBairroEnderecoCartao.getText().toString(),
+                        etComplementoEnderecoCartao.getText().toString(),
                         etEstadoEndereco.getText().toString(),
-                        etCidadeEnderecoCartao.getText().toString(),
-                        etCep.getText().toString()
+                        etCep.getText().toString(),
+                        etCidadeEnderecoCartao.getText().toString()
                         );
                 break;
         }
@@ -106,7 +106,7 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
             URL url;
 
             try {
-                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/CadastroCartaoWeb/"+strings[0]);
+                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/CadastroCartaoWeb/?"+strings[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Accept","application/json");
@@ -145,7 +145,7 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
                 boolean deuErro = true;
                 JSONObject jsonObjectInfos = new JSONObject(s);
                 String mensagemRetorno = jsonObjectInfos.getString("MensagemRetorno");
-                deuErro = jsonObjectInfos.getBoolean("DeuCerto");
+                deuErro = jsonObjectInfos.getBoolean("DeuErro");
 
                 if(!deuErro){
 
@@ -216,10 +216,10 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
             URL url;
 
             try {
-                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/CadastroCartaoWeb/"+params[0]);
+                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/CadastroCartaoWeb/?"+params[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("PUT");
-                connection.setRequestProperty("Content-type","application/json");
+                connection.setRequestProperty("Content-Type","application/json");
 
                 JSONObject jsonParamsCartao = new JSONObject();
                 jsonParamsCartao.put("Numero",params[1]);
@@ -262,7 +262,16 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         protected void onPostExecute(Integer integer) {
-            super.onPostExecute(integer);
+
+            progress.dismiss();
+
+            if(integer==200){
+
+                Toast.makeText(getApplicationContext(),"Dados gravados com sucesso",Toast.LENGTH_SHORT).show();
+
+            }else{
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro ao gravar seus dados",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -292,7 +301,7 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
-        return "cartaoId"+sp.getString("idCartao",null)+"&usuarioId="+sp.getString("id",null);
+        return "cartaoId="+sp.getString("idCartao",null)+"&usuarioId="+sp.getString("id",null);
 
     }
 }
