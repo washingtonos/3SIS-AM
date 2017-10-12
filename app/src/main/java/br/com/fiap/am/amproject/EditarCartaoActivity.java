@@ -1,12 +1,15 @@
 package br.com.fiap.am.amproject;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,11 +22,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class EditarCartaoActivity extends AppCompatActivity {
+public class EditarCartaoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etNomeCartao;
     private EditText etNumeroCartao;
@@ -37,6 +41,10 @@ public class EditarCartaoActivity extends AppCompatActivity {
     private EditText etComplementoEnderecoCartao;
     private EditText etBairroEnderecoCartao;
     private EditText etCidadeEnderecoCartao;
+    private EditText etEstadoEndereco;
+    private EditText etCep;
+
+    private Button btConfirmaEdicao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,33 @@ public class EditarCartaoActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()){
+            case R.id.bt_confirma_edicao_cartao:
+                SendAllInformationsToUpdate saitu = new SendAllInformationsToUpdate();
+
+                String param = cardId();
+                saitu.execute(
+                        param,
+                        etNomeCartao.getText().toString(),
+                        etNumeroCartao.getText().toString(),
+                        etCodigoSeg.getText().toString(),
+                        etDataVenc.getText().toString(),
+                        spBandeira.getSelectedItem().toString(),
+                        etRuaEnderecoCartao.getText().toString(),
+                        etNumeroEnderecoCartao.getText().toString(),
+                        etComplementoEnderecoCartao.getText().toString(),
+                        etBairroEnderecoCartao.getText().toString(),
+                        etEstadoEndereco.getText().toString(),
+                        etCidadeEnderecoCartao.getText().toString(),
+                        etCep.getText().toString()
+                        );
+                break;
+        }
+
+    }
 
 
     private class GetAllInformationsAboutCard extends AsyncTask<String, Void, String>{
@@ -114,7 +149,42 @@ public class EditarCartaoActivity extends AppCompatActivity {
 
                 if(!deuErro){
 
-                    Toast.makeText(getApplicationContext(),"Dados atualizados",Toast.LENGTH_SHORT).show();
+
+                    JSONObject jsonObjectCartao = jsonObjectInfos.getJSONObject("CartaoCredito");
+                    String idCartao = jsonObjectCartao.getString("Id");
+                    String usuarioId = jsonObjectCartao.getString("UsuarioId");
+                    String numeroCartao = jsonObjectCartao.getString("Numero");
+                    String nomeTitular = jsonObjectCartao.getString("NomeTitular");
+                    String validade = jsonObjectCartao.getString("Validade");
+                    String bandeira = jsonObjectCartao.getString("Bandeira");
+                    String codSeg = jsonObjectCartao.getString("CodigoSeguranca");
+
+                    JSONObject jsonObjectEnderecoCartao = jsonObjectInfos.getJSONObject("EnderecoCartao");
+                    String ruaEndereco = jsonObjectEnderecoCartao.getString("Rua");
+                    String numeroEndereco = jsonObjectEnderecoCartao.getString("Numero");
+                    String bairroEndereco = jsonObjectEnderecoCartao.getString("Bairro");
+                    String complementoEndereco = jsonObjectEnderecoCartao.getString("Complemento");
+                    String estado = jsonObjectEnderecoCartao.getString("Estado");
+                    String cidade = jsonObjectEnderecoCartao.getString("Cidade");
+                    String cep = jsonObjectEnderecoCartao.getString("Cep");
+
+                    etNomeCartao.setText(nomeTitular);
+                    etNumeroCartao.setText(numeroCartao);
+                    etCodigoSeg.setText(codSeg);
+                    etDataVenc.setText(validade);
+                    spBandeira.setSelection(bandeira.equals("Visa")?1:2);
+                    //rgSimNao;
+
+                    etRuaEnderecoCartao.setText(ruaEndereco);
+                    etNumeroEnderecoCartao.setText(numeroEndereco);
+                    etComplementoEnderecoCartao.setText(complementoEndereco);
+                    etBairroEnderecoCartao.setText(bairroEndereco);
+                    etEstadoEndereco.setText(estado);
+                    etCidadeEnderecoCartao.setText(cidade);
+                    etCep.setText(cep);
+
+
+
 
                 }else{
                     Toast.makeText(getApplicationContext(),mensagemRetorno,Toast.LENGTH_SHORT).show();
@@ -127,6 +197,72 @@ public class EditarCartaoActivity extends AppCompatActivity {
             }
 
 
+        }
+    }
+
+
+    private class SendAllInformationsToUpdate extends AsyncTask<String,Void,Integer>{
+
+        ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(EditarCartaoActivity.this,"Aguarde","Atualizando dados do cartäo");
+        }
+
+        @Override
+        protected Integer doInBackground(String... params) {
+
+            URL url;
+
+            try {
+                url = new URL("http://paguefacilbinatron.azurewebsites.net/api/CadastroCartaoWeb/"+params[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("PUT");
+                connection.setRequestProperty("Content-type","application/json");
+
+                JSONObject jsonParamsCartao = new JSONObject();
+                jsonParamsCartao.put("Numero",params[1]);
+                jsonParamsCartao.put("NomeTitular",params[2]);
+                jsonParamsCartao.put("Validade",params[3]);
+                jsonParamsCartao.put("Bandeira",params[4]);
+                jsonParamsCartao.put("CodigoSeguranca",params[5]);
+
+                JSONObject jsonUsuarioObject = new JSONObject();
+                jsonUsuarioObject.put("CartaoCredito",jsonParamsCartao);
+
+                JSONObject jsonParamsEndereco = new JSONObject();
+                jsonParamsEndereco.put("Rua",params[6]);
+                jsonParamsEndereco.put("Numero",params[7]);
+                jsonParamsEndereco.put("Bairro",params[8]);
+                jsonParamsEndereco.put("Complemento",params[9]);
+                jsonParamsEndereco.put("Estado",params[10]);
+                jsonParamsEndereco.put("Cep",params[11]);
+                jsonParamsEndereco.put("Cidade",params[12]);
+
+                jsonUsuarioObject.put("EnderecoCartao",jsonParamsEndereco);
+
+                OutputStreamWriter stream = new OutputStreamWriter(connection.getOutputStream());
+                stream.write(jsonUsuarioObject.toString());
+                stream.close();
+
+                return connection.getResponseCode();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
         }
     }
 
@@ -144,6 +280,11 @@ public class EditarCartaoActivity extends AppCompatActivity {
         etComplementoEnderecoCartao = (EditText)findViewById(R.id.et_complemento_editar_cartao);
         etBairroEnderecoCartao = (EditText)findViewById(R.id.et_bairro_editar_cartao);
         etCidadeEnderecoCartao = (EditText)findViewById(R.id.et_cidade_editar_cartao);
+        etEstadoEndereco = (EditText)findViewById(R.id.et_estado_editar_cartao);
+        etCep = (EditText)findViewById(R.id.et_cep_editar_cartao);
+
+        btConfirmaEdicao = (Button)findViewById(R.id.bt_confirma_edicao_cartao);
+        btConfirmaEdicao.setOnClickListener(this);
     }
 
     private String cardId() {
