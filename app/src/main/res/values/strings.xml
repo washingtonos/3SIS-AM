@@ -23,4 +23,10 @@
     <string name="voc_precisa_preencher_apenas_as_informa_es_obrigat_rias_Cadastro">* Você precisa preencher apenas as informações obrigatórias</string>
     <string name="cadastro_Cadastro">Cadastro</string>
     <string name="bloqueado">bloqueio</string>
+    <string name="j_possuo_uma_conta_Cadastro">Já possuo uma conta</string>
+    <string name="cep_Cadastro">Cep</string>
+    <string name="estado_Cadastro">Estado</string>
+    <string name="cidade_Cadastro">Cidade</string>
+    <string name="numero_Cadastro">Número</string>
+    <string name="endereco_Cadastro">Endereço</string>
 </resources>

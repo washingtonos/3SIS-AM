@@ -20,8 +20,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -46,6 +48,7 @@ public class MenuActivity extends AppCompatActivity {
     private ListView listaVenda;
     private ImageView imageViewQrCode;
     private FloatingActionButton fab;
+    LinearLayout linearLayoutAccount;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -135,12 +138,20 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
         switch (item.getItemId()){
 
-            case R.id.item_configuracao:
+            case R.id.item_editar_perfil:
+                intent = new Intent(MenuActivity.this,EditarPerfilActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.item_editar_cartao:
+                intent = new Intent(MenuActivity.this,EditarCartaoActivity.class);
+                startActivity(intent);
                 break;
             case R.id.item_sair:
-                Intent intent = new Intent(MenuActivity.this,LoginActivity.class);
+                intent = new Intent(MenuActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -300,6 +311,7 @@ public class MenuActivity extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+            }
 
             }else{
 
