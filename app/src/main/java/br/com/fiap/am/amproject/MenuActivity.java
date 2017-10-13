@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,15 +13,21 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -36,10 +43,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
-import br.com.fiap.am.model.ProdutoParaVender;
+import br.com.fiap.am.model.Produto;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -51,39 +61,51 @@ public class MenuActivity extends AppCompatActivity {
     private String nomes[];
     private String precos [];
     private String paths [];
+    private RelativeLayout rlBotao;
+    private RelativeLayout rlProduto;
+    private RelativeLayout rlHistorico;
+    private RelativeLayout rlCompra;
+    private String mesesDoAno [] = {
+            "Janeiro",
+            "Fevereiro",
+            "Marco",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosto",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro"};
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            MenuAsynTaskManager menuAsynTaskManager = new MenuAsynTaskManager();
+            ListAllTransactions listAllTransactions = new ListAllTransactions();
             Button button = (Button)findViewById(R.id.button_ler_qr_code);
+            String id = loadSharedPreferences();
             switch (item.getItemId()) {
                 case R.id.navigation_my_account:
-                   // mTextMessage.setText(R.string.title_account);
-                    button.setVisibility(View.INVISIBLE);
-                    listView.setVisibility(View.VISIBLE);
-                    imageViewQrCode.setVisibility(View.INVISIBLE);
-                    fab.setVisibility(View.GONE);
-                    menuAsynTaskManager.execute("account");
+                    listAllTransactions.execute(id);
+                    rlProduto.setVisibility(View.GONE);
+                    rlHistorico.setVisibility(View.VISIBLE);
+                    rlCompra.setVisibility(View.GONE);
+                    rlBotao.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_buy:
-                    //mTextMessage.setText(R.string.title_buy);
-                    button.setVisibility(View.VISIBLE);
-                    listView.setVisibility(View.INVISIBLE);
-                    imageViewQrCode.setVisibility(View.VISIBLE);
-                    fab.setVisibility(View.GONE);
+                    rlCompra.setVisibility(View.VISIBLE);
+                    rlHistorico.setVisibility(View.GONE);
+                    rlProduto.setVisibility(View.GONE);
+                    rlBotao.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_sell:
-                    button.setVisibility(View.INVISIBLE);
-                    imageViewQrCode.setVisibility(View.INVISIBLE);
-                    fab.setVisibility(View.VISIBLE);
+                    rlHistorico.setVisibility(View.GONE);
+                    rlCompra.setVisibility(View.GONE);
                     ListAllItemsToSell laits = new ListAllItemsToSell();
-                    String id = loadSharedPreferences();
                     laits.execute();
-                    llProdutoCadastrado.setVisibility(View.VISIBLE);
-                    listView.setVisibility(View.GONE);
                     return true;
 
             }
@@ -148,7 +170,7 @@ public class MenuActivity extends AppCompatActivity {
 
             try {
 
-                ArrayList<ProdutoParaVender> listaDeProdutos = new ArrayList<ProdutoParaVender>();
+                ArrayList<Produto> listaDeProdutos = new ArrayList<Produto>();
                 int index=0;
                 //JSONObject jsonObjectDadosProdutoParaVender = new JSONObject(s);
                 JSONArray arrayOsItems = new JSONArray(s);
@@ -159,7 +181,7 @@ public class MenuActivity extends AppCompatActivity {
 
 
                     if(jsonObject.getString("UsuarioId").equals(loadSharedPreferences())){
-                        ProdutoParaVender ppv = new ProdutoParaVender();
+                        Produto ppv = new Produto();
                         ppv.setNome(jsonObject.getString("Nome"));
                         ppv.setPreco(jsonObject.getString("Preco"));
                         ppv.setImagemUrl(jsonObject.getString("ImagemUrl"));
@@ -171,6 +193,8 @@ public class MenuActivity extends AppCompatActivity {
 
                 llProdutoCadastrado.setAdapter(new CustomAdapter(MenuActivity.this,listaDeProdutos));
 
+                rlProduto.setVisibility(View.VISIBLE);
+                rlBotao.setVisibility(View.VISIBLE);
 
 
 
@@ -191,31 +215,42 @@ public class MenuActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
+        //capturar Relative Layout
+        rlBotao = (RelativeLayout)findViewById(R.id.rl_botao);
+        rlHistorico = (RelativeLayout)findViewById(R.id.rl_historico);
+        rlProduto = (RelativeLayout)findViewById(R.id.rl_produtos);
+        rlCompra = (RelativeLayout)findViewById(R.id.rl_compra);
+        rlProduto.setVisibility(View.GONE);
+        rlCompra.setVisibility(View.GONE);
+        rlBotao.setVisibility(View.GONE);
+
 
         //Capturar Listview
-        listView = (ListView) findViewById(R.id.lv_historico);
-        listView.setVisibility(View.GONE);
+        //listView = (ListView) findViewById(R.id.lv_historico);
+        //listView.setVisibility(View.GONE);
 
         llProdutoCadastrado = (ListView)findViewById(R.id.ll_itens_cadastrados);
-        llProdutoCadastrado.setVisibility(View.GONE);
+        //llProdutoCadastrado.setVisibility(View.GONE);
 
         //Capturar Imagem de QrCode
         imageViewQrCode = (ImageView)findViewById(R.id.imv_qrcode);
-        imageViewQrCode.setVisibility(View.INVISIBLE);
+        //imageViewQrCode.setVisibility(View.INVISIBLE);
 
         //Coloca botao invisivel
         Button button = (Button)findViewById(R.id.button_ler_qr_code);
-        button.setVisibility(View.INVISIBLE);
+        //button.setVisibility(View.INVISIBLE);
 
         //set Toolbar
         Toolbar mToolBar = (Toolbar)findViewById(R.id.toolbar_menuactivity);
         setSupportActionBar(mToolBar);
 
-        MenuAsynTaskManager menuAsynTaskManager = new MenuAsynTaskManager();
-        menuAsynTaskManager.execute("account");
+        rlHistorico.setVisibility(View.VISIBLE);
+        ListAllTransactions listAllTransactions = new ListAllTransactions();
+        listAllTransactions.execute(loadSharedPreferences());
+
 
         fab = (FloatingActionButton) findViewById(R.id.fbt_add);
-        fab.setVisibility(View.GONE);
+        //fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -290,7 +325,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private class MenuAsynTaskManager extends AsyncTask<String,Void,String>{
+    private class ListAllTransactions extends AsyncTask<String,Void,String>{
 
         ProgressDialog progressDialog;
 
@@ -301,28 +336,66 @@ public class MenuActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            return strings[0];
+
+            try {
+                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/TransacionarWeb/"+strings[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept","application/json");
+
+                if(connection.getResponseCode()==200){
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder builder = new StringBuilder();
+                    String linha = "";
+
+                    while((linha=reader.readLine())!=null){
+
+                        builder.append(linha);
+                    }
+
+                    connection.disconnect();
+
+                    return builder.toString();
+
+                }else {
+
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar os produtos",Toast.LENGTH_SHORT).show();
+
+
+                }
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+
         }
 
         @Override
         protected void onPostExecute(String s) {
             progressDialog.dismiss();
-            ArrayAdapter adapter;
-            if(!s.equals("")){
-                switch (s){
-                    case "account":
-                        List<String> listaItensConta = new ArrayList<String>();
-                        listaItensConta.removeAll(listaItensConta);
-                        listaItensConta.add("item 1");
-                        listaItensConta.add("item 2");
-                        adapter = new ArrayAdapter(MenuActivity.this,android.R.layout.simple_list_item_1,listaItensConta);
+            JSONArray arrayOfSoldItems = null;
+            try {
+                arrayOfSoldItems = new JSONArray(s);
+                /*for (int i = 0;i<arrayOfSoldItems.length();i++){
 
-                        listView.setAdapter(adapter);
-                        break;
-                }
+                    JSONObject jsonObject = (JSONObject)arrayOfSoldItems.get(i);
+
+                    createChildsProgrammatically(jsonObject);
+                }*/
+
+                createChildsProgrammatically(arrayOfSoldItems);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            super.onPostExecute(s);
         }
     }
 
@@ -330,6 +403,100 @@ public class MenuActivity extends AppCompatActivity {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         return sp.getString("id",null);
+    }
+
+
+    private void createChildsProgrammatically(JSONArray jsonArray){
+
+
+
+        //LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_for_months);
+        //linearLayout.removeAllViews();
+
+        TableLayout tblayout = (TableLayout)findViewById(R.id.ll_for_months);
+        tblayout.removeAllViews();
+        String mesValida="";
+        int indexMes=0;
+        TableRow.LayoutParams trParams = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,(float)1);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams paramsForChild = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+
+
+
+
+
+        for (int i = 0;i<jsonArray.length();i++){
+
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String dataTransacao = jsonObject.getString("DataTransacao");
+                String comprador = jsonObject.getString("CompradorId");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Calendar calendar = Calendar.getInstance();
+                Date date = dateFormat.parse(dataTransacao);
+                calendar.setTime(date);
+
+                String month = new SimpleDateFormat("MMMM").format(calendar.getTime());
+
+                if(!month.equalsIgnoreCase(mesValida)){
+
+                    TableRow tableRow = new TableRow(this);
+
+                    //tableRow.setLayoutParams(trParams);
+                    TextView texto = new TextView(this);
+                    texto.setLayoutParams(trParams);
+                    String primeiraLetra = month.substring(0,1).toUpperCase();
+                    String mesComLetraCapital = primeiraLetra+month.substring(1);
+
+                    texto.setText(mesComLetraCapital);
+                    texto.setTextSize(18);
+                    texto.setTypeface(Typeface.DEFAULT_BOLD);
+                    texto.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark,null));
+                    texto.setTextColor(getResources().getColor(R.color.colorSecondary,null));
+                    texto.setGravity(Gravity.CENTER);
+                    texto.setPadding(32,32,32,32);
+                    tableRow.addView(texto);
+                    tblayout.addView(tableRow);
+                    //linearLayout.addView(texto);
+
+                    mesValida = month;
+
+                }
+
+                //linearLayoutForChilds.setLayoutParams(paramsForChild);
+                TableRow tableRow = new TableRow(this);
+
+                JSONObject produtoParaVenderObject = jsonObject.getJSONObject("ProdutoParaVender");
+                TextView texto = new TextView(this);
+                texto.setLayoutParams(trParams);
+                texto.setText(produtoParaVenderObject.getString("Nome"));
+                texto.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight,null));
+                texto.setPadding(64,32,16,32);
+                tableRow.addView(texto);
+
+                TextView textoTeste = new TextView(this);
+                textoTeste.setLayoutParams(trParams);
+                textoTeste.setText(comprador.equals(loadSharedPreferences())?"--"+produtoParaVenderObject.getString("Preco"):"++"+produtoParaVenderObject.getString("Preco"));
+                textoTeste.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight,null));
+                textoTeste.setPadding(16,32,64,32);
+                textoTeste.setGravity(Gravity.RIGHT);
+                textoTeste.setTextColor(comprador.equals(loadSharedPreferences())?getResources().getColor(R.color.colorSecondaryDark,null):getResources().getColor(R.color.colorCheck,null));
+                tableRow.addView(textoTeste);
+                tblayout.addView(tableRow);
+                //linearLayout.addView(texto);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
     }
 
 

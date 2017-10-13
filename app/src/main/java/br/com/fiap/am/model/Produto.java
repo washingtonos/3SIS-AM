@@ -7,7 +7,7 @@ import android.widget.TextView;
  * Created by Renan Lima on 02/10/2017.
  */
 
-public class ProdutoParaVender {
+public class Produto {
 
     private String nome;
     private String preco;

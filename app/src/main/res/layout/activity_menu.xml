@@ -26,7 +26,7 @@
         >
         <RelativeLayout
             android:layout_gravity="center"
-            android:id="@+id/rl_conta"
+            android:id="@+id/rl_compra"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center">
@@ -49,13 +49,37 @@
                 android:textSize="18sp"
                 android:text="Escanear QR Code"
                 android:textAllCaps="false"/>
-            <ListView
-                android:id="@+id/lv_historico"
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_historico"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:divider="@null">
+                android:fillViewport="true">
 
-            </ListView>
+                <TableLayout
+                    android:id="@+id/ll_for_months"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </TableLayout>
+                <!--LinearLayout
+                    android:id="@+id/ll_for_months"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                </LinearLayout-->
+            </ScrollView>
 
 
         </RelativeLayout>
@@ -78,16 +102,21 @@
 
         </RelativeLayout>
 
-
+        <RelativeLayout
+            android:id="@+id/rl_botao"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|right">
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fbt_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                app:srcCompat="@drawable/ic_add_black_24dp" />
+        </RelativeLayout>
     </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fbt_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
