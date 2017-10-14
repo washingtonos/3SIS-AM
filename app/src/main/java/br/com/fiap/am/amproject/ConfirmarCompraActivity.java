@@ -142,6 +142,8 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
             try {
                 URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/TransacionarWeb/");
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+                connection.setConnectTimeout(4000);
+                connection.setReadTimeout(4000);
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type","application/json");
 
@@ -171,6 +173,8 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
 
                     return builder.toString();
 
+                }if(connection.getResponseCode()==500){
+                    return "500";
                 }
 
             } catch (MalformedURLException e) {
@@ -189,25 +193,35 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             progress.dismiss();
 
+            if(s!=null){
+                if(!s.equals("500")){
+                    try {
+                        JSONObject responseObject = new JSONObject(s);
+                        String mensagem = responseObject.getString("MensagemRetorno");
+                        boolean deuErro = responseObject.getBoolean("DeuErro");
 
-            try {
-                JSONObject responseObject = new JSONObject(s);
-                String mensagem = responseObject.getString("MensagemRetorno");
-                boolean deuErro = responseObject.getBoolean("DeuErro");
+                        if(!deuErro){
+                            Toast.makeText(getApplicationContext(),"Sua compra foi realizada!",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ConfirmarCompraActivity.this,MenuActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }else {
+                            Toast.makeText(getApplicationContext(),mensagem,Toast.LENGTH_SHORT).show();
+                        }
 
-                if(!deuErro){
-                    Toast.makeText(getApplicationContext(),"Sua compra foi realizada!",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ConfirmarCompraActivity.this,MenuActivity.class);
-                    startActivity(intent);
-                    finish();
-                }else {
-                    Toast.makeText(getApplicationContext(),mensagem,Toast.LENGTH_SHORT).show();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao finalizar a transacao",Toast.LENGTH_SHORT).show();
                 }
 
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+            }else{
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
             }
+
+
 
         }
     }

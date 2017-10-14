@@ -25,6 +25,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import br.com.fiap.am.model.MaskWatcher;
+
 public class EditarPerfilActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText cpfUsuario;
@@ -83,7 +85,7 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private class SendAllInformationsToUpdate extends AsyncTask<String,Void,Integer>{
+    private class SendAllInformationsToUpdate extends AsyncTask<String,Void,String>{
 
         ProgressDialog progress;
 
@@ -93,7 +95,7 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         }
 
         @Override
-        protected Integer doInBackground(String... params) {
+        protected String doInBackground(String... params) {
 
             URL url;
 
@@ -118,7 +120,7 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
                 jsonParamsEndereco.put("Complemento",params[7]);
                 jsonParamsEndereco.put("Estado",params[8]);
                 jsonParamsEndereco.put("Cidade",params[9]);
-                jsonParamsEndereco.put("Cep",params[10]);
+                jsonParamsEndereco.put("Cep",params[10].replace("-",""));
 
                 jsonUsuarioObject.put("EnderecoUsuario",jsonParamsEndereco);
 
@@ -126,7 +128,14 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
                 stream.write(jsonUsuarioObject.toString());
                 stream.close();
 
-                return connection.getResponseCode();
+                if(connection.getResponseCode()==200){
+                    return "200";
+
+                }else if(connection.getResponseCode()==500){
+                    return "500";
+                }
+
+
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -141,18 +150,24 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         }
 
         @Override
-        protected void onPostExecute(Integer integer) {
+        protected void onPostExecute(String s) {
             progress.dismiss();
 
-            if(integer==200){
-                Toast.makeText(EditarPerfilActivity.this,"Dados atualizados",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(EditarPerfilActivity.this,MenuActivity.class);
-                startActivity(intent);
-                finish();
+            if(s!=null){
+                if(s.equals("200")){
+                    Toast.makeText(EditarPerfilActivity.this,"Dados atualizados",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(EditarPerfilActivity.this,MenuActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else if(s.equals("500")){
+                    Toast.makeText(EditarPerfilActivity.this,"Ocorreu um erro ao atualizar os dados",Toast.LENGTH_LONG).show();
+                }
+            }else {
+                Toast.makeText(EditarPerfilActivity.this,"Ocorreu um erro inesperado",Toast.LENGTH_LONG).show();
             }
-            else{
-                Toast.makeText(EditarPerfilActivity.this,"Algo deu errado",Toast.LENGTH_LONG).show();
-            }
+
+
         }
     }
 
@@ -188,8 +203,8 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
                     connection.disconnect();
 
                     return builder.toString();
-                }else {
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar",Toast.LENGTH_SHORT).show();
+                }else if(connection.getResponseCode()==500) {
+                    return "500";
                 }
 
             } catch (MalformedURLException e) {
@@ -204,36 +219,50 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         @Override
         protected void onPostExecute(String s) {
             progress.dismiss();
-            try {
-                JSONObject jsonUsuarioObject = new JSONObject(s);
-                JSONObject jsonDadosUsuarioObject = jsonUsuarioObject.getJSONObject("Usuario");
-                String nome = jsonDadosUsuarioObject.getString("Nome");
-                String senha = jsonDadosUsuarioObject.getString("Senha");
-                String cpf = jsonDadosUsuarioObject.getString("Cpf");
 
-                JSONObject jsonEnderecoObject = jsonUsuarioObject.getJSONObject("EnderecoUsuario");
-                String rua = jsonEnderecoObject.getString("Rua");
-                String numero = jsonEnderecoObject.getString("Numero");
-                String bairro = jsonEnderecoObject.getString("Bairro");
-                String complemento = jsonEnderecoObject.getString("Complemento");
-                String estado = jsonEnderecoObject.getString("Estado");
-                String cep = jsonEnderecoObject.getString("Cep");
-                String cidade = jsonEnderecoObject.getString("Cidade");
+            if(s!=null){
+                if(!s.equals("500")){
+                    try {
+                        JSONObject jsonUsuarioObject = new JSONObject(s);
+                        JSONObject jsonDadosUsuarioObject = jsonUsuarioObject.getJSONObject("Usuario");
+                        String nome = jsonDadosUsuarioObject.getString("Nome");
+                        String senha = jsonDadosUsuarioObject.getString("Senha");
+                        String cpf = jsonDadosUsuarioObject.getString("Cpf");
+
+                        JSONObject jsonEnderecoObject = jsonUsuarioObject.getJSONObject("EnderecoUsuario");
+                        String rua = jsonEnderecoObject.getString("Rua");
+                        String numero = jsonEnderecoObject.getString("Numero");
+                        String bairro = jsonEnderecoObject.getString("Bairro");
+                        String complemento = jsonEnderecoObject.getString("Complemento");
+                        String estado = jsonEnderecoObject.getString("Estado");
+                        String cep = jsonEnderecoObject.getString("Cep");
+                        cep = new StringBuilder(cep).insert(cep.length()-3,"-").toString();
+                        String cidade = jsonEnderecoObject.getString("Cidade");
 
 
-                cpfUsuario.setText(cpf);
-                nomeUsuario.setText(nome);
-                ruaUsuario.setText(rua);
-                numeroUsuario.setText(numero);
-                complementoUsuario.setText(complemento);
-                bairroUsuario.setText(bairro);
-                cidadeUsuario.setText(cidade);
-                estadoUsuario.setText(estado);
-                cepUsuario.setText(cep);
+                        cpfUsuario.setText(cpf);
+                        nomeUsuario.setText(nome);
+                        ruaUsuario.setText(rua);
+                        numeroUsuario.setText(numero);
+                        complementoUsuario.setText(complemento);
+                        bairroUsuario.setText(bairro);
+                        cidadeUsuario.setText(cidade);
+                        estadoUsuario.setText(estado);
+                        cepUsuario.addTextChangedListener(new MaskWatcher("#####-###"));
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+                        cepUsuario.setText(cep);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar informacoes",Toast.LENGTH_SHORT).show();
+                }
+
+            }else {
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
             }
+
 
 
         }
@@ -250,6 +279,7 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
         cidadeUsuario = (EditText)findViewById(R.id.et_cidade_editar_perfil);
         estadoUsuario = (EditText)findViewById(R.id.et_estado_editar_perfil);
         cepUsuario = (EditText)findViewById(R.id.et_cep_editar_perfil);
+
     }
 
     private String getSharedPreferences(){
