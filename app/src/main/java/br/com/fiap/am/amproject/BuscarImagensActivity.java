@@ -170,8 +170,13 @@ public class BuscarImagensActivity extends AppCompatActivity {
     }
 
     public void callInformacoesSobreVendaActivity(View view) {
+
+        imagePhotoPath = "";
         Intent intent = new Intent(BuscarImagensActivity.this,InformacoesSobreVendaActivity.class);
         intent.putExtra("classe",this.getLocalClassName());
+        intent.putExtra("path",imagePhotoPath);
+        intent.putExtra("nomeProduto",nomeProduto);
+        intent.putExtra("precoProduto",precoProduto);
         startActivity(intent);
     }
 

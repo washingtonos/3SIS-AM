@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
             try{
                 url = new URL("http://paguefacilbinatron.azurewebsites.net/api/LoginWeb");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(4000);
+                connection.setReadTimeout(4000);
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type", "application/json");
 

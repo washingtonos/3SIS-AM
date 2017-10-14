@@ -1,6 +1,7 @@
 package br.com.fiap.am.amproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
@@ -20,7 +21,7 @@ import br.com.fiap.am.model.Produto;
  * Created by renan on 10/12/17.
  */
 
-public class CustomAdapter extends ArrayAdapter<Produto> implements View.OnClickListener {
+public class CustomAdapter extends ArrayAdapter<Produto>{
 
 
 
@@ -52,7 +53,7 @@ public class CustomAdapter extends ArrayAdapter<Produto> implements View.OnClick
 
         Produto ppv = getItem(i);
 
-        ViewHolder holder;
+        final ViewHolder holder;
 
         final View result;
 
@@ -64,17 +65,20 @@ public class CustomAdapter extends ArrayAdapter<Produto> implements View.OnClick
             holder.tvPreco = (TextView)view.findViewById(R.id.tv_ll_preco_produto_para_vender);
             holder.imagem = (ImageView)view.findViewById(R.id.imv_ll_produto_para_vender);
 
+            //holder.path = listaDeProdutos.get(i).getImagemUrl();
+
             result = view;
             view.setTag(holder);
         }else{
             holder = (ViewHolder)view.getTag();
             result = view;
         }
-
+        holder.id=listaDeProdutos.get(i).getId();
+        holder.usuarioId = listaDeProdutos.get(i).getUsuario().getId();
         holder.tvNome.setText(ppv.getNome());
         holder.tvPreco.setText("R$ "+ppv.getPreco());
-        String path = ppv.getImagemUrl().replace('-','/');
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        holder.path = ppv.getImagemUrl().replace('-','/');
+        Bitmap bitmap = BitmapFactory.decodeFile(holder.path);
 
         if(bitmap!=null){
 
@@ -87,21 +91,32 @@ public class CustomAdapter extends ArrayAdapter<Produto> implements View.OnClick
             holder.imagem.setImageResource(R.drawable.ic_image_black_24dp);
         }
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                Intent intent = new Intent(context.getApplicationContext(),InformacoesSobreVendaActivity.class);
+                intent.putExtra("classe","MenuActivity");
+                intent.putExtra("path",holder.path);
+                intent.putExtra("nomeProduto",holder.tvNome.getText().toString());
+                intent.putExtra("precoProduto",holder.tvPreco.getText().toString());
+                intent.putExtra("id",holder.id);
+                intent.putExtra("usuarioId",holder.usuarioId);
+                context.startActivity(intent);
+
+            }
+        });
         return view;
-    }
-
-    @Override
-    public void onClick(View view) {
-
-        Toast.makeText(context,"Ok",Toast.LENGTH_SHORT).show();
-
     }
 
 
     private static class ViewHolder{
+        String id;
+        String usuarioId;
+        String path;
         TextView tvNome;
         TextView tvPreco;
         ImageView imagem;
+
     }
 }

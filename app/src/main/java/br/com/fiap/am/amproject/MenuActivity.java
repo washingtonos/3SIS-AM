@@ -30,6 +30,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.common.StringUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -130,6 +131,8 @@ public class MenuActivity extends AppCompatActivity {
             try {
                 URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(4000);
+                connection.setReadTimeout(4000);
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Accept","application/json");
 
@@ -147,10 +150,12 @@ public class MenuActivity extends AppCompatActivity {
 
                     return builder.toString();
 
-                }else {
+                }else if(connection.getResponseCode()==500){
+                    Toast.makeText(getApplicationContext(),"Ops, erro do servidor, tente novamente.",Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar os produtos",Toast.LENGTH_SHORT).show();
-
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro, tente novamente",Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -182,6 +187,8 @@ public class MenuActivity extends AppCompatActivity {
 
                     if(jsonObject.getString("UsuarioId").equals(loadSharedPreferences())){
                         Produto ppv = new Produto();
+                        ppv.getUsuario().setId(loadSharedPreferences());
+                        ppv.setId(jsonObject.getString("Id"));
                         ppv.setNome(jsonObject.getString("Nome"));
                         ppv.setPreco(jsonObject.getString("Preco"));
                         ppv.setImagemUrl(jsonObject.getString("ImagemUrl"));
@@ -315,10 +322,24 @@ public class MenuActivity extends AppCompatActivity {
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 
+
         if(intentResult.getContents()!=null){
-            Intent intent = new Intent(MenuActivity.this,ConfirmarCompraActivity.class);
-            startActivity(intent);
-            finish();
+
+            if(data.getExtras()!=null){
+                String scan_result = data.getStringExtra("SCAN_RESULT");
+                String dadosResult [] = scan_result.split("\\|");
+                String result = intentResult.getContents();
+                Intent intent = new Intent(MenuActivity.this,ConfirmarCompraActivity.class);
+                intent.putExtra("DataHora",dadosResult[1]);
+                intent.putExtra("Nome",dadosResult[2]);
+                intent.putExtra("Preco",dadosResult[3]);
+                intent.putExtra("Quantidade",dadosResult[5]);
+                intent.putExtra("UsuarioId",dadosResult[6]);
+                intent.putExtra("Id",dadosResult[7]);
+                startActivity(intent);
+                finish();
+            }
+
 
         }
 
@@ -340,6 +361,8 @@ public class MenuActivity extends AppCompatActivity {
             try {
                 URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/TransacionarWeb/"+strings[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(4000);
+                connection.setReadTimeout(4000);
                 connection.setRequestMethod("GET");
                 connection.setRequestProperty("Accept","application/json");
 
@@ -382,15 +405,7 @@ public class MenuActivity extends AppCompatActivity {
             JSONArray arrayOfSoldItems = null;
             try {
                 arrayOfSoldItems = new JSONArray(s);
-                /*for (int i = 0;i<arrayOfSoldItems.length();i++){
-
-                    JSONObject jsonObject = (JSONObject)arrayOfSoldItems.get(i);
-
-                    createChildsProgrammatically(jsonObject);
-                }*/
-
                 createChildsProgrammatically(arrayOfSoldItems);
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -409,22 +424,11 @@ public class MenuActivity extends AppCompatActivity {
     private void createChildsProgrammatically(JSONArray jsonArray){
 
 
-
-        //LinearLayout linearLayout = (LinearLayout)findViewById(R.id.ll_for_months);
-        //linearLayout.removeAllViews();
-
         TableLayout tblayout = (TableLayout)findViewById(R.id.ll_for_months);
         tblayout.removeAllViews();
         String mesValida="";
         int indexMes=0;
         TableRow.LayoutParams trParams = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,(float)1);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        LinearLayout.LayoutParams paramsForChild = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-
-
-
-
 
         for (int i = 0;i<jsonArray.length();i++){
 
@@ -443,7 +447,6 @@ public class MenuActivity extends AppCompatActivity {
 
                     TableRow tableRow = new TableRow(this);
 
-                    //tableRow.setLayoutParams(trParams);
                     TextView texto = new TextView(this);
                     texto.setLayoutParams(trParams);
                     String primeiraLetra = month.substring(0,1).toUpperCase();
@@ -458,13 +461,11 @@ public class MenuActivity extends AppCompatActivity {
                     texto.setPadding(32,32,32,32);
                     tableRow.addView(texto);
                     tblayout.addView(tableRow);
-                    //linearLayout.addView(texto);
 
                     mesValida = month;
 
                 }
 
-                //linearLayoutForChilds.setLayoutParams(paramsForChild);
                 TableRow tableRow = new TableRow(this);
 
                 JSONObject produtoParaVenderObject = jsonObject.getJSONObject("ProdutoParaVender");
@@ -484,7 +485,6 @@ public class MenuActivity extends AppCompatActivity {
                 textoTeste.setTextColor(comprador.equals(loadSharedPreferences())?getResources().getColor(R.color.colorSecondaryDark,null):getResources().getColor(R.color.colorCheck,null));
                 tableRow.addView(textoTeste);
                 tblayout.addView(tableRow);
-                //linearLayout.addView(texto);
 
 
             } catch (JSONException e) {
@@ -493,9 +493,6 @@ public class MenuActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-
-
 
     }
 

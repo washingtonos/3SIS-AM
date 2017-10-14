@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class Produto {
 
+    private String id;
     private String nome;
     private String preco;
     private String descricao;
@@ -18,7 +19,27 @@ public class Produto {
     private TextView precoProduto;
     private TextView nomeProduto;
     private ImageView imagemProduto;
+    private Usuario usuario;
 
+    public Produto() {
+        usuario = new Usuario();
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public ImageView getImagemProduto() {
         return imagemProduto;
