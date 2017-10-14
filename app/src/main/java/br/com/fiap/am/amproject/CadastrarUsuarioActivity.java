@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,7 +18,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class CadastrarUsuarioActivity extends AppCompatActivity {
+public class CadastrarUsuarioActivity extends AppCompatActivity implements TextWatcher {
 
     private EditText etCpf, etnome, etSenha, etConfirmaSenha,
                 etRua, etNumero,etComplemneto, etBairro, etCidade, etEstado, etCep;
@@ -43,6 +45,8 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
         etEstado = (EditText) findViewById(R.id.et_Estado);
         etCep = (EditText) findViewById(R.id.et_Cep);
 
+        etConfirmaSenha.addTextChangedListener(this);
+
 
     }
 
@@ -52,6 +56,28 @@ public class CadastrarUsuarioActivity extends AppCompatActivity {
                      etConfirmaSenha.getText().toString(),etRua.getText().toString(),etNumero.getText().toString(),
                      etComplemneto.getText().toString(),etBairro.getText().toString(),etCidade.getText().toString(),
                      etEstado.getText().toString(),etCep.getText().toString());
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
+        String value = editable.toString();
+
+        if(value.equals(etSenha.getText().toString())){
+
+            Toast.makeText(getApplicationContext(),"Senha Confirmada",Toast.LENGTH_SHORT).show();
+        }
 
     }
 

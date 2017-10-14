@@ -265,7 +265,8 @@
         android:background="@drawable/button_shape"
         android:onClick="Cadastrar"
         android:text="@string/cadastrar_Cadastro"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:layout_marginBottom="64dp"/>
 
     <TextView
         android:id="@+id/tv_jaTemConta"
@@ -274,5 +275,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:onClick="haveAnAccount"
-        android:text="@string/j_possuo_uma_conta_Cadastro" />
+        android:text="@string/j_possuo_uma_conta_Cadastro"
+        android:layout_marginBottom="64dp"/>
 </LinearLayout>

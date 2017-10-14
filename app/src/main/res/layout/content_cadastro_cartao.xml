@@ -43,7 +43,7 @@
             <EditText
                 android:id="@+id/et_nome_cadastrar_cartao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_below="@+id/tv_nome_cadastrar_cartao"
                 android:inputType="text" />
 
@@ -58,7 +58,7 @@
             <EditText
                 android:id="@+id/et_numerocartao_cadastrar_cartao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_below="@id/tv_numerocartao_cadastrar_cartao"
                 android:inputType="number" />
 
@@ -83,7 +83,7 @@
                 <EditText
                     android:id="@+id/et_cod_seg_cadastrar_cartao"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_column="0"
                     android:layout_columnWeight="1"
                     android:layout_marginRight="32dp"
@@ -104,7 +104,7 @@
                 <EditText
                     android:id="@+id/et_data_venc_cadastrar_cartao"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_column="1"
                     android:layout_columnWeight="4"
                     android:layout_row="1"
@@ -185,7 +185,7 @@
                 android:layout_below="@+id/tv_rua_cadastrar_cartao"
                 android:id="@+id/et_rua_cadastrar_cartao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:inputType="text"
                 android:foregroundGravity="fill_horizontal"
 
@@ -211,7 +211,7 @@
                     android:layout_columnWeight="1"
                     android:id="@+id/et_numero_cadastrar_cartao"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:inputType="number"
                     android:layout_column="0"
                     android:layout_row="1"
@@ -229,7 +229,7 @@
                     android:layout_columnWeight="4"
                     android:id="@+id/et_complemento_cadastrar_cartao"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:inputType="text"
                     android:layout_column="1"
                     android:layout_row="1"
@@ -248,7 +248,7 @@
                 android:layout_below="@+id/tv_bairro_cadastrar_cartao"
                 android:id="@+id/et_bairro_cadastrar_cartao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:inputType="text"
                 android:foregroundGravity="fill_horizontal"
                 />
@@ -264,7 +264,7 @@
                 android:layout_below="@+id/tv_cidade_cadastrar_cartao"
                 android:id="@+id/et_cidade_cadastrar_cartao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:inputType="text"
                 android:foregroundGravity="fill_horizontal"
                 />
@@ -289,7 +289,7 @@
                     android:layout_columnWeight="1"
                     android:id="@+id/et_estado_cadastrar_cartao"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:inputType="text"
                     android:layout_column="0"
                     android:layout_row="1"
@@ -307,7 +307,7 @@
                     android:layout_columnWeight="4"
                     android:id="@+id/et_cep_cadastrar_cartao"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:inputType="number"
                     android:layout_column="1"
                     android:layout_row="1"

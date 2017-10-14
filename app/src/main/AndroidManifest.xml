@@ -91,7 +91,7 @@
         </activity>
         <activity
             android:name=".CadastrarUsuarioActivity"
-            android:label="Cadastro">
+            android:label="Cadastro de Usuario">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FirstActivity" />
