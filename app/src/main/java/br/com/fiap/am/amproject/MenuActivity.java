@@ -90,6 +90,7 @@ public class MenuActivity extends AppCompatActivity {
             String id = loadSharedPreferences();
             switch (item.getItemId()) {
                 case R.id.navigation_my_account:
+                    getSupportActionBar().setTitle("Historico");
                     listAllTransactions.execute(id);
                     rlProduto.setVisibility(View.GONE);
                     rlHistorico.setVisibility(View.VISIBLE);
@@ -97,12 +98,14 @@ public class MenuActivity extends AppCompatActivity {
                     rlBotao.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_buy:
+                    getSupportActionBar().setTitle("Escanear QR code");
                     rlCompra.setVisibility(View.VISIBLE);
                     rlHistorico.setVisibility(View.GONE);
                     rlProduto.setVisibility(View.GONE);
                     rlBotao.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_sell:
+                    getSupportActionBar().setTitle("Itens Cadastrados");
                     rlHistorico.setVisibility(View.GONE);
                     rlCompra.setVisibility(View.GONE);
                     ListAllItemsToSell laits = new ListAllItemsToSell();
@@ -128,6 +131,7 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
+
             try {
                 URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -151,11 +155,8 @@ public class MenuActivity extends AppCompatActivity {
                     return builder.toString();
 
                 }else if(connection.getResponseCode()==500){
-                    Toast.makeText(getApplicationContext(),"Ops, erro do servidor, tente novamente.",Toast.LENGTH_SHORT).show();
+                    return"500";
 
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro, tente novamente",Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -173,42 +174,50 @@ public class MenuActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             progress.dismiss();
 
-            try {
+            if(s!=null){
+                if(!s.equals("500")){
+                    try {
+                        ArrayList<Produto> listaDeProdutos = new ArrayList<Produto>();
+                        int index=0;
+                        //JSONObject jsonObjectDadosProdutoParaVender = new JSONObject(s);
+                        JSONArray arrayOsItems = new JSONArray(s);
+                        for (int i = 0;i<arrayOsItems.length();i++){
 
-                ArrayList<Produto> listaDeProdutos = new ArrayList<Produto>();
-                int index=0;
-                //JSONObject jsonObjectDadosProdutoParaVender = new JSONObject(s);
-                JSONArray arrayOsItems = new JSONArray(s);
-                for (int i = 0;i<arrayOsItems.length();i++){
-
-                    JSONObject jsonObject = (JSONObject)arrayOsItems.get(i);
+                            JSONObject jsonObject = (JSONObject)arrayOsItems.get(i);
 
 
 
-                    if(jsonObject.getString("UsuarioId").equals(loadSharedPreferences())){
-                        Produto ppv = new Produto();
-                        ppv.getUsuario().setId(loadSharedPreferences());
-                        ppv.setId(jsonObject.getString("Id"));
-                        ppv.setNome(jsonObject.getString("Nome"));
-                        ppv.setPreco(jsonObject.getString("Preco"));
-                        ppv.setImagemUrl(jsonObject.getString("ImagemUrl"));
-                        listaDeProdutos.add(ppv);
+                            if(jsonObject.getString("UsuarioId").equals(loadSharedPreferences())){
+                                Produto ppv = new Produto();
+                                ppv.getUsuario().setId(loadSharedPreferences());
+                                ppv.setId(jsonObject.getString("Id"));
+                                ppv.setNome(jsonObject.getString("Nome"));
+                                ppv.setPreco(jsonObject.getString("Preco"));
+                                ppv.setImagemUrl(jsonObject.getString("ImagemUrl"));
+                                listaDeProdutos.add(ppv);
 
+                            }
+                        }
+
+
+                        llProdutoCadastrado.setAdapter(new CustomAdapter(MenuActivity.this,listaDeProdutos));
+
+                        rlProduto.setVisibility(View.VISIBLE);
+                        rlBotao.setVisibility(View.VISIBLE);
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                }else{
+
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao lista",Toast.LENGTH_SHORT);
+
                 }
-
-
-                llProdutoCadastrado.setAdapter(new CustomAdapter(MenuActivity.this,listaDeProdutos));
-
-                rlProduto.setVisibility(View.VISIBLE);
-                rlBotao.setVisibility(View.VISIBLE);
-
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+            }else{
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT);
             }
-            super.onPostExecute(s);
         }
     }
 
@@ -250,6 +259,7 @@ public class MenuActivity extends AppCompatActivity {
         //set Toolbar
         Toolbar mToolBar = (Toolbar)findViewById(R.id.toolbar_menuactivity);
         setSupportActionBar(mToolBar);
+        getSupportActionBar().setTitle("Historico");
 
         rlHistorico.setVisibility(View.VISIBLE);
         ListAllTransactions listAllTransactions = new ListAllTransactions();
@@ -358,6 +368,8 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
+
+
             try {
                 URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/TransacionarWeb/"+strings[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -380,11 +392,8 @@ public class MenuActivity extends AppCompatActivity {
 
                     return builder.toString();
 
-                }else {
-
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar os produtos",Toast.LENGTH_SHORT).show();
-
-
+                }else if(connection.getResponseCode()==500) {
+                    return "500";
                 }
 
 
@@ -402,15 +411,26 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             progressDialog.dismiss();
+
             JSONArray arrayOfSoldItems = null;
-            try {
-                arrayOfSoldItems = new JSONArray(s);
-                createChildsProgrammatically(arrayOfSoldItems);
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if(s!=null){
+                if(!s.equals("500")){
+
+                    try {
+                        arrayOfSoldItems = new JSONArray(s);
+                        createChildsProgrammatically(arrayOfSoldItems);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),"Erro ao lista",Toast.LENGTH_SHORT).show();
+                }
+
+            }else{
+                Toast.makeText(getApplicationContext(),"Erro inesperado tente novamente",Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 

@@ -22,6 +22,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import br.com.fiap.am.model.MaskWatcher;
 import br.com.fiap.am.model.Usuario;
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,14 +42,19 @@ public class LoginActivity extends AppCompatActivity {
 
         userEt = (EditText) findViewById(R.id.et_user);
         passwordEt = (EditText) findViewById(R.id.et_password);
+
+        userEt.addTextChangedListener(new MaskWatcher("###.###.###-##"));
     }
 
     public void doLogin(View view) {
 
         ValidateLogin validateLogin = new ValidateLogin();
         Usuario usuario = new Usuario();
-        usuario.setCpf(userEt.getText().toString());
+        String cpf = userEt.getText().toString();
+        String newcpf = cpf.replace(".","").replace("-","");
+        usuario.setCpf(newcpf);
         usuario.setSenha(passwordEt.getText().toString());
+
         validateLogin.execute(usuario);
     }
 
@@ -96,11 +102,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     return builder.toString();
                 }else if(connection.getResponseCode()==500){
-                    Toast.makeText(getApplicationContext(),"Ops, erro do servidor, tente novamente.",Toast.LENGTH_SHORT).show();
+                    return "500";
 
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro, tente novamente",Toast.LENGTH_SHORT).show();
                 }
 
             }catch (Exception e){
@@ -118,37 +121,44 @@ public class LoginActivity extends AppCompatActivity {
             boolean deuErro=true;
             String mensagemErro="";
             if(s!=null){
+                if(!s.equals("500")){
+                    try {
+                        jsonResponse = new JSONObject(s);
+                        deuErro = jsonResponse.getBoolean("DeuErro");
+                        mensagemErro = jsonResponse.getString("MensagemRetorno");
+                        if(deuErro==false){
+                            JSONObject jsonObjectUsuario = jsonResponse.getJSONObject("Usuario");
+                            String idUsuario = jsonObjectUsuario.getString("Id");
+                            String nomeUsuario = jsonObjectUsuario.getString("Nome");
+                            String senhaUsuario = jsonObjectUsuario.getString("Senha");
+                            String cpfUsuario = jsonObjectUsuario.getString("Cpf");
 
-                try {
-                    jsonResponse = new JSONObject(s);
-                    deuErro = jsonResponse.getBoolean("DeuErro");
-                    mensagemErro = jsonResponse.getString("MensagemRetorno");
-                    if(deuErro==false){
-                        JSONObject jsonObjectUsuario = jsonResponse.getJSONObject("Usuario");
-                        String idUsuario = jsonObjectUsuario.getString("Id");
-                        String nomeUsuario = jsonObjectUsuario.getString("Nome");
-                        String senhaUsuario = jsonObjectUsuario.getString("Senha");
-                        String cpfUsuario = jsonObjectUsuario.getString("Cpf");
+                            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("id",idUsuario);
+                            editor.putString("nome",nomeUsuario);
+                            editor.putString("senha",senhaUsuario);
+                            editor.putString("cpf",cpfUsuario);
+                            editor.commit();
 
-                        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("id",idUsuario);
-                        editor.putString("nome",nomeUsuario);
-                        editor.putString("senha",senhaUsuario);
-                        editor.putString("cpf",cpfUsuario);
-                        editor.commit();
+                            Intent intent = new Intent(LoginActivity.this,MenuActivity.class);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(getApplicationContext(),mensagemErro,Toast.LENGTH_SHORT).show();
+                        }
 
-                        Intent intent = new Intent(LoginActivity.this,MenuActivity.class);
-                        startActivity(intent);
-                    }else {
-                        Toast.makeText(getApplicationContext(),mensagemErro,Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
                     }
+                }else {
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao validar o login",Toast.LENGTH_SHORT).show();
                 }
 
+
+            }else{
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
             }
 
 

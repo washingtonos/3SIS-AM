@@ -259,7 +259,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     }
 
-    private class DeleteThisItem extends AsyncTask<String,Void,Integer>{
+    private class DeleteThisItem extends AsyncTask<String,Void,String>{
 
         ProgressDialog progress;
         @Override
@@ -268,7 +268,8 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
         }
 
         @Override
-        protected Integer doInBackground(String... strings) {
+        protected String doInBackground(String... strings) {
+
 
             try {
                 URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/"+strings[0]);
@@ -278,8 +279,12 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 connection.setRequestMethod("DELETE");
                 connection.setRequestProperty("Content-Type","application/json");
 
+                if(connection.getResponseCode()==200){
+                    return "200";
+                }else if(connection.getResponseCode()==500){
+                    return "500";
+                }
 
-                return connection.getResponseCode();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -291,16 +296,19 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
         }
 
         @Override
-        protected void onPostExecute(Integer integer) {
+        protected void onPostExecute(String s) {
 
             progress.dismiss();
-            if(integer==200){
-                Intent intent = new Intent(InformacoesSobreVendaActivity.this,MenuActivity.class);
-                startActivity(intent);
-                finish();
-
-            }else if(integer==500){
-                Toast.makeText(getApplicationContext(),"Ocorreu um erro no servico. Tente novamente",Toast.LENGTH_SHORT).show();
+            if(s!=null){
+                if(!s.equals("500")){
+                    Intent intent = new Intent(InformacoesSobreVendaActivity.this,MenuActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao deletar item",Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
             }
         }
     }
