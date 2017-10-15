@@ -75,6 +75,8 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     private SharedPreferences sp;
 
+    private boolean createMenuDelete;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,6 +131,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
         if(extras!=null){
             if(extras.getString("classe").equalsIgnoreCase("buscarimagensactivity")){
 
+                createMenuDelete = false;
 
                 //pegar os extras
                 String nomeProduto = extras.getString("nomeProduto");
@@ -149,7 +152,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 tvNomeVenda.setText("Nome: "+nomeProduto);
                 tvPrecoVenda.setText("Preco: "+valorUnitarioMecadoria);
 
-                if(!path.equals("")){
+                if(!path.equals("")&&path!=null){
                     imvImagemProduto.setImageBitmap(Bitmap.createScaledBitmap
                             (bitmap,bitmap.getWidth()/6,bitmap.getHeight()/6,true));
                 }
@@ -157,6 +160,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
             }else if(extras.getString("classe").equalsIgnoreCase("MenuActivity")){
 
+                createMenuDelete=true;
 
                 //pegar os extras
                 String nomeProduto = extras.getString("nomeProduto");
@@ -227,13 +231,13 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_delete,menu);
-        return true;
+
+        return createMenuDelete;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Intent intent;
         switch (item.getItemId()){
             case R.id.item_deletar_item:
                 DeleteThisItem dti = new DeleteThisItem();

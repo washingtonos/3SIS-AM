@@ -26,6 +26,12 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import br.com.fiap.am.model.MaskWatcher;
 
 public class CadastrarCartaoActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -70,6 +76,8 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
         etNumeroCartao = (EditText)findViewById(R.id.et_numerocartao_cadastrar_cartao);
         etCodSegCartao = (EditText)findViewById(R.id.et_cod_seg_cadastrar_cartao);
         etDataVencCartao = (EditText)findViewById(R.id.et_data_venc_cadastrar_cartao);
+        etDataVencCartao.addTextChangedListener(new MaskWatcher("##/##/####"));
+
 
         spBandeiraCartao = (Spinner)findViewById(R.id.sp_bandeira_cadastrar_cartao);
         rgSimNao = (RadioGroup)findViewById(R.id.rg_sim_nao_cadastrar_cartao);
@@ -84,6 +92,8 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
         etCepEndereco = (EditText)findViewById(R.id.et_cep_cadastrar_cartao);
         btCadastrarCartao = (Button)findViewById(R.id.bt_cadastrar_cartao);
 
+        etCepEndereco.addTextChangedListener(new MaskWatcher("#####-###"));
+
 
 
     }
@@ -92,7 +102,15 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_cadastrar_cartao:
+
+
+
                 CadastrarDadosCartao cdc = new CadastrarDadosCartao();
+                /*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date today = Calendar.getInstance().getTime();
+                String dataDeTransacao = format.format(today);
+*/              String dataDeTransacao = etDataVencCartao.getText().toString();
+                dataDeTransacao.replace("/","-");
 
                 String id = loadSharedPreferences();
 
@@ -101,7 +119,7 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
                                 id,
                                 etNumeroCartao.getText().toString(),
                                 etNomeCartao.getText().toString(),
-                                "2030-01-28",
+                                dataDeTransacao,
                                 spBandeiraCartao.getSelectedItem().toString(),
                                 etCodSegCartao.getText().toString(),
                                 etRuaEndereco.getText().toString(),
@@ -109,7 +127,7 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
                                 etBairroEndereco.getText().toString(),
                                 etComplementoEndereco.getText().toString(),
                                 etEstadoEndereco.getText().toString(),
-                                etCepEndereco.getText().toString(),
+                                etCepEndereco.getText().toString().replace("-",""),
                                 etCidadeEndereco.getText().toString()
 
                         );
@@ -213,6 +231,7 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
                     SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putString("idCartao",id);
+                    editor.putBoolean("isCartaoRecorded",true);
                     editor.commit();
 
                     Toast.makeText(getApplicationContext(),"Cartao Cadastrado com sucesso",Toast.LENGTH_SHORT).show();

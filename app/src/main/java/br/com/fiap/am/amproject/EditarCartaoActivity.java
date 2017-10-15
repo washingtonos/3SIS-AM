@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,10 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import br.com.fiap.am.model.MaskWatcher;
 
 public class EditarCartaoActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -35,6 +40,8 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
     private EditText etDataVenc;
     private Spinner spBandeira;
     private RadioGroup rgSimNao;
+    private RadioButton rbSim;
+    private RadioButton rbNao;
 
     private EditText etRuaEnderecoCartao;
     private EditText etNumeroEnderecoCartao;
@@ -56,10 +63,15 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadFields();
+        rbSim.setOnClickListener(this);
+        rbNao.setOnClickListener(this);
         String params = cardId();
+
 
         GetAllInformationsAboutCard gaic = new GetAllInformationsAboutCard();
         gaic.execute(params);
+
+
 
     }
 
@@ -69,13 +81,34 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()){
             case R.id.bt_confirma_edicao_cartao:
                 SendAllInformationsToUpdate saitu = new SendAllInformationsToUpdate();
+                String date []= etDataVenc.getText().toString().split("/");
+                String correctDate = date[2]+"-"+date[1]+"-"+date[0];
+
+               EditText allEditText [] = {etNumeroCartao
+                       ,etNomeCartao,
+                       etDataVenc,
+                       etCodigoSeg,
+                        etRuaEnderecoCartao,
+                        etNumeroEnderecoCartao,
+                        etBairroEnderecoCartao,
+                        etComplementoEnderecoCartao,
+                        etEstadoEndereco,
+                        etCep,
+                        etCidadeEnderecoCartao};
+
+                for(int i = 0;i<allEditText.length;i++){
+                    if(allEditText[i].getText().toString().trim().length()==0){
+                        Toast.makeText(getApplicationContext(),"Ha campos vazios, preencha-os",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
 
                 String param = cardId();
                 saitu.execute(
                         param,
                         etNumeroCartao.getText().toString(),
                         etNomeCartao.getText().toString(),
-                        etDataVenc.getText().toString(),
+                        correctDate,
                         spBandeira.getSelectedItem().toString(),
                         etCodigoSeg.getText().toString(),
                         etRuaEnderecoCartao.getText().toString(),
@@ -83,9 +116,15 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
                         etBairroEnderecoCartao.getText().toString(),
                         etComplementoEnderecoCartao.getText().toString(),
                         etEstadoEndereco.getText().toString(),
-                        etCep.getText().toString(),
+                        etCep.getText().toString().replace("-",""),
                         etCidadeEnderecoCartao.getText().toString()
                         );
+                break;
+            case R.id.rb_sim_editar_cartao:
+                controllTextFields(true);
+                break;
+            case R.id.rb_nao_editar_cartao:
+                controllTextFields(false);
                 break;
         }
 
@@ -123,8 +162,8 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
                     connection.disconnect();
 
                     return builder.toString();
-                }else {
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar",Toast.LENGTH_SHORT).show();
+                }else if(connection.getResponseCode()==500) {
+                    return "500";
                 }
 
             } catch (MalformedURLException e) {
@@ -139,62 +178,76 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
         @Override
         protected void onPostExecute(String s) {
             progress.dismiss();
+            if(s!=null){
+                if(!s.equals("500")){
+                    try {
 
-            try {
+                        boolean deuErro = true;
+                        JSONObject jsonObjectInfos = new JSONObject(s);
+                        String mensagemRetorno = jsonObjectInfos.getString("MensagemRetorno");
+                        deuErro = jsonObjectInfos.getBoolean("DeuErro");
 
-                boolean deuErro = true;
-                JSONObject jsonObjectInfos = new JSONObject(s);
-                String mensagemRetorno = jsonObjectInfos.getString("MensagemRetorno");
-                deuErro = jsonObjectInfos.getBoolean("DeuErro");
-
-                if(!deuErro){
-
-
-                    JSONObject jsonObjectCartao = jsonObjectInfos.getJSONObject("CartaoCredito");
-                    String idCartao = jsonObjectCartao.getString("Id");
-                    String usuarioId = jsonObjectCartao.getString("UsuarioId");
-                    String numeroCartao = jsonObjectCartao.getString("Numero");
-                    String nomeTitular = jsonObjectCartao.getString("NomeTitular");
-                    String validade = jsonObjectCartao.getString("Validade");
-                    String bandeira = jsonObjectCartao.getString("Bandeira");
-                    String codSeg = jsonObjectCartao.getString("CodigoSeguranca");
-
-                    JSONObject jsonObjectEnderecoCartao = jsonObjectInfos.getJSONObject("EnderecoCartao");
-                    String ruaEndereco = jsonObjectEnderecoCartao.getString("Rua");
-                    String numeroEndereco = jsonObjectEnderecoCartao.getString("Numero");
-                    String bairroEndereco = jsonObjectEnderecoCartao.getString("Bairro");
-                    String complementoEndereco = jsonObjectEnderecoCartao.getString("Complemento");
-                    String estado = jsonObjectEnderecoCartao.getString("Estado");
-                    String cidade = jsonObjectEnderecoCartao.getString("Cidade");
-                    String cep = jsonObjectEnderecoCartao.getString("Cep");
-
-                    etNomeCartao.setText(nomeTitular);
-                    etNumeroCartao.setText(numeroCartao);
-                    etCodigoSeg.setText(codSeg);
-                    etDataVenc.setText(validade);
-                    spBandeira.setSelection(bandeira.equals("Visa")?1:2);
-                    //rgSimNao;
-
-                    etRuaEnderecoCartao.setText(ruaEndereco);
-                    etNumeroEnderecoCartao.setText(numeroEndereco);
-                    etComplementoEnderecoCartao.setText(complementoEndereco);
-                    etBairroEnderecoCartao.setText(bairroEndereco);
-                    etEstadoEndereco.setText(estado);
-                    etCidadeEnderecoCartao.setText(cidade);
-                    etCep.setText(cep);
+                        if(!deuErro){
 
 
+                            JSONObject jsonObjectCartao = jsonObjectInfos.getJSONObject("CartaoCredito");
+                            String idCartao = jsonObjectCartao.getString("Id");
+                            String usuarioId = jsonObjectCartao.getString("UsuarioId");
+                            String numeroCartao = jsonObjectCartao.getString("Numero");
+                            String nomeTitular = jsonObjectCartao.getString("NomeTitular");
+                            String validade = jsonObjectCartao.getString("Validade");
+                            String bandeira = jsonObjectCartao.getString("Bandeira");
+                            String codSeg = jsonObjectCartao.getString("CodigoSeguranca");
 
+                            JSONObject jsonObjectEnderecoCartao = jsonObjectInfos.getJSONObject("EnderecoCartao");
+                            String ruaEndereco = jsonObjectEnderecoCartao.getString("Rua");
+                            String numeroEndereco = jsonObjectEnderecoCartao.getString("Numero");
+                            String bairroEndereco = jsonObjectEnderecoCartao.getString("Bairro");
+                            String complementoEndereco = jsonObjectEnderecoCartao.getString("Complemento");
+                            String estado = jsonObjectEnderecoCartao.getString("Estado");
+                            String cidade = jsonObjectEnderecoCartao.getString("Cidade");
+                            String cep = jsonObjectEnderecoCartao.getString("Cep");
+
+                            etNomeCartao.setText(nomeTitular);
+                            etNumeroCartao.setText(numeroCartao);
+                            etCodigoSeg.setText(codSeg);
+                            etDataVenc.addTextChangedListener(new MaskWatcher("##/##/####"));
+                            String validadeCartao[]=validade.split("(?<=\\G.{10})");
+                            String dataInversa [] = validadeCartao[0].split("-");
+                            etDataVenc.setText(dataInversa[2]+"/"+dataInversa[1]+"/"+dataInversa[0]);
+                            spBandeira.setSelection(bandeira.equals("Visa")?1:2);
+                            //rgSimNao;
+
+                            etRuaEnderecoCartao.setText(ruaEndereco);
+                            etNumeroEnderecoCartao.setText(numeroEndereco);
+                            etComplementoEnderecoCartao.setText(complementoEndereco);
+                            etBairroEnderecoCartao.setText(bairroEndereco);
+                            etEstadoEndereco.setText(estado);
+                            etCidadeEnderecoCartao.setText(cidade);
+                            cep = new StringBuilder(cep).insert(cep.length()-3,"-").toString();
+                            etCep.setText(cep);
+
+
+
+
+                        }else{
+                            Toast.makeText(getApplicationContext(),mensagemRetorno,Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                 }else{
-                    Toast.makeText(getApplicationContext(),mensagemRetorno,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar os seus dados",Toast.LENGTH_SHORT).show();
                 }
 
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+            }else {
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
             }
+
 
 
         }
@@ -268,6 +321,9 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
             if(integer==200){
 
                 Toast.makeText(getApplicationContext(),"Dados gravados com sucesso",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(EditarCartaoActivity.this,MenuActivity.class);
+                startActivity(intent);
+                finish();
 
             }else{
                 Toast.makeText(getApplicationContext(),"Ocorreu um erro ao gravar seus dados",Toast.LENGTH_SHORT).show();
@@ -283,6 +339,8 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
         etDataVenc = (EditText)findViewById(R.id.et_data_venc_editar_cartao);
         spBandeira = (Spinner)findViewById(R.id.sp_bandeira_editar_cartao);
         rgSimNao = (RadioGroup)findViewById(R.id.rg_sim_nao_editar_cartao);
+        rbSim = (RadioButton)findViewById(R.id.rb_sim_editar_cartao);
+        rbNao = (RadioButton)findViewById(R.id.rb_nao_editar_cartao);
 
         etRuaEnderecoCartao = (EditText)findViewById(R.id.et_rua_editar_cartao);
         etNumeroEnderecoCartao = (EditText)findViewById(R.id.et_numero_editar_cartao);
@@ -292,8 +350,17 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
         etEstadoEndereco = (EditText)findViewById(R.id.et_estado_editar_cartao);
         etCep = (EditText)findViewById(R.id.et_cep_editar_cartao);
 
+
+
         btConfirmaEdicao = (Button)findViewById(R.id.bt_confirma_edicao_cartao);
         btConfirmaEdicao.setOnClickListener(this);
+
+        rbSim.setChecked(true);
+        controllTextFields(rbSim.isChecked()?true:false);
+
+
+
+
     }
 
     private String cardId() {
@@ -302,6 +369,33 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
 
 
         return "cartaoId="+sp.getString("idCartao",null)+"&usuarioId="+sp.getString("id",null);
+
+    }
+
+    public void controllTextFields(boolean trueOrFalse){
+
+        if(trueOrFalse==true){
+            etRuaEnderecoCartao.setEnabled(false);
+            etRuaEnderecoCartao.setEnabled(false);
+            etNumeroEnderecoCartao.setEnabled(false);
+            etComplementoEnderecoCartao.setEnabled(false);
+            etBairroEnderecoCartao.setEnabled(false);
+            etCidadeEnderecoCartao.setEnabled(false);
+            etEstadoEndereco.setEnabled(false);
+            etCep.setEnabled(false);
+
+        }else{
+            etRuaEnderecoCartao.setEnabled(true);
+            etNumeroEnderecoCartao.setEnabled(true);
+            etComplementoEnderecoCartao.setEnabled(true);
+            etBairroEnderecoCartao.setEnabled(true);
+            etCidadeEnderecoCartao.setEnabled(true);
+            etEstadoEndereco.setEnabled(true);
+            etCep.setEnabled(true);
+            etCep.addTextChangedListener(new MaskWatcher("#####-###"));
+
+        }
+
 
     }
 }

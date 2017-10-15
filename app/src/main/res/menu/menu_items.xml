@@ -2,14 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/item_editar_perfil"
-        android:title="Editar Perfil"/>
-    <item
-        android:id="@+id/item_cadastrar_cartao"
-        android:title="Cartao"/>
-
+        android:title="Perfil"/>
     <item
         android:id="@+id/item_editar_cartao"
-        android:title="Editar Cartao"/>
+        android:title="Cartao"/>
 
     <item
         android:id="@+id/item_sair"

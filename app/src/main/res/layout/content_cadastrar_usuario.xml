@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusableInTouchMode="true">
 
 
     <TextView
@@ -75,8 +76,7 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/cpf_Cadastro"
-            android:inputType="number"
-            android:maxLength="11"
+            android:maxLength="14"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
             android:textSize="14sp"
@@ -92,10 +92,9 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/nome_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:textIsSelectable="true"
             android:textSize="14sp" />
 
         <EditText
@@ -107,7 +106,7 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/senha_Cadastro"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -157,7 +156,8 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/rua_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
+            android:maxLength="20"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -189,7 +189,8 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/complemento_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
+            android:maxLength="15"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -205,8 +206,9 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/bairro_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
             android:paddingEnd="10dp"
+            android:maxLength="15"
             android:paddingStart="10dp"
             android:textSize="14sp" />
 
@@ -221,7 +223,7 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/cidade_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapWords"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -236,7 +238,8 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/estado_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapWords"
+            android:maxLength="2"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -253,7 +256,7 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/cep_Cadastro"
-            android:inputType="number"
+            android:maxLength="9"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp"
