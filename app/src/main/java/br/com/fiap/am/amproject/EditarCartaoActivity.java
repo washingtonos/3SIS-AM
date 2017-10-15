@@ -241,11 +241,11 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
                     }
 
                 }else{
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar os seus dados",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.ocorreu_um_erro_ao_buscar_seus_dados,Toast.LENGTH_SHORT).show();
                 }
 
             }else {
-                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),R.string.ocorreu_um_erro_inesperado,Toast.LENGTH_SHORT).show();
             }
 
 
@@ -260,7 +260,7 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(EditarCartaoActivity.this,"Aguarde","Atualizando dados do cartäo");
+            progress = ProgressDialog.show(EditarCartaoActivity.this,"Aguarde",getString(R.string.atualizando_cartao));
         }
 
         @Override
@@ -320,13 +320,13 @@ public class EditarCartaoActivity extends AppCompatActivity implements View.OnCl
 
             if(integer==200){
 
-                Toast.makeText(getApplicationContext(),"Dados gravados com sucesso",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.dados_gravados_com_sucesso,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EditarCartaoActivity.this,MenuActivity.class);
                 startActivity(intent);
                 finish();
 
             }else{
-                Toast.makeText(getApplicationContext(),"Ocorreu um erro ao gravar seus dados",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.ocorreu_um_erro_ao_gravar_dados,Toast.LENGTH_SHORT).show();
             }
         }
     }

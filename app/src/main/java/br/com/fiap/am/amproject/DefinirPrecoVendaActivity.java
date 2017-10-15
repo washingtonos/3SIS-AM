@@ -34,8 +34,8 @@ public class DefinirPrecoVendaActivity extends AppCompatActivity {
         if(extras!=null){
 
             nomeProduto = extras.getString("nomeProduto");
-            porQuantoVoceVende.setText("Por quanto você quer vender o/a "+nomeProduto);
-            definaValorVenda.setText("vender o/a "+nomeProduto);
+            porQuantoVoceVende.setText(getString(R.string.por_quanto_voce_quer)+nomeProduto);
+            definaValorVenda.setText(R.string.vender_o_a+nomeProduto);
         }
 
 

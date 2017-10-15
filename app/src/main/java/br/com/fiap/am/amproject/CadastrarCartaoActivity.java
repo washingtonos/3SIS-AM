@@ -106,10 +106,7 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
 
 
                 CadastrarDadosCartao cdc = new CadastrarDadosCartao();
-                /*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                Date today = Calendar.getInstance().getTime();
-                String dataDeTransacao = format.format(today);
-*/              String dataDeTransacao = etDataVencCartao.getText().toString();
+                String dataDeTransacao = etDataVencCartao.getText().toString();
                 dataDeTransacao.replace("/","-");
 
                 String id = loadSharedPreferences();
@@ -234,7 +231,7 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
                     editor.putBoolean("isCartaoRecorded",true);
                     editor.commit();
 
-                    Toast.makeText(getApplicationContext(),"Cartao Cadastrado com sucesso",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.cartao_cadastrado,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CadastrarCartaoActivity.this,MenuActivity.class);
                     startActivity(intent);
                     finish();

@@ -155,16 +155,16 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
 
             if(s!=null){
                 if(s.equals("200")){
-                    Toast.makeText(EditarPerfilActivity.this,"Dados atualizados",Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarPerfilActivity.this, R.string.dados_atualizados,Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(EditarPerfilActivity.this,MenuActivity.class);
                     startActivity(intent);
                     finish();
                 }
                 else if(s.equals("500")){
-                    Toast.makeText(EditarPerfilActivity.this,"Ocorreu um erro ao atualizar os dados",Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarPerfilActivity.this, R.string.ocorreu_um_erro_ao_atualizar_os_dados,Toast.LENGTH_LONG).show();
                 }
             }else {
-                Toast.makeText(EditarPerfilActivity.this,"Ocorreu um erro inesperado",Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarPerfilActivity.this,R.string.ocorreu_um_erro_inesperado,Toast.LENGTH_LONG).show();
             }
 
 
@@ -177,7 +177,7 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(EditarPerfilActivity.this,"Aguarde","Coletando seus dados");
+            progress = ProgressDialog.show(EditarPerfilActivity.this,"Aguarde",getString(R.string.coletando_seus_dados));
 
         }
 
@@ -256,11 +256,11 @@ public class EditarPerfilActivity extends AppCompatActivity implements View.OnCl
                         e.printStackTrace();
                     }
                 }else {
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao buscar informacoes",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.ocorreu_um_erro_ao_buscar_informacoes,Toast.LENGTH_SHORT).show();
                 }
 
             }else {
-                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),R.string.ocorreu_um_erro_inesperado,Toast.LENGTH_SHORT).show();
             }
 
 

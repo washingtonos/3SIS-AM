@@ -64,11 +64,11 @@ public class LoginActivity extends AppCompatActivity {
 
             final AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
             alert.setTitle("Login");
-            alert.setMessage("Deseja gravar o login e a senha para o acesso?");
+            alert.setMessage(R.string.deseja_guardar_login_para_acesso);
             alert.setCancelable(true);
 
 
-            alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            alert.setPositiveButton(R.string.sim, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            alert.setNegativeButton("Nao", new DialogInterface.OnClickListener() {
+            alert.setNegativeButton(R.string.nao, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -132,14 +132,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void recuperarSenha(View view) {
-        Toast.makeText(getApplicationContext(),"Recuperar Senha",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), R.string.recuperar_senha,Toast.LENGTH_SHORT).show();
     }
 
     private class ValidateLogin extends AsyncTask<Usuario,Void,String>{
         ProgressDialog progress;
         @Override
         protected void onPreExecute() {
-             progress = ProgressDialog.show(LoginActivity.this,"Aguarde","Realizando Login");
+             progress = ProgressDialog.show(LoginActivity.this,getString(R.string.aguarde),getString(R.string.realizando_login));
 
         }
 
@@ -224,12 +224,12 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }else {
 
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao validar o login",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.Ocorreu_erro_ao_validar_login,Toast.LENGTH_SHORT).show();
                 }
 
 
             }else{
-                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.Ocorreu_um_erro_inesperado,Toast.LENGTH_SHORT).show();
             }
 
 

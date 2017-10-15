@@ -99,12 +99,6 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
         tvPrecoProduto = (TextView)findViewById(R.id.tv_preco_produto_confirmar_compra);
 
 
-
-
-        //tvQuantidadeProduto = (TextView)findViewById(R.id.tv);
-        //tvUsuarioId = (TextView)findViewById();
-        //tvProdutoId = (TextView)findViewById();
-
     }
 
     public void callReturnToMenuActivity(View view) {
@@ -133,7 +127,7 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(ConfirmarCompraActivity.this,"Aguarde","Estamos finalizando a transacao");
+            progress = ProgressDialog.show(ConfirmarCompraActivity.this,"Aguarde",getString(R.string.estamos_finalizando_transacao));
         }
 
         @Override
@@ -201,7 +195,7 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
                         boolean deuErro = responseObject.getBoolean("DeuErro");
 
                         if(!deuErro){
-                            Toast.makeText(getApplicationContext(),"Sua compra foi realizada!",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.sua_compra_foi_relizada,Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(ConfirmarCompraActivity.this,MenuActivity.class);
                             startActivity(intent);
                             finish();
@@ -214,11 +208,11 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else{
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao finalizar a transacao",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.ocorreu_um_erro_ao_finalizar_transacao,Toast.LENGTH_SHORT).show();
                 }
 
             }else{
-                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.ocorreu_um_erro_inesperado,Toast.LENGTH_SHORT).show();
             }
 
 

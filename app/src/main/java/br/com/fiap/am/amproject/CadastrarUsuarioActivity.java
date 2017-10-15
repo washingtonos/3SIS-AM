@@ -127,7 +127,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity implements TextW
 
         if(value.equals(etSenha.getText().toString())){
 
-            Toast.makeText(getApplicationContext(),"Senha Confirmada",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.senha_confirmada,Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -136,7 +136,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity implements TextW
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(CadastrarUsuarioActivity.this, "Aguarde...", "Realizando cadastro");
+            progress = ProgressDialog.show(CadastrarUsuarioActivity.this, "Aguarde", getString(R.string.realizando_cadastro));
             super.onPreExecute();
         }
 
@@ -187,12 +187,12 @@ public class CadastrarUsuarioActivity extends AppCompatActivity implements TextW
                 //Toast.makeText(CadastrarUsuarioActivity.this, "Cadastro Realizado!", Toast.LENGTH_LONG).show();
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(CadastrarUsuarioActivity.this);
-                alert.setTitle("Cadastro realizado");
-                alert.setMessage("Deseja gravar o login e a senha para o acesso?");
+                alert.setTitle(R.string.cadastro_realizado);
+                alert.setMessage(R.string.deseja_guardar_login_para_acesso);
                 alert.setCancelable(true);
 
 
-                alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                alert.setPositiveButton(R.string.sim, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -211,7 +211,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity implements TextW
                     }
                 });
 
-                alert.setNegativeButton("Nao", new DialogInterface.OnClickListener() {
+                alert.setNegativeButton(R.string.nao, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(CadastrarUsuarioActivity.this,LoginActivity.class);
@@ -226,7 +226,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity implements TextW
 
             }
             else{
-                Toast.makeText(CadastrarUsuarioActivity.this, "Erro ao realizar cadastro", Toast.LENGTH_LONG).show();
+                Toast.makeText(CadastrarUsuarioActivity.this, R.string.erro_ao_realizar_cadastro, Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -192,7 +192,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 //Setar informacoes na tela
                 tvNomeVendedor.setText("Vendedor: "+ sp.getString("nome",null));
                 tvNomeVenda.setText("Nome: "+nomeProduto);
-                tvPrecoVenda.setText("Preco: "+valorUnitarioMecadoria);
+                tvPrecoVenda.setText("Preço: "+valorUnitarioMecadoria);
 
                 if(bitmap!=null){
                     imvImagemProduto.setImageBitmap(Bitmap.createScaledBitmap
@@ -309,10 +309,10 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                     startActivity(intent);
                     finish();
                 }else {
-                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao deletar item",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.ocorreu_um_erro_ao_deletar_item,Toast.LENGTH_SHORT).show();
                 }
             }else {
-                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),R.string.ocorreu_um_erro_inesperado,Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -323,7 +323,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
         @Override
         protected void onPreExecute() {
-            progress= ProgressDialog.show(InformacoesSobreVendaActivity.this,"QR Code","Estamos gerando o Qr Code");
+            progress= ProgressDialog.show(InformacoesSobreVendaActivity.this,"QR Code",getString(R.string.estamos_gerando_o_qr_code));
         }
 
         @Override
@@ -499,7 +499,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(InformacoesSobreVendaActivity.this,"Gravar informacoes","Aguarde enquanto guardamos as informacoes da sua venda");
+            progress = ProgressDialog.show(InformacoesSobreVendaActivity.this,"Gravar informacoes",getString(R.string.aguarde_guardando_info_sobre_venda));
         }
 
         @Override
@@ -572,18 +572,6 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 jsonResponse = new JSONObject(s);
                 JSONObject jsonObjectProduto = jsonResponse.getJSONObject("ProdutoParaVender");
                 idProduto = jsonObjectProduto.getString("Id");
-                /*String nomeProduto = jsonObjectProduto.getString("Nome");
-                String precoProduto = jsonObjectProduto.getString("Preco");*/
-                //usuarioId = jsonObjectProduto.getString("UsuarioId");
-                /*
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("id",idUsuario);
-                editor.putString("nome",nomeUsuario);
-                editor.putString("senha",senhaUsuario);
-                editor.putString("cpf",cpfUsuario);
-                editor.commit();*/
-
                 deuErro = jsonResponse.getBoolean("DeuErro");
                 mensagemErro = jsonResponse.getString("MensagemRetorno");
             } catch (JSONException e) {

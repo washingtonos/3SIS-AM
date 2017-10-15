@@ -82,10 +82,6 @@ public class BuscarImagensActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(BuscarImagensActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,   Manifest.permission.CAMERA},MY_PERMISSION_WRITE_EXTERNAL_STORAGE);
         }else{
 
-            /*Intent intentTakePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            startActivityForResult(intentTakePicture,TAKE_PICTURE_CODE);*/
-
             callCamera();
 
         }
@@ -103,16 +99,6 @@ public class BuscarImagensActivity extends AppCompatActivity {
                 if(grantResults.length>0
                         &&grantResults[0]==PackageManager.PERMISSION_GRANTED){
 
-                    /*Intent intentTakePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                    File file = createImageFromFile();
-
-                    Uri photoUri = FileProvider.getUriForFile(this,"br.com.fiap.am.amproject.fileprovider",file);
-
-                    intentTakePicture.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
-
-                    startActivityForResult(intentTakePicture,TAKE_PICTURE_CODE);*/
-
                     callCamera();
                 }
                 break;
@@ -120,20 +106,10 @@ public class BuscarImagensActivity extends AppCompatActivity {
                 if(grantResults.length>0
                         &&grantResults[0]==PackageManager.PERMISSION_GRANTED){
 
-                    /*Intent intentTakePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                    File file = createImageFromFile();
-
-                    Uri photoUri = FileProvider.getUriForFile(this,"br.com.fiap.am.amproject.fileprovider",file);
-
-                    intentTakePicture.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
-
-                    startActivityForResult(intentTakePicture,TAKE_PICTURE_CODE);*/
-
                     Intent intentOpenFolder = new Intent(Intent.ACTION_GET_CONTENT);
                     intentOpenFolder.setType("*/*");
                     intentOpenFolder.addCategory(Intent.CATEGORY_OPENABLE);
-                    startActivityForResult(Intent.createChooser(intentOpenFolder,"Selecione um Gerenciador de arquivos"),OPEN_LOCAL_FOLDER);
+                    startActivityForResult(Intent.createChooser(intentOpenFolder,getString(R.string.selecionar_gerenciador)),OPEN_LOCAL_FOLDER);
                 }
         }
     }
@@ -151,24 +127,6 @@ public class BuscarImagensActivity extends AppCompatActivity {
             intent.putExtra("precoProduto",precoProduto);
             startActivity(intent);
 
-
-            /*Bundle extra = data.getExtras();
-            if(extra!=null){
-                Bitmap bitmap = (Bitmap)extra.get("data");
-
-                /*Uri tempUri = getImageUri(getApplicationContext(),bitmap);
-
-                File file = new File(getPathFromUri(tempUri));
-                File file = createImageFromFile();
-
-                Uri photoUri = FileProvider.getUriForFile(this,"br.com.fiap.am.amproject.fileprovider",file);
-
-                Intent intent = new Intent(BuscarImagensActivity.this,InformacoesSobreVendaActivity.class);
-                intent.putExtra("classe",this.getLocalClassName());
-                intent.putExtra("path",file.getPath());
-                startActivity(intent);
-
-            }*/
 
             //Metodo para capturar imagem
         }else if(requestCode==OPEN_LOCAL_FOLDER&&resultCode==RESULT_OK){
@@ -231,14 +189,11 @@ public class BuscarImagensActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(BuscarImagensActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,   Manifest.permission.READ_EXTERNAL_STORAGE},MY_PERMISSION_READ_EXTERNAL_STORAGE);
         }else{
 
-            /*Intent intentTakePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-            startActivityForResult(intentTakePicture,TAKE_PICTURE_CODE);*/
 
             Intent intentOpenFolder = new Intent(Intent.ACTION_GET_CONTENT);
             intentOpenFolder.setType("*/*");
             intentOpenFolder.addCategory(Intent.CATEGORY_OPENABLE);
-            startActivityForResult(Intent.createChooser(intentOpenFolder,"Selecione um Gerenciador de arquivos"),OPEN_LOCAL_FOLDER);
+            startActivityForResult(Intent.createChooser(intentOpenFolder,getString(R.string.selecione_gerenciador_de_arquivo)),OPEN_LOCAL_FOLDER);
 
         }
 
