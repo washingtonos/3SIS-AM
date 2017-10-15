@@ -25,6 +25,8 @@
         android:paddingLeft="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:inputType="text"
+        android:hint="Cpf"
         android:background="@drawable/edit_text_shape"
         android:maxLength="14"
         />

@@ -1,10 +1,12 @@
 package br.com.fiap.am.amproject;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText userEt;
     private EditText passwordEt;
+    private boolean userEtIsEmpty;
+    private boolean passwordEtIsEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,19 +47,88 @@ public class LoginActivity extends AppCompatActivity {
         userEt = (EditText) findViewById(R.id.et_user);
         passwordEt = (EditText) findViewById(R.id.et_password);
 
+        loadSharedPreferences();
+
         userEt.addTextChangedListener(new MaskWatcher("###.###.###-##"));
+
+
     }
 
     public void doLogin(View view) {
 
-        ValidateLogin validateLogin = new ValidateLogin();
-        Usuario usuario = new Usuario();
-        String cpf = userEt.getText().toString();
-        String newcpf = cpf.replace(".","").replace("-","");
-        usuario.setCpf(newcpf);
-        usuario.setSenha(passwordEt.getText().toString());
 
-        validateLogin.execute(usuario);
+
+        if(userEtIsEmpty==true&&passwordEtIsEmpty==true){
+
+
+
+            final AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+            alert.setTitle("Login");
+            alert.setMessage("Deseja gravar o login e a senha para o acesso?");
+            alert.setCancelable(true);
+
+
+            alert.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    ValidateLogin validateLogin = new ValidateLogin();
+                    Usuario usuario = new Usuario();
+                    String cpf = userEt.getText().toString();
+                    String newcpf = cpf.replace(".","").replace("-","");
+
+                    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = sp.edit();
+
+                    editor.putString("cpf",userEt.getText().toString());
+                    editor.putString("senha",passwordEt.getText().toString());
+                    editor.commit();
+                    usuario.setCpf(newcpf);
+                    usuario.setSenha(passwordEt.getText().toString());
+                    userEtIsEmpty=false;
+                    passwordEtIsEmpty=false;
+
+                    validateLogin.execute(usuario);
+
+                }
+            });
+
+            alert.setNegativeButton("Nao", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    dialogInterface.cancel();
+
+                    ValidateLogin validateLogin = new ValidateLogin();
+                    Usuario usuario = new Usuario();
+                    String cpf = userEt.getText().toString();
+                    String newcpf = cpf.replace(".","").replace("-","");
+
+                    usuario.setCpf(newcpf);
+                    usuario.setSenha(passwordEt.getText().toString());
+                    validateLogin.execute(usuario);
+
+                }
+            });
+
+
+            AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+
+        }else {
+            ValidateLogin validateLogin = new ValidateLogin();
+            Usuario usuario = new Usuario();
+            String cpf = userEt.getText().toString();
+            String newcpf = cpf.replace(".","").replace("-","");
+
+            usuario.setCpf(newcpf);
+            usuario.setSenha(passwordEt.getText().toString());
+
+            validateLogin.execute(usuario);
+
+        }
+
+
     }
 
     public void recuperarSenha(View view) {
@@ -137,8 +210,6 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("id",idUsuario);
                             editor.putString("nome",nomeUsuario);
-                            editor.putString("senha",senhaUsuario);
-                            editor.putString("cpf",cpfUsuario);
                             editor.commit();
 
                             Intent intent = new Intent(LoginActivity.this,MenuActivity.class);
@@ -165,6 +236,22 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
+
+    }
+
+    private void loadSharedPreferences(){
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String cpf = sp.getString("cpf",null);
+        String senha = sp.getString("senha",null);
+
+        if(cpf!=null){
+            userEt.setText(cpf);
+            passwordEt.setText(senha);
+        }else {
+            userEtIsEmpty=true;
+            passwordEtIsEmpty=true;
+        }
 
     }
 }
