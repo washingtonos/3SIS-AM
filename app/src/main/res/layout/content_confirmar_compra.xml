@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:gravity="center|left"
         android:layout_weight="1"
-        android:text="Informaçao sobre sua compra"
+        android:text="@string/informacao_sobre_sua_compra"
         android:textSize="20sp"
         android:textColor="@color/colorSecondary"/>
     <TextView
@@ -26,7 +26,7 @@
         android:layout_weight="0.8"
         android:gravity="center|left"
         android:background="@color/colorPrimaryDark"
-        android:text="Comprei um/a:"/>
+        android:text="@string/comprei_um_a"/>
     <TextView
         android:id="@+id/tv_preco_produto_confirmar_compra"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.8"
         android:gravity="center|left"
-        android:text="Preco:"/>
+        android:text="@string/preco"/>
 
 
     <LinearLayout
@@ -49,7 +49,7 @@
         android:background="@drawable/button_shape"
         android:layout_gravity="center"
         android:layout_marginBottom="32dp"
-        android:text="Eu confirmo o pagamento"
+        android:text="@string/eu_confirmo_o_pagamento"
         android:textSize="12sp"
         android:onClick="completeTransaction"/>
     <Button
@@ -59,7 +59,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="32dp"
         android:textSize="12sp"
-        android:text="Näo, desisti da ideia"
+        android:text="@string/nao_desisti_da_ideia"
         android:onClick="callReturnToMenuActivity"/>
     </LinearLayout>
 

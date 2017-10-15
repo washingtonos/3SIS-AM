@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Por quanto voce quer vender o/a ?"
+        android:text="@string/por_quanto_voce_quer_vender_o_a"
         android:layout_marginBottom="32dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Defina o valor pelo qual voce queira"
+        android:text="@string/defina_o_valor_pelo_qual_voce_queira"
         android:layout_marginBottom="8dp"
         />
     <TextView
@@ -39,14 +39,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="vender o/a "
+        android:text="@string/vender_o_a"
         android:layout_marginBottom="64dp"/>
 
     <Button
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/button_shape"
-        android:text="Proximo"
+        android:text="@string/proximo"
         android:textAllCaps="false"
         android:onClick="callSetPictureForProduct"/>
 

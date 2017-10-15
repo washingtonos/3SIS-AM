@@ -28,7 +28,8 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".FirstActivity">
+        <activity android:name=".FirstActivity"
+            android:label="@string/bem_vindo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +38,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="Entrar">
+            android:label="@string/entrar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FirstActivity" />
@@ -54,26 +55,26 @@
             android:label="@string/title_activity_comprovante"
             android:theme="@style/AppTheme" />
         <activity android:name=".CadastrarVendaNomeProdutoActivity"
-            android:label="Cadastrar nome">
+            android:label="@string/cadastrarnome">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
         <activity android:name=".DefinirPrecoVendaActivity"
-            android:label="Definir preco">
+            android:label="@string/definir_preco">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CadastrarVendaNomeProdutoActivity" />
         </activity>
         <activity android:name=".BuscarImagensActivity"
-            android:label="Selecionar imagem">
+            android:label="@string/selecionar_imagem">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DefinirPrecoVendaActivity" />
         </activity>
         <activity
             android:name=".InformacoesSobreVendaActivity"
-            android:label="Vender produto"
+            android:label="@string/vender_produto"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -81,27 +82,27 @@
         </activity>
         <activity
             android:name=".EditarPerfilActivity"
-            android:label="Editar perfil">
+            android:label="@string/editar_perfil">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
         <activity
             android:name=".EditarCartaoActivity"
-            android:label="Editar cartao">
+            android:label="@string/editar_cartao">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />
         </activity>
         <activity
             android:name=".CadastrarUsuarioActivity"
-            android:label="Cadastrar usuario">
+            android:label="@string/cadastrar_usuario">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FirstActivity" />
         </activity>
         <activity android:name=".CadastrarCartaoActivity"
-            android:label="Cadastrar cartao">
+            android:label="@string/cadastrar_cartao">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MenuActivity" />

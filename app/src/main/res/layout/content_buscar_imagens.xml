@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tire uma foto"
+        android:text="@string/tire_uma_foto"
         android:gravity="center"
         android:layout_marginBottom="32dp"/>
 
@@ -30,14 +30,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Carregue uma foto"
+        android:text="@string/carregue_uma_foto"
         android:gravity="center"
         android:layout_marginBottom="64dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Anexar fotos depois"
+        android:text="@string/anexar_fotos_depois"
         android:textColor="@color/colorSecondary"
         android:gravity="center"
         android:textSize="18sp"

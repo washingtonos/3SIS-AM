@@ -62,7 +62,7 @@
             android:layout_marginTop="10dp"
             android:paddingEnd="0dp"
             android:paddingStart="5dp"
-            android:text="Dados pessoais"
+            android:text="@string/dados_pessoais"
             android:textSize="12sp"
             tools:ignore="HardcodedText" />
 
@@ -70,7 +70,7 @@
         <EditText
             android:id="@+id/et_Cpf"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_shape"
@@ -86,7 +86,7 @@
         <EditText
             android:id="@+id/et_Nome"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_shape"
@@ -100,7 +100,7 @@
         <EditText
             android:id="@+id/et_Senha"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_shape"
@@ -114,7 +114,7 @@
         <EditText
             android:id="@+id/et_ConfirmaSenha"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_shape"
@@ -148,7 +148,7 @@
         <EditText
             android:id="@+id/et_Rua"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -165,7 +165,7 @@
         <EditText
             android:id="@+id/et_Numero"
             android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginTop="10dp"
             android:layout_row="3"
@@ -180,7 +180,7 @@
         <EditText
             android:id="@+id/et_Complemento"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginEnd="0dp"
             android:layout_marginStart="80dp"
@@ -198,7 +198,7 @@
         <EditText
             android:id="@+id/et_Bairro"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -215,7 +215,7 @@
         <EditText
             android:id="@+id/et_Cidade"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -231,7 +231,7 @@
         <EditText
             android:id="@+id/et_Estado"
             android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginTop="10dp"
             android:layout_row="6"
@@ -247,7 +247,7 @@
         <EditText
             android:id="@+id/et_Cep"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginEnd="0dp"
             android:layout_marginStart="80dp"

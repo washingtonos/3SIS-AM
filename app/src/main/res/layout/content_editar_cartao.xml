@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Editar dados do cartao"
+        android:text="@string/editar_dados_do_cartao"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
@@ -38,7 +38,7 @@
                 android:id="@+id/tv_nome_editar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="@string/nome"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@+id/tv_nome_editar_cartao"
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_nome_editar_cartao"
-                android:text="Numero"
+                android:text="@string/numero"
                 android:textSize="12sp" />
             <EditText
                 android:layout_below="@id/tv_numerocartao_editar_cartao"
@@ -73,7 +73,7 @@
                     android:id="@+id/tv_cod_seg_editar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cod.Seg."
+                    android:text="@string/cod_seg"
                     android:layout_columnWeight="1"
                     android:layout_column="0"
                     android:layout_row="0"
@@ -127,7 +127,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Usar o mesmo endereco para fatura?"
+        android:text="@string/usar_o_mesmo_endereco_para_fatura"
         android:gravity="center"
         android:layout_marginBottom="32dp"/>
 
@@ -142,7 +142,7 @@
             android:id="@+id/rb_sim_editar_cartao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sim"
+            android:text="@string/sim"
             android:enabled="true"
             android:layout_marginRight="64dp"
 
@@ -152,7 +152,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Nao"/>
+            android:text="@string/nao"/>
     </RadioGroup>
 
     <GridLayout
@@ -176,7 +176,7 @@
                 android:id="@+id/tv_rua_editar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rua"
+                android:text="@string/rua"
                 android:textSize="12sp"
                 />
             <EditText
@@ -200,7 +200,7 @@
                     android:id="@+id/tv_numero_editar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Numero"
+                    android:text="@string/numero"
                     android:layout_columnWeight="1"
                     android:layout_column="0"
                     android:layout_row="0"
@@ -218,7 +218,7 @@
                     android:id="@+id/tv_complemento_editar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Complemento"
+                    android:text="@string/complemento"
                     android:layout_columnWeight="4"
                     android:layout_column="1"
                     android:layout_row="0"
@@ -240,7 +240,7 @@
                 android:id="@+id/tv_bairro_editar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bairro"
+                android:text="@string/bairro"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@+id/tv_bairro_editar_cartao"
@@ -256,7 +256,7 @@
                 android:id="@+id/tv_cidade_editar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cidade"
+                android:text="@string/cidade"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@+id/tv_cidade_editar_cartao"
@@ -297,7 +297,7 @@
                     android:id="@+id/tv_cep_editar_cartao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cep"
+                    android:text="@string/cep"
                     android:layout_columnWeight="4"
                     android:layout_column="1"
                     android:layout_row="0"
@@ -325,7 +325,7 @@
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:textAllCaps="false"
-        android:text="Confirmar Edicao"
+        android:text="@string/confirmar_edicao"
         android:textColor="@color/colorPrimaryText"
         android:background="@drawable/button_shape"
         android:layout_marginBottom="64dp"

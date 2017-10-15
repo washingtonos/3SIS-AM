@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cadastrar dados do cartao"
+        android:text="@string/cadastrar_dados_do_cart_o"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
@@ -38,7 +38,7 @@
                 android:id="@+id/tv_nome_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="@string/nome"
                 android:textSize="12sp" />
 
             <EditText
@@ -53,7 +53,7 @@
                 android:id="@+id/tv_numerocartao_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Numero"
+                android:text="@string/numero"
                 android:textSize="12sp" />
 
             <EditText
@@ -81,7 +81,7 @@
                         android:id="@+id/tv_cod_seg_cadastrar_cartao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cod.Seg."
+                        android:text="@string/c_d_seg"
                         android:textSize="12sp" />
 
                     <EditText
@@ -105,7 +105,7 @@
                         android:id="@+id/tv_data_venc_cadastrar_cartao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Data Venc."
+                        android:text="@string/data_venc"
                         android:textSize="12sp" />
 
                     <EditText
@@ -133,12 +133,12 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="32dp"
-        ></Spinner>
+        />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Usar o mesmo endereco para fatura?"
+        android:text="@string/usar_o_mesmo_endereco_para_fatura"
         android:gravity="center"
         android:layout_marginBottom="32dp"/>
 
@@ -153,7 +153,7 @@
             android:id="@+id/rb_sim_cadastrar_cartao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sim"
+            android:text="@string/sim"
             android:enabled="true"
             android:layout_marginRight="64dp"
 
@@ -162,8 +162,7 @@
             android:id="@+id/rb_nao_cadastrar_cartao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="Nao"/>
+            android:text="@string/n_o"/>
     </RadioGroup>
 
 
@@ -187,7 +186,7 @@
                 android:id="@+id/tv_rua_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rua"
+                android:text="@string/rua"
                 android:textSize="12sp"
                 />
             <EditText
@@ -215,7 +214,7 @@
                         android:id="@+id/tv_numero_cadastrar_cartao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Numero"
+                        android:text="@string/numero"
                         android:textSize="12sp" />
 
                     <EditText
@@ -239,7 +238,7 @@
                         android:id="@+id/tv_complemento_cadastrar_cartao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Complemento"
+                        android:text="@string/complemento"
                         android:textSize="12sp" />
 
                     <EditText
@@ -260,7 +259,7 @@
                 android:id="@+id/tv_bairro_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bairro"
+                android:text="@string/bairro"
                 android:textSize="12sp"/>
             <EditText
                 android:id="@+id/et_bairro_cadastrar_cartao"
@@ -274,7 +273,7 @@
                 android:id="@+id/tv_cidade_cadastrar_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cidade"
+                android:text="@string/cidade"
                 android:textSize="12sp"/>
             <EditText
                 android:id="@+id/et_cidade_cadastrar_cartao"
@@ -301,7 +300,7 @@
                         android:id="@+id/tv_estado_cadastrar_cartao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Estado"
+                        android:text="@string/estado"
                         android:textSize="12sp"/>
                     <EditText
 
@@ -327,7 +326,7 @@
                         android:id="@+id/tv_cep_cadastrar_cartao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Cep"
+                        android:text="@string/cep"
                         android:textSize="12sp"/>
                     <EditText
                         android:id="@+id/et_cep_cadastrar_cartao"
@@ -352,7 +351,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="64dp"
         android:textAllCaps="false"
-        android:text="Confirmar Edicao"
+        android:text="@string/confirmar_edi_o"
         android:textColor="@color/colorPrimaryText"
         android:background="@drawable/button_shape"
         android:layout_marginBottom="64dp"

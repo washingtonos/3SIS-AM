@@ -47,7 +47,7 @@
                 android:layout_height="50dp"
                 android:onClick="callQrCodeReader"
                 android:textSize="18sp"
-                android:text="Escanear QR Code"
+                android:text="@string/escanear_qr_code"
                 android:textAllCaps="false"/>
 
 
@@ -71,14 +71,6 @@
                     android:orientation="vertical">
 
                 </TableLayout>
-                <!--LinearLayout
-                    android:id="@+id/ll_for_months"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                </LinearLayout-->
             </ScrollView>
 
 
