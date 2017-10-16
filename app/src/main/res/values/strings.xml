@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">AmProject</string>
-    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_menu">Historico</string>
     <string name="title_buy">Comprar</string>
     <string name="title_sell">Vender</string>
     <string name="title_account">Conta</string>
-    <string name="title_activity_confirmar_compra">ConfirmarCompra</string>
-    <string name="title_activity_comprovante">ComprovanteActivity</string>
+    <string name="title_activity_confirmar_compra">Confirmar compra</string>
+    <string name="title_activity_comprovante">Comprovante</string>
     <string name="ola_inicio">Olá :)</string>
     <string name="para_acessar_o_aplicativo_inicio">Para acessar o aplicativo, você precisa ser cadastrado</string>
     <string name="voc_j_possui_conta_inicio">Você já possui conta?</string>

@@ -152,7 +152,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 tvNomeVenda.setText("Nome: "+nomeProduto);
                 tvPrecoVenda.setText("Preco: "+valorUnitarioMecadoria);
 
-                if(!path.equals("")){
+                if(!path.equals("")&&path!=null){
                     imvImagemProduto.setImageBitmap(Bitmap.createScaledBitmap
                             (bitmap,bitmap.getWidth()/6,bitmap.getHeight()/6,true));
                 }

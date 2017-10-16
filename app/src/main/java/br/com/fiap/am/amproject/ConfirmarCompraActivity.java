@@ -107,7 +107,7 @@ public class ConfirmarCompraActivity extends AppCompatActivity {
 
     }
 
-    private void callReturnToMenuActivity(View view) {
+    public void callReturnToMenuActivity(View view) {
 
         Intent intent = new Intent(ConfirmarCompraActivity.this,MenuActivity.class);
         startActivity(intent);

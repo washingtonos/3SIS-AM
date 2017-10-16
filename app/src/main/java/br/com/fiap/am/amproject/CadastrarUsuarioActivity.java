@@ -203,6 +203,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity implements TextW
 
                         editor.putString("cpf",etCpf.getText().toString());
                         editor.putString("senha",etSenha.getText().toString());
+                        editor.putBoolean("isCartaoRecorded",false);
                         editor.commit();
                         startActivity(intent);
                         finish();
