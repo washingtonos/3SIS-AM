@@ -142,15 +142,6 @@ public class BuscarImagensActivity extends AppCompatActivity {
             }
 
 
-            /*imagePhotoPath = uri.getPath();
-
-            getImageUri(this,);*/
-
-
-
-
-
-
             Intent intent = new Intent(BuscarImagensActivity.this,InformacoesSobreVendaActivity.class);
             intent.putExtra("classe",this.getLocalClassName());
             intent.putExtra("path",imagePhotoPath);

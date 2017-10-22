@@ -65,8 +65,6 @@ public class CustomAdapter extends ArrayAdapter<Produto>{
             holder.tvPreco = (TextView)view.findViewById(R.id.tv_ll_preco_produto_para_vender);
             holder.imagem = (ImageView)view.findViewById(R.id.imv_ll_produto_para_vender);
 
-            //holder.path = listaDeProdutos.get(i).getImagemUrl();
-
             result = view;
             view.setTag(holder);
         }else{
