@@ -104,7 +104,7 @@ public class CadastrarUsuarioActivity extends AppCompatActivity implements TextW
 
         CadastroUsuarioTask task = new CadastroUsuarioTask();
         task.execute(cpf.replace(".","").replace("-",""), etnome.getText().toString(), etSenha.getText().toString(),
-                     etConfirmaSenha.getText().toString(),etRua.getText().toString(),etNumero.getText().toString(),
+                     etRua.getText().toString(),etNumero.getText().toString(),
                      etComplemneto.getText().toString(),etBairro.getText().toString(),etCidade.getText().toString(),
                      etEstado.getText().toString(),etCep.getText().toString().replace("-",""));
 

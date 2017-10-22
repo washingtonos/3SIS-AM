@@ -91,7 +91,8 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
         etEstadoEndereco = (EditText)findViewById(R.id.et_estado_cadastrar_cartao);
         etCepEndereco = (EditText)findViewById(R.id.et_cep_cadastrar_cartao);
         btCadastrarCartao = (Button)findViewById(R.id.bt_cadastrar_cartao);
-
+        rbSim.setChecked(true);
+        controllTextFields(rbSim.isChecked()?true:false);
         etCepEndereco.addTextChangedListener(new MaskWatcher("#####-###"));
 
 
@@ -257,5 +258,32 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         return sp.getString("id",null);
+    }
+
+
+    public void controllTextFields(boolean trueOrFalse){
+
+        if(trueOrFalse==true){
+            etRuaEndereco.setEnabled(false);
+            etNumeroEndereco.setEnabled(false);
+            etComplementoEndereco.setEnabled(false);
+            etBairroEndereco.setEnabled(false);
+            etCidadeEndereco.setEnabled(false);
+            etEstadoEndereco.setEnabled(false);
+            etCepEndereco.setEnabled(false);
+
+        }else{
+            etRuaEndereco.setEnabled(true);
+            etNumeroEndereco.setEnabled(true);
+            etComplementoEndereco.setEnabled(true);
+            etBairroEndereco.setEnabled(true);
+            etCidadeEndereco.setEnabled(true);
+            etEstadoEndereco.setEnabled(true);
+            etCepEndereco.setEnabled(true);
+            etCepEndereco.addTextChangedListener(new MaskWatcher("#####-###"));
+
+        }
+
+
     }
 }
