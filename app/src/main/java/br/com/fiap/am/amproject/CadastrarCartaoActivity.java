@@ -65,8 +65,10 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        loadFields();
 
+        loadFields();
+        rbSim.setOnClickListener(this);
+        rbNao.setOnClickListener(this);
 
         btCadastrarCartao.setOnClickListener(this);
     }
@@ -103,9 +105,6 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_cadastrar_cartao:
-
-
-
                 CadastrarDadosCartao cdc = new CadastrarDadosCartao();
                 String dataDeTransacao = etDataVencCartao.getText().toString();
                 dataDeTransacao.replace("/","-");
@@ -129,6 +128,12 @@ public class CadastrarCartaoActivity extends AppCompatActivity implements View.O
                                 etCidadeEndereco.getText().toString()
 
                         );
+                break;
+            case R.id.rb_sim_cadastrar_cartao:
+                controllTextFields(true);
+                break;
+            case R.id.rb_nao_cadastrar_cartao:
+                controllTextFields(false);
                 break;
         }
     }

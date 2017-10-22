@@ -258,7 +258,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
         String qtd = etQtd.getText().toString();
         String usuarioId = sp.getString("id",null);
         GerarQrCode gerarQrCode = new GerarQrCode();
-        gerarQrCode.execute(nomeProduto[1],preco[2],qtd,usuarioId,idProduto);
+        gerarQrCode.execute(nomeProduto[1],preco[1],qtd,usuarioId,idProduto);
 
 
     }
