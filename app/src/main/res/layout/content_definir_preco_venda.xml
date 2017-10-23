@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|top">
+
+    <TextView
+        android:id="@+id/tv_por_quanto_voce_vende"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/por_quanto_voce_quer_vender_o_a"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"
+        />
+    <EditText
+        android:id="@+id/et_preco_produto_definirprecovenda"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:paddingLeft="5dp"
+        android:inputType="numberDecimal"
+        android:maxLength="50"
+        android:background="@drawable/edit_text_shape"
+        android:layout_marginBottom="32dp"
+        android:hint="R$"/>
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/defina_o_valor_pelo_qual_voce_queira"
+        android:layout_marginBottom="8dp"
+        />
+    <TextView
+        android:id="@+id/tv_defina_valor_venda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/vender_o_a"
+        android:layout_marginBottom="64dp"/>
+
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:text="@string/proximo"
+        android:textAllCaps="false"
+        android:onClick="callSetPictureForProduct"/>
+
+</LinearLayout>

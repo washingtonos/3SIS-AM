@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="br.com.fiap.am.amproject.ComprovanteActivity"
+    tools:showIn="@layout/activity_comprovante">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/imv_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_check_black_24dp"/>
+            <TextView
+                android:layout_below="@+id/imv_check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold"
+                android:text="@string/deu_certo"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:gravity="center|left"
+        android:layout_weight="1"
+        android:text="@string/comprovante_de_compra"
+        android:textSize="20sp"
+        android:textColor="@color/colorSecondary"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center|left"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/vendedor"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center|left"
+        android:text="@string/comprei_um_a"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center|left"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/valor_r_300_00"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center|left"
+        android:text="@string/transacao_xwqro898_3"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:text="@string/comprar_mais"
+            android:textSize="10sp"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@drawable/button_shape"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:text="@string/sair"/>
+    </LinearLayout>
+
+</LinearLayout>

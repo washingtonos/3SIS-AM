@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
+
+    <ImageView
+        android:id="@+id/imv_deu_certo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check_black_24dp"/>
+    <TextView
+        android:id="@+id/tv_deu_certo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deu_certo"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/colorSecondary"/>
+
+    <TextView
+        android:id="@+id/tv_informacoes_sobre_venda"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:text="@string/informacoes_sobre_sua_venda"
+        android:gravity="center"
+        android:textColor="@color/colorSecondary"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/tv_para_vender_basta"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:text="@string/para_vender_agora_clique_em_quero_vender_agora_e_aguarde_o_qr_code_ser_gerado"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:textColor="@color/colorSecondary"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_nome_vendedor_informacoessobrevenda"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="@string/vendedor"
+        />
+    <TextView
+        android:gravity="center_vertical"
+        android:id="@+id/tv_nome_produto_informacoessobrevenda"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="@string/nome"/>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+
+        android:paddingRight="@dimen/activity_horizontal_margin">
+        <TextView
+            android:id="@+id/tv_preco_produto_informacoessobrevenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="64dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/preco"/>
+        <LinearLayout
+            android:id="@+id/ll_qtd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <Button
+                android:id="@+id/bt_adicionar_qtd"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_shape"
+                android:text="@string/mais"/>
+            <EditText
+                android:id="@+id/et_qtd_produto_informacoessobrevenda"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/colorPrimary"
+                android:inputType="number"
+                android:text="1"
+                android:gravity="center"
+                />
+            <Button
+                android:id="@+id/bt_remover_qtd"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_shape"
+                android:text="@string/menos" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="16dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imagem"
+            />
+        <ImageView
+            android:id="@+id/imv_imagem_produto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:foregroundGravity="center"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_quero_registrar_esse_produto"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:text="@string/quero_registrar_esse_produto"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callRecordOfSell"/>
+
+    <Button
+        android:id="@+id/bt_venda_avulsa"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:text="@string/venda_avulsa"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callGerarQrCode"/>
+
+    <Button
+        android:id="@+id/bt_nao_desisti_da_ideia"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="center"
+        android:text="@string/nao_desisti_da_ideia"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callReturnToMenu"
+        />
+
+    <Button
+        android:id="@+id/bt_quero_vender_agora"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="center"
+        android:text="@string/quero_vender_agora"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        />
+
+    <Button
+        android:id="@+id/bt_nao_quero_vender_agora"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:text="@string/nao_quero_vender_agora"
+        android:textSize="12sp"
+        android:textAllCaps="false"
+        android:onClick="callReturnToMenu"/>
+
+</LinearLayout>

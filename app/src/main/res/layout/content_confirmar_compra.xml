@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="br.com.fiap.am.amproject.ConfirmarCompraActivity"
+    tools:showIn="@layout/activity_confirmar_compra">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:gravity="center|left"
+        android:layout_weight="1"
+        android:text="@string/informacao_sobre_sua_compra"
+        android:textSize="20sp"
+        android:textColor="@color/colorSecondary"/>
+    <TextView
+        android:id="@+id/tv_produto_que_compra_confirma_compra"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center|left"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/comprei_um_a"/>
+    <TextView
+        android:id="@+id/tv_preco_produto_confirmar_compra"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:gravity="center|left"
+        android:text="@string/preco"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:orientation="vertical"
+        android:gravity="center">
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:text="@string/eu_confirmo_o_pagamento"
+        android:textSize="12sp"
+        android:onClick="completeTransaction"/>
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:layout_gravity="center"
+        android:layout_marginBottom="32dp"
+        android:textSize="12sp"
+        android:text="@string/nao_desisti_da_ideia"
+        android:onClick="callReturnToMenuActivity"/>
+    </LinearLayout>
+
+</LinearLayout>

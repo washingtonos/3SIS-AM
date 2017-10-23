@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.fiap.am.amproject.FirstActivity"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tv_ola"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ola"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginBottom="64dp"
+        android:textColor="@color/colorSecondary"/>
+    <TextView
+        android:id="@+id/tv_texto_um"
+        android:layout_below="@+id/tv_ola"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:text="@string/para_acessar_o_aplicativo"/>
+    <TextView
+        android:id="@+id/tv_texto_dois"
+        android:layout_below="@+id/tv_texto_um"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:text="@string/voc_precisa_estar_cadastrado"/>
+
+    <TextView
+        android:id="@+id/tv_text_tres"
+        android:layout_below="@+id/tv_texto_dois"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="64dp"
+        android:text="@string/voce_ja_possui_conta"/>
+
+    <Button
+        android:layout_below="@id/tv_text_tres"
+        android:id="@+id/bt_ja_possuo_conta"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/ja_possuo_conta"
+        android:textAllCaps="false"
+        android:background="@drawable/button_shape"
+        android:onClick="haveAnAccount"/>
+
+    <Button
+        android:id="@+id/quero_me_cadastrar"
+        android:layout_below="@+id/bt_ja_possuo_conta"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:text="@string/quero_me_cadastrar"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryText"
+        android:background="@drawable/button_shape"
+        android:onClick="wantToSignUp"/>
+</LinearLayout>

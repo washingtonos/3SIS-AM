@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_camera_alt_black_24dp"
+        android:layout_gravity="center"
+        android:elevation="4dp"
+        android:onClick="callCamera"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tire_uma_foto"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_folder_open_black_24dp"
+        android:layout_gravity="center"
+        android:onClick="callOpenFolder"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/carregue_uma_foto"
+        android:gravity="center"
+        android:layout_marginBottom="64dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/anexar_fotos_depois"
+        android:textColor="@color/colorSecondary"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:onClick="callInformacoesSobreVendaActivity"/>
+
+
+</LinearLayout>

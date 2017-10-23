@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.fiap.am.amproject">
+
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="br.com.fiap.am.amproject.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".FirstActivity"
+            android:label="@string/bem_vindo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/entrar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FirstActivity" />
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu"></activity>
+        <activity
+            android:name=".ConfirmarCompraActivity"
+            android:label="@string/title_activity_confirmar_compra"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ComprovanteActivity"
+            android:label="@string/title_activity_comprovante"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CadastrarVendaNomeProdutoActivity"
+            android:label="@string/cadastrarnome">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+        <activity android:name=".DefinirPrecoVendaActivity"
+            android:label="@string/definir_preco">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CadastrarVendaNomeProdutoActivity" />
+        </activity>
+        <activity android:name=".BuscarImagensActivity"
+            android:label="@string/selecionar_imagem">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DefinirPrecoVendaActivity" />
+        </activity>
+        <activity
+            android:name=".InformacoesSobreVendaActivity"
+            android:label="@string/vender_produto"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".BuscarImagensActivity" />
+        </activity>
+        <activity
+            android:name=".EditarPerfilActivity"
+            android:label="@string/editar_perfil">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+        <activity
+            android:name=".EditarCartaoActivity"
+            android:label="@string/editar_cartao">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+        <activity
+            android:name=".CadastrarUsuarioActivity"
+            android:label="@string/cadastrar_usuario">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FirstActivity" />
+        </activity>
+        <activity android:name=".CadastrarCartaoActivity"
+            android:label="@string/cadastrar_cartao">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MenuActivity" />
+        </activity>
+    </application>
+
+</manifest>
