@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.v4.media.VolumeProviderCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,23 +25,21 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-import br.com.fiap.am.model.ProdutoParaVender;
+import br.com.fiap.am.model.Produto;
 
 public class InformacoesSobreVendaActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -74,6 +74,8 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
     private String idProduto;
 
     private SharedPreferences sp;
+
+    private boolean createMenuDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +131,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
         if(extras!=null){
             if(extras.getString("classe").equalsIgnoreCase("buscarimagensactivity")){
 
+                createMenuDelete = false;
 
                 //pegar os extras
                 String nomeProduto = extras.getString("nomeProduto");
@@ -148,18 +151,58 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 tvNomeVendedor.setText("Vendedor: "+ sp.getString("nome",null));
                 tvNomeVenda.setText("Nome: "+nomeProduto);
                 tvPrecoVenda.setText("Preco: "+valorUnitarioMecadoria);
-                imvImagemProduto.setImageBitmap(Bitmap.createScaledBitmap
-                        (bitmap,bitmap.getWidth()/6,bitmap.getHeight()/6,true));
 
-            }else{
+                if(!path.equals("")&&path!=null){
+                    imvImagemProduto.setImageBitmap(Bitmap.createScaledBitmap
+                            (bitmap,bitmap.getWidth()/6,bitmap.getHeight()/6,true));
+                }
+
+
+            }else if(extras.getString("classe").equalsIgnoreCase("MenuActivity")){
+
+                createMenuDelete=true;
+
+                //pegar os extras
+                String nomeProduto = extras.getString("nomeProduto");
+                String valor [] = extras.getString("precoProduto").split(" ");
+                valorUnitarioMecadoria = valor[1];
+                path = extras.getString("path");
+                idProduto = extras.getString("id");
+                Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+                //Setar visibilidade de elementos na tela
                 btNaoQueroVenderAgora.setVisibility(View.VISIBLE);
                 btQueroRegistrarEsseProduto.setVisibility(View.GONE);
                 btDesistiDaIdeia.setVisibility(View.GONE);
+                btNaoQueroVenderAgora.setVisibility(View.VISIBLE);
+                btQueroVenderAgora.setVisibility(View.VISIBLE);
+                tvParaVenderBasta.setVisibility(View.GONE);
+                btQueroRegistrarEsseProduto.setVisibility(View.GONE);
+                btDesistiDaIdeia.setVisibility(View.GONE);
+                tvInformacoesSobreVenda.setVisibility(View.VISIBLE);
+                llQtd.setVisibility(View.VISIBLE);
+                btVendaAvulsa.setVisibility(View.GONE);
+
+
+                //setar clickView para botoes
+                btQueroVenderAgora.setOnClickListener(this);
+                btAdicionarQuantidade.setOnClickListener(this);
+                btRemoverQuantidade.setOnClickListener(this);
+
+                //Setar informacoes na tela
+                tvNomeVendedor.setText("Vendedor: "+ sp.getString("nome",null));
+                tvNomeVenda.setText("Nome: "+nomeProduto);
+                tvPrecoVenda.setText("Preço: "+valorUnitarioMecadoria);
+
+                if(bitmap!=null){
+                    imvImagemProduto.setImageBitmap(Bitmap.createScaledBitmap
+                            (bitmap,bitmap.getWidth()/6,bitmap.getHeight()/6,true));
+                }else{
+                    imvImagemProduto.setImageResource(R.drawable.ic_image_black_128dp);
+                }
 
             }
         }
-
-
 
 
 
@@ -168,9 +211,6 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     public void callRecordOfSell(View view) {
 
-
-
-
         String nome[] = tvNomeVenda.getText().toString().split(" ");
         String preco[] = tvPrecoVenda.getText().toString().split(" ");
         String qtd = etQtd.getText().toString();
@@ -178,15 +218,36 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
         String pathForJSon = path.replace('/','-');
         String idUsuario = sp.getString("id",null);
         vender.execute(nome[1],preco[1],qtd,pathForJSon,idUsuario);
-
-
-
     }
 
     public void callReturnToMenu(View view) {
         Intent intent = new Intent(InformacoesSobreVendaActivity.this,MenuActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_delete,menu);
+
+        return createMenuDelete;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.item_deletar_item:
+                DeleteThisItem dti = new DeleteThisItem();
+                dti.execute(idProduto);
+                break;
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void callGerarQrCode(View view) {
@@ -202,13 +263,67 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     }
 
+    private class DeleteThisItem extends AsyncTask<String,Void,String>{
+
+        ProgressDialog progress;
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(InformacoesSobreVendaActivity.this,"Aguarde","Deletando Item");
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+
+            try {
+                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/"+strings[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(4000);
+                connection.setReadTimeout(4000);
+                connection.setRequestMethod("DELETE");
+                connection.setRequestProperty("Content-Type","application/json");
+
+                if(connection.getResponseCode()==200){
+                    return "200";
+                }else if(connection.getResponseCode()==500){
+                    return "500";
+                }
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            progress.dismiss();
+            if(s!=null){
+                if(!s.equals("500")){
+                    Intent intent = new Intent(InformacoesSobreVendaActivity.this,MenuActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(getApplicationContext(), R.string.ocorreu_um_erro_ao_deletar_item,Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                Toast.makeText(getApplicationContext(),R.string.ocorreu_um_erro_inesperado,Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private class GerarQrCode extends AsyncTask<String, Void, String>{
 
         ProgressDialog progress;
 
         @Override
         protected void onPreExecute() {
-            progress= ProgressDialog.show(InformacoesSobreVendaActivity.this,"QR Code","Estamos gerando o Qr Code");
+            progress= ProgressDialog.show(InformacoesSobreVendaActivity.this,"QR Code",getString(R.string.estamos_gerando_o_qr_code));
         }
 
         @Override
@@ -231,8 +346,15 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 jsonProduto.put("UsuarioId",strings[3]);
                 jsonProduto.put("Id",strings[4]);
 
+
+
+
                 JSONObject jsonQrCode = new JSONObject();
-                jsonQrCode.put("DataHora","2017-09-30T14:54:00");
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Date today = Calendar.getInstance().getTime();
+                String dataDeTransacao = format.format(today);
+
+                jsonQrCode.put("DataHora",dataDeTransacao);
                 jsonQrCode.put("ProdutoParaVender",jsonProduto);
 
 
@@ -268,6 +390,12 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
         @Override
         protected void onPostExecute(String s) {
+            scInformacoesSobreVenda.pageScroll(View.FOCUS_UP);
+            imvDeuCerto.setVisibility(View.GONE);
+            tvDeuCerto.setVisibility(View.GONE);
+            tvParaVenderBasta.setVisibility(View.GONE);
+            tvInformacoesSobreVenda.setVisibility(View.VISIBLE);
+
             progress.dismiss();
             JSONObject jsonResponse = null;
             boolean deuErro=false;
@@ -294,6 +422,13 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
                 deuErro = jsonResponse.getBoolean("DeuErro");
                 mensagemErro = jsonResponse.getString("MensagemRetorno");
+
+                if(deuErro==false){
+                    return;
+
+                }else{
+                    Toast.makeText(getApplicationContext(),mensagemErro,Toast.LENGTH_SHORT).show();
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -315,7 +450,13 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 tvPrecoVenda.setText("Preco: "+multiplicarPorQtd(etQtd.getText().toString()));
                 break;
             case R.id.bt_quero_vender_agora:
-
+                String nomeProduto[] = tvNomeVenda.getText().toString().split(" ");
+                String preco[] = tvPrecoVenda.getText().toString().split(" ");
+                String descricao = "";
+                String qtd = etQtd.getText().toString();
+                String usuarioId = sp.getString("id",null);
+                GerarQrCode gerarQrCode = new GerarQrCode();
+                gerarQrCode.execute(nomeProduto[1],preco[1],qtd,usuarioId,idProduto);
 
                 break;
         }
@@ -335,7 +476,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
     private String subtrairQtd() {
         int qtd = Integer.parseInt(etQtd.getText().toString());
-        if(qtd>0){
+        if(qtd>1){
             qtd--;
         }
 
@@ -358,7 +499,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
         @Override
         protected void onPreExecute() {
-            progress = ProgressDialog.show(InformacoesSobreVendaActivity.this,"Gravar informacoes","Aguarde enquanto guardamos as informacoes da sua venda");
+            progress = ProgressDialog.show(InformacoesSobreVendaActivity.this,"Gravar informacoes",getString(R.string.aguarde_guardando_info_sobre_venda));
         }
 
         @Override
@@ -371,7 +512,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setRequestProperty("Content-Type","application/json");
-                ProdutoParaVender ppv = new ProdutoParaVender();
+                Produto ppv = new Produto();
                 ppv.setNome(strings[0]);
                 ppv.setPreco(strings[1]);
                 ppv.setDescricao("descricao");
@@ -389,16 +530,6 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
                 JSONObject produtoParaVender = new JSONObject();
                 produtoParaVender.put("ProdutoParaVender",produtoObject);
-
-                /*JSONStringer json = new JSONStringer();
-                json.object();
-                json.key("Nome").value(strings[0]);
-                json.key("Preco").value(strings[1]);
-                json.key("Descricao").value("");
-                json.key("Quantidade").value(strings[2]);
-                json.key("ImagemUrl").value(strings[3]);
-                json.key("UsuarioId").value("942794837");
-                json.endObject();*/
 
 
                 OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
@@ -441,18 +572,6 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
                 jsonResponse = new JSONObject(s);
                 JSONObject jsonObjectProduto = jsonResponse.getJSONObject("ProdutoParaVender");
                 idProduto = jsonObjectProduto.getString("Id");
-                /*String nomeProduto = jsonObjectProduto.getString("Nome");
-                String precoProduto = jsonObjectProduto.getString("Preco");*/
-                //usuarioId = jsonObjectProduto.getString("UsuarioId");
-                /*
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("id",idUsuario);
-                editor.putString("nome",nomeUsuario);
-                editor.putString("senha",senhaUsuario);
-                editor.putString("cpf",cpfUsuario);
-                editor.commit();*/
-
                 deuErro = jsonResponse.getBoolean("DeuErro");
                 mensagemErro = jsonResponse.getString("MensagemRetorno");
             } catch (JSONException e) {
@@ -484,7 +603,7 @@ public class InformacoesSobreVendaActivity extends AppCompatActivity implements 
 
                 btAdicionarQuantidade.setOnClickListener(InformacoesSobreVendaActivity.this);
                 btRemoverQuantidade.setOnClickListener(InformacoesSobreVendaActivity.this);
-
+                btQueroVenderAgora.setOnClickListener(InformacoesSobreVendaActivity.this);
 
                 btDesistiDaIdeia.setVisibility(View.GONE);
 

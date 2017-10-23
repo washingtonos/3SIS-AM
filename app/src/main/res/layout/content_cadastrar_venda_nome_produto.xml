@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Para vender, voce precisa cadastrar o seu produto"
+        android:text="@string/para_vender_voce"
         android:layout_marginBottom="32dp"
         android:layout_marginTop="32dp"
         android:textSize="18sp"
@@ -22,7 +22,7 @@
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:paddingLeft="5dp"
-        android:inputType="text"
+        android:inputType="text|textCapWords"
         android:maxLength="50"
         android:background="@drawable/edit_text_shape"
         android:layout_marginBottom="32dp"/>
@@ -30,25 +30,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Digite o que voce gostaria de vender"
+        android:text="@string/digite_o_que_vender"
         android:layout_marginBottom="8dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ex.:Televisao 40 pol,Playstation 4 500 gb, etc"
+        android:text="@string/ex_televisao_40_pol_playstation_4_500_gb_etc"
         android:layout_marginBottom="8dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Max. 50 caracteres"
+        android:text="@string/max_50_caracteres"
         android:layout_marginBottom="64dp"/>
     <Button
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/button_shape"
-        android:text="Proximo"
+        android:text="@string/pr_ximo"
         android:textAllCaps="false"
         android:onClick="callSetSellPrice"/>
 

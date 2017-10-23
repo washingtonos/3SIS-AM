@@ -30,7 +30,7 @@
                 android:gravity="center"
                 android:textColor="@color/colorSecondary"
                 android:textStyle="bold"
-                android:text="Deu Certo!"/>
+                android:text="@string/deu_certo"/>
 
         </LinearLayout>
 
@@ -44,7 +44,7 @@
         android:layout_height="0dp"
         android:gravity="center|left"
         android:layout_weight="1"
-        android:text="Comprovante de compra"
+        android:text="@string/comprovante_de_compra"
         android:textSize="20sp"
         android:textColor="@color/colorSecondary"/>
     <TextView
@@ -54,14 +54,14 @@
         android:layout_weight="0.8"
         android:gravity="center|left"
         android:background="@color/colorPrimaryDark"
-        android:text="Vendedor: Renan Lima"/>
+        android:text="@string/vendedor"/>
     <TextView
         android:layout_width="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:layout_height="0dp"
         android:layout_weight="0.8"
         android:gravity="center|left"
-        android:text="Comprei um/a: Geladeira Consul"/>
+        android:text="@string/comprei_um_a"/>
     <TextView
         android:layout_width="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -69,14 +69,14 @@
         android:layout_weight="0.8"
         android:gravity="center|left"
         android:background="@color/colorPrimaryDark"
-        android:text="Valor: R$ 300,00"/>
+        android:text="@string/valor_r_300_00"/>
     <TextView
         android:layout_width="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:layout_height="0dp"
         android:layout_weight="0.8"
         android:gravity="center|left"
-        android:text="Transacao: xwqRo898-3"/>
+        android:text="@string/transacao_xwqro898_3"/>
 
 
     <LinearLayout
@@ -91,7 +91,7 @@
             android:background="@drawable/button_shape"
             android:layout_gravity="center"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:text="Comprar mais"
+            android:text="@string/comprar_mais"
             android:textSize="10sp"/>
         <Button
             android:layout_width="150dp"
@@ -100,7 +100,7 @@
             android:background="@drawable/button_shape"
             android:layout_gravity="center"
             android:textSize="10sp"
-            android:text="Sair"/>
+            android:text="@string/sair"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -13,7 +13,7 @@
         android:id="@+id/tv_deu_certo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Deu Certo!"
+        android:text="@string/deu_certo"
         android:textSize="20sp"
         android:gravity="center"
         android:textColor="@color/colorSecondary"/>
@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.8"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:text="Informacoes sobre sua venda"
+        android:text="@string/informacoes_sobre_sua_venda"
         android:gravity="center"
         android:textColor="@color/colorSecondary"
         android:textSize="18sp"/>
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
-        android:text="Para vender agora, clique em 'Quero vender agora' e aguarde o QR code ser gerado"
+        android:text="@string/para_vender_agora_clique_em_quero_vender_agora_e_aguarde_o_qr_code_ser_gerado"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -52,7 +52,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:text="Vendedor:"
+        android:text="@string/vendedor"
         />
     <TextView
         android:gravity="center_vertical"
@@ -63,7 +63,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:text="Nome:"/>
+        android:text="@string/nome"/>
 
     <LinearLayout
 
@@ -80,7 +80,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
-            android:text="Preco:"/>
+            android:text="@string/preco"/>
         <LinearLayout
             android:id="@+id/ll_qtd"
             android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_shape"
-                android:text="+"/>
+                android:text="@string/mais"/>
             <EditText
                 android:id="@+id/et_qtd_produto_informacoessobrevenda"
                 android:layout_width="50dp"
@@ -107,7 +107,7 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/button_shape"
-                android:text="-" />
+                android:text="@string/menos" />
         </LinearLayout>
 
 
@@ -127,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Imagem"
+            android:text="@string/imagem"
             />
         <ImageView
             android:id="@+id/imv_imagem_produto"
@@ -147,7 +147,7 @@
         android:background="@drawable/button_shape"
         android:layout_marginBottom="32dp"
         android:layout_gravity="center"
-        android:text="Quero registrar esse produto"
+        android:text="@string/quero_registrar_esse_produto"
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callRecordOfSell"/>
@@ -159,7 +159,7 @@
         android:background="@drawable/button_shape"
         android:layout_marginBottom="32dp"
         android:layout_gravity="center"
-        android:text="Venda avulsa"
+        android:text="@string/venda_avulsa"
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callGerarQrCode"/>
@@ -171,7 +171,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/button_shape"
         android:layout_gravity="center"
-        android:text="Nao, desisti da ideia"
+        android:text="@string/nao_desisti_da_ideia"
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callReturnToMenu"
@@ -184,10 +184,9 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/button_shape"
         android:layout_gravity="center"
-        android:text="Quero vender agora"
+        android:text="@string/quero_vender_agora"
         android:textSize="12sp"
         android:textAllCaps="false"
-        android:onClick="callGerarQrCode"
         />
 
     <Button
@@ -197,7 +196,7 @@
         android:background="@drawable/button_shape"
         android:layout_marginBottom="32dp"
         android:layout_gravity="center"
-        android:text="Nao quero vender agora"
+        android:text="@string/nao_quero_vender_agora"
         android:textSize="12sp"
         android:textAllCaps="false"
         android:onClick="callReturnToMenu"/>

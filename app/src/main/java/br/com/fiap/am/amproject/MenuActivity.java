@@ -1,84 +1,115 @@
 package br.com.fiap.am.amproject;
 
 import android.app.Activity;
-import android.app.LauncherActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.zxing.common.StringUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Date;
 
-import br.com.fiap.am.bean.Item;
-import br.com.fiap.am.model.CustomAdapter;
+import br.com.fiap.am.model.Produto;
 
 public class MenuActivity extends AppCompatActivity {
 
     private ListView listView;
-    private ListView listaVenda;
     private ImageView imageViewQrCode;
     private FloatingActionButton fab;
     LinearLayout linearLayoutAccount;
+    private ListView llProdutoCadastrado;
+    private String nomes[];
+    private String precos [];
+    private String paths [];
+    private RelativeLayout rlBotao;
+    private RelativeLayout rlProduto;
+    private RelativeLayout rlHistorico;
+    private RelativeLayout rlCompra;
+    private String mesesDoAno [] = {
+            "Janeiro",
+            "Fevereiro",
+            "Marco",
+            "Abril",
+            "Maio",
+            "Junho",
+            "Julho",
+            "Agosto",
+            "Setembro",
+            "Outubro",
+            "Novembro",
+            "Dezembro"};
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            MenuAsynTaskManager menuAsynTaskManager = new MenuAsynTaskManager();
+            ListAllTransactions listAllTransactions = new ListAllTransactions();
             Button button = (Button)findViewById(R.id.button_ler_qr_code);
+            String id = loadSharedPreferences();
             switch (item.getItemId()) {
                 case R.id.navigation_my_account:
-                    // mTextMessage.setText(R.string.title_account);
-                    button.setVisibility(View.GONE);
-                    listaVenda.setVisibility(View.VISIBLE);
-                    imageViewQrCode.setVisibility(View.GONE);
-                    fab.setVisibility(View.GONE);
+                    getSupportActionBar().setTitle("Historico");
+                    listAllTransactions.execute(id);
+                    rlProduto.setVisibility(View.GONE);
+                    rlHistorico.setVisibility(View.VISIBLE);
+                    rlCompra.setVisibility(View.GONE);
+                    rlBotao.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_buy:
-                    //mTextMessage.setText(R.string.title_buy);
-                    button.setVisibility(View.VISIBLE);
-                    listaVenda.setVisibility(View.GONE);
-                    imageViewQrCode.setVisibility(View.VISIBLE);
-                    fab.setVisibility(View.GONE);
+                    getSupportActionBar().setTitle("Escanear QR code");
+                    rlCompra.setVisibility(View.VISIBLE);
+                    rlHistorico.setVisibility(View.GONE);
+                    rlProduto.setVisibility(View.GONE);
+                    rlBotao.setVisibility(View.GONE);
                     return true;
                 case R.id.navigation_sell:
-                    //mTextMessage.setText(R.string.title_sell);
-                    button.setVisibility(View.GONE);
-                    listaVenda.setVisibility(View.VISIBLE);
-                    imageViewQrCode.setVisibility(View.GONE);
-                    fab.setVisibility(View.VISIBLE);
-                    menuAsynTaskManager.execute();
+                    getSupportActionBar().setTitle("Itens Cadastrados");
+                    rlHistorico.setVisibility(View.GONE);
+                    rlCompra.setVisibility(View.GONE);
+                    ListAllItemsToSell laits = new ListAllItemsToSell();
+                    laits.execute();
                     return true;
 
             }
@@ -86,6 +117,109 @@ public class MenuActivity extends AppCompatActivity {
         }
 
     };
+
+
+    private class ListAllItemsToSell extends AsyncTask<String,Void,String>{
+
+        ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            progress = ProgressDialog.show(MenuActivity.this,"Aguarde","Carregando Itens");
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+
+            try {
+                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb/");
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(4000);
+                connection.setReadTimeout(4000);
+                connection.setRequestMethod("GET");
+                connection.setRequestProperty("Accept","application/json");
+
+                if(connection.getResponseCode()==200){
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder builder = new StringBuilder();
+                    String linha = "";
+
+                    while((linha=reader.readLine())!=null){
+
+                        builder.append(linha);
+                    }
+
+                    connection.disconnect();
+
+                    return builder.toString();
+
+                }else if(connection.getResponseCode()==500){
+                    return"500";
+
+                }
+
+
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            progress.dismiss();
+
+            if(s!=null){
+                if(!s.equals("500")){
+                    try {
+                        ArrayList<Produto> listaDeProdutos = new ArrayList<Produto>();
+                        int index=0;
+                        //JSONObject jsonObjectDadosProdutoParaVender = new JSONObject(s);
+                        JSONArray arrayOsItems = new JSONArray(s);
+                        for (int i = 0;i<arrayOsItems.length();i++){
+
+                            JSONObject jsonObject = (JSONObject)arrayOsItems.get(i);
+
+
+
+                            if(jsonObject.getString("UsuarioId").equals(loadSharedPreferences())){
+                                Produto ppv = new Produto();
+                                ppv.getUsuario().setId(loadSharedPreferences());
+                                ppv.setId(jsonObject.getString("Id"));
+                                ppv.setNome(jsonObject.getString("Nome"));
+                                ppv.setPreco(jsonObject.getString("Preco"));
+                                ppv.setImagemUrl(jsonObject.getString("ImagemUrl"));
+                                listaDeProdutos.add(ppv);
+
+                            }
+                        }
+
+
+                        llProdutoCadastrado.setAdapter(new CustomAdapter(MenuActivity.this,listaDeProdutos));
+
+                        rlProduto.setVisibility(View.VISIBLE);
+                        rlBotao.setVisibility(View.VISIBLE);
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+
+                    Toast.makeText(getApplicationContext(),"Ocorreu um erro ao lista",Toast.LENGTH_SHORT);
+
+                }
+            }else{
+                Toast.makeText(getApplicationContext(),"Ocorreu um erro inesperado",Toast.LENGTH_SHORT);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,28 +231,43 @@ public class MenuActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
+        //capturar Relative Layout
+        rlBotao = (RelativeLayout)findViewById(R.id.rl_botao);
+        rlHistorico = (RelativeLayout)findViewById(R.id.rl_historico);
+        rlProduto = (RelativeLayout)findViewById(R.id.rl_produtos);
+        rlCompra = (RelativeLayout)findViewById(R.id.rl_compra);
+        rlProduto.setVisibility(View.GONE);
+        rlCompra.setVisibility(View.GONE);
+        rlBotao.setVisibility(View.GONE);
+
 
         //Capturar Listview
-        listView = (ListView) findViewById(R.id.lv_historico);
-        listaVenda = (ListView) findViewById(R.id.listaCustom);
+        //listView = (ListView) findViewById(R.id.lv_historico);
+        //listView.setVisibility(View.GONE);
+
+        llProdutoCadastrado = (ListView)findViewById(R.id.ll_itens_cadastrados);
+        //llProdutoCadastrado.setVisibility(View.GONE);
 
         //Capturar Imagem de QrCode
         imageViewQrCode = (ImageView)findViewById(R.id.imv_qrcode);
-        imageViewQrCode.setVisibility(View.INVISIBLE);
+        //imageViewQrCode.setVisibility(View.INVISIBLE);
 
         //Coloca botao invisivel
         Button button = (Button)findViewById(R.id.button_ler_qr_code);
-        button.setVisibility(View.INVISIBLE);
+        //button.setVisibility(View.INVISIBLE);
 
         //set Toolbar
         Toolbar mToolBar = (Toolbar)findViewById(R.id.toolbar_menuactivity);
         setSupportActionBar(mToolBar);
+        getSupportActionBar().setTitle("Historico");
 
-        MenuAsynTaskManager menuAsynTaskManager = new MenuAsynTaskManager();
-        menuAsynTaskManager.execute();
+        rlHistorico.setVisibility(View.VISIBLE);
+        ListAllTransactions listAllTransactions = new ListAllTransactions();
+        listAllTransactions.execute(loadSharedPreferences());
+
 
         fab = (FloatingActionButton) findViewById(R.id.fbt_add);
-        fab.setVisibility(View.GONE);
+        //fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,9 +296,20 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.item_editar_cartao:
-                intent = new Intent(MenuActivity.this,EditarCartaoActivity.class);
-                startActivity(intent);
+
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                boolean isCartaoRecorded = sp.getBoolean("isCartaoRecorded",false);
+
+                if(isCartaoRecorded==true){
+                    intent = new Intent(MenuActivity.this,EditarCartaoActivity.class);
+                    startActivity(intent);
+                }else {
+                    intent = new Intent(MenuActivity.this,CadastrarCartaoActivity.class);
+                    startActivity(intent);
+                }
+
                 break;
+
             case R.id.item_sair:
                 intent = new Intent(MenuActivity.this,LoginActivity.class);
                 startActivity(intent);
@@ -179,17 +339,31 @@ public class MenuActivity extends AppCompatActivity {
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
 
+
         if(intentResult.getContents()!=null){
-            Intent intent = new Intent(MenuActivity.this,ConfirmarCompraActivity.class);
-            startActivity(intent);
-            finish();
+
+            if(data.getExtras()!=null){
+                String scan_result = data.getStringExtra("SCAN_RESULT");
+                String dadosResult [] = scan_result.split("\\|");
+                String result = intentResult.getContents();
+                Intent intent = new Intent(MenuActivity.this,ConfirmarCompraActivity.class);
+                intent.putExtra("DataHora",dadosResult[1]);
+                intent.putExtra("Nome",dadosResult[2]);
+                intent.putExtra("Preco",dadosResult[3]);
+                intent.putExtra("Quantidade",dadosResult[5]);
+                intent.putExtra("UsuarioId",dadosResult[6]);
+                intent.putExtra("Id",dadosResult[7]);
+                startActivity(intent);
+                finish();
+            }
+
 
         }
 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private class MenuAsynTaskManager extends AsyncTask<String,Void,String>{
+    private class ListAllTransactions extends AsyncTask<String,Void,String>{
 
         ProgressDialog progressDialog;
 
@@ -203,67 +377,151 @@ public class MenuActivity extends AppCompatActivity {
 
 
 
-            try{
-
-                StringBuilder sb;
-                String linha;
-
-                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/ProdutoParaVenderWeb");
+            try {
+                URL url = new URL("http://paguefacilbinatron.azurewebsites.net/api/TransacionarWeb/"+strings[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
+                connection.setConnectTimeout(4000);
+                connection.setReadTimeout(4000);
                 connection.setRequestMethod("GET");
-                connection.setRequestProperty("Accept", "application/json");
+                connection.setRequestProperty("Accept","application/json");
 
-                int i = connection.getResponseCode();
+                if(connection.getResponseCode()==200){
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    StringBuilder builder = new StringBuilder();
+                    String linha = "";
 
-                if(connection.getResponseCode() == 200){
-                    BufferedReader stream =
-                            new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    while((linha=reader.readLine())!=null){
 
-                    linha = "";
-                    sb = new StringBuilder();
-                    while((linha = stream.readLine()) != null){
-                        sb.append(linha);
+                        builder.append(linha);
                     }
 
                     connection.disconnect();
 
-                    return sb.toString();
-                }else {
-                    Log.i("Erro no http",String.valueOf(connection.getResponseCode()));
+                    return builder.toString();
+
+                }else if(connection.getResponseCode()==500) {
+                    return "500";
                 }
 
 
-            }catch (Exception e){
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
-
-
             return null;
+
         }
 
         @Override
         protected void onPostExecute(String s) {
-           progressDialog.dismiss();
-           // ArrayAdapter adapter;
-            CustomAdapter adapter;
-            if(s != null) {
+            progressDialog.dismiss();
 
-                try {
+            JSONArray arrayOfSoldItems = null;
 
-                    JSONArray jsonArray = new JSONArray(s);
-                    adapter = new CustomAdapter(jsonArray, MenuActivity.this);
-                    listaVenda.setAdapter(adapter);
+            if(s!=null){
+                if(!s.equals("500")){
 
-                }catch (Exception e){
-                    e.printStackTrace();
+                    try {
+                        arrayOfSoldItems = new JSONArray(s);
+                        createChildsProgrammatically(arrayOfSoldItems);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else {
+                    Toast.makeText(getApplicationContext(),"Erro ao lista",Toast.LENGTH_SHORT).show();
                 }
-            }else{
-                Toast.makeText(MenuActivity.this,"Errando ainda ", Toast.LENGTH_LONG).show();
 
+            }else{
+                Toast.makeText(getApplicationContext(),"Erro inesperado tente novamente",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private String loadSharedPreferences(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        return sp.getString("id",null);
+    }
+
+
+    private void createChildsProgrammatically(JSONArray jsonArray){
+
+
+        TableLayout tblayout = (TableLayout)findViewById(R.id.ll_for_months);
+        tblayout.removeAllViews();
+        String mesValida="";
+        int indexMes=0;
+        TableRow.LayoutParams trParams = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT,(float)1);
+
+        for (int i = 0;i<jsonArray.length();i++){
+
+            try {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String dataTransacao = jsonObject.getString("DataTransacao");
+                String comprador = jsonObject.getString("CompradorId");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                Calendar calendar = Calendar.getInstance();
+                Date date = dateFormat.parse(dataTransacao);
+                calendar.setTime(date);
+
+                String month = new SimpleDateFormat("MMMM").format(calendar.getTime());
+
+                if(!month.equalsIgnoreCase(mesValida)){
+
+                    TableRow tableRow = new TableRow(this);
+
+                    TextView texto = new TextView(this);
+                    texto.setLayoutParams(trParams);
+                    String primeiraLetra = month.substring(0,1).toUpperCase();
+                    String mesComLetraCapital = primeiraLetra+month.substring(1);
+
+                    texto.setText(mesComLetraCapital);
+                    texto.setTextSize(18);
+                    texto.setTypeface(Typeface.DEFAULT_BOLD);
+                    texto.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark,null));
+                    texto.setTextColor(getResources().getColor(R.color.colorSecondary,null));
+                    texto.setGravity(Gravity.CENTER);
+                    texto.setPadding(32,32,32,32);
+                    tableRow.addView(texto);
+                    tblayout.addView(tableRow);
+
+                    mesValida = month;
+
+                }
+
+                TableRow tableRow = new TableRow(this);
+
+                JSONObject produtoParaVenderObject = jsonObject.getJSONObject("ProdutoParaVender");
+                TextView texto = new TextView(this);
+                texto.setLayoutParams(trParams);
+                texto.setText(produtoParaVenderObject.getString("Nome"));
+                texto.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight,null));
+                texto.setPadding(64,32,16,32);
+                tableRow.addView(texto);
+
+                TextView textoTeste = new TextView(this);
+                textoTeste.setLayoutParams(trParams);
+                textoTeste.setText(comprador.equals(loadSharedPreferences())?"--"+produtoParaVenderObject.getString("Preco"):"++"+produtoParaVenderObject.getString("Preco"));
+                textoTeste.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight,null));
+                textoTeste.setPadding(16,32,64,32);
+                textoTeste.setGravity(Gravity.RIGHT);
+                textoTeste.setTextColor(comprador.equals(loadSharedPreferences())?getResources().getColor(R.color.colorSecondaryDark,null):getResources().getColor(R.color.colorCheck,null));
+                tableRow.addView(textoTeste);
+                tblayout.addView(tableRow);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
         }
 
     }
+
+
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <ImageView
+            android:id="@+id/imv_ll_produto_para_vender"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="fill_horizontal"
+            android:layout_rowWeight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_ll_nome_produto_para_vender"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorSecondaryDark"
+                android:text="@string/texto" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_ll_preco_produto_para_vender"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/texto" />
+        </LinearLayout>
+
+
+    </GridLayout>
+
+
+
+</LinearLayout>

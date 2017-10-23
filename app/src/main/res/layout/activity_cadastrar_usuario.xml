@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="br.com.fiap.am.amproject.CadastroActivity"
+    tools:context="br.com.fiap.am.amproject.CadastrarUsuarioActivity"
     android:weightSum="1">
 
     <android.support.v7.widget.Toolbar
@@ -21,6 +21,6 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         >
-        <include layout="@layout/content_cadastro_usuario"/>
+        <include layout="@layout/content_cadastrar_usuario"/>
     </ScrollView>
 </LinearLayout>

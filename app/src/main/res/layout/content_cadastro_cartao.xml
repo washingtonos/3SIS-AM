@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    tools:context="br.com.fiap.am.amproject.CadastrarCartaoActivity"
+    android:focusableInTouchMode="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cadastrar_dados_do_cart_o"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:textColor="@color/colorPrimaryText"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <ImageView android:src="@drawable/ic_credit_card_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tv_nome_cadastrar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nome"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_nome_cadastrar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="8dp"
+                android:background="@drawable/edit_text_shape"
+                android:inputType="text|textCapWords"
+                />
+            <TextView
+                android:id="@+id/tv_numerocartao_cadastrar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/numero"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_numerocartao_cadastrar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="8dp"
+                android:background="@drawable/edit_text_shape"
+                android:inputType="number" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_cod_seg_cadastrar_cartao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/c_d_seg"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_cod_seg_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:paddingLeft="8dp"
+                        android:inputType="number"
+                        android:maxLength="3" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1.5">
+
+                    <TextView
+                        android:id="@+id/tv_data_venc_cadastrar_cartao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_venc"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_data_venc_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingLeft="8dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:maxLength="10"
+                        android:inputType="date" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/sp_bandeira_cadastrar_cartao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:entries="@array/bandeira_cartoes"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="32dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/usar_o_mesmo_endereco_para_fatura"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"/>
+
+    <RadioGroup
+        android:id="@+id/rg_sim_nao_cadastrar_cartao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <RadioButton
+            android:id="@+id/rb_sim_cadastrar_cartao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sim"
+            android:enabled="true"
+            android:layout_marginRight="64dp"
+
+            />
+        <RadioButton
+            android:id="@+id/rb_nao_cadastrar_cartao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/n_o"/>
+    </RadioGroup>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:src="@drawable/ic_place_black_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_rua_cadastrar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rua"
+                android:textSize="12sp"
+                />
+            <EditText
+                android:id="@+id/et_rua_cadastrar_cartao"
+                android:background="@drawable/edit_text_shape"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="text|textCapWords"
+                android:paddingLeft="8dp"
+
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_numero_cadastrar_cartao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/numero"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_numero_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:inputType="number"
+                        android:paddingLeft="8dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/tv_complemento_cadastrar_cartao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/complemento"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/et_complemento_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:paddingLeft="8dp"
+                        android:background="@drawable/edit_text_shape"
+                        android:inputType="text|textCapWords" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+
+                android:id="@+id/tv_bairro_cadastrar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bairro"
+                android:textSize="12sp"/>
+            <EditText
+                android:id="@+id/et_bairro_cadastrar_cartao"
+                android:background="@drawable/edit_text_shape"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="8dp"
+                android:inputType="text|textCapWords"
+                />
+            <TextView
+                android:id="@+id/tv_cidade_cadastrar_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cidade"
+                android:textSize="12sp"/>
+            <EditText
+                android:id="@+id/et_cidade_cadastrar_cartao"
+                android:background="@drawable/edit_text_shape"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="8dp"
+                android:inputType="text|textCapWords"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_estado_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/estado"
+                        android:textSize="12sp"/>
+                    <EditText
+
+                        android:id="@+id/et_estado_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/edit_text_shape"
+                        android:layout_height="40dp"
+                        android:maxLength="2"
+                        android:inputType="text|textCapWords"
+                        android:paddingLeft="8dp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/tv_cep_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cep"
+                        android:textSize="12sp"/>
+                    <EditText
+                        android:id="@+id/et_cep_cadastrar_cartao"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/edit_text_shape"
+                        android:layout_height="40dp"
+                        android:inputType="text"
+                        android:maxLength="9"
+                        android:paddingLeft="8dp"
+                        />
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/bt_cadastrar_cartao"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="64dp"
+        android:textAllCaps="false"
+        android:text="@string/confirmar_edi_o"
+        android:textColor="@color/colorPrimaryText"
+        android:background="@drawable/button_shape"
+        android:layout_marginBottom="64dp"
+        />
+
+
+</LinearLayout>

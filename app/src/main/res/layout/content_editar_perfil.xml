@@ -5,6 +5,7 @@
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:focusableInTouchMode="true"
     >
     <TextView
         android:layout_width="match_parent"
@@ -33,13 +34,14 @@
                 android:id="@+id/tv_cpf_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CPF"
+                android:text="@string/cpf"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@+id/tv_cpf_editar_perfil"
                 android:id="@+id/et_cpf_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:inputType="number"
                 />
             <TextView
@@ -47,14 +49,15 @@
                 android:id="@+id/tv_nome_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome"
+                android:text="@string/nome"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@id/tv_nome_editar_perfil"
                 android:id="@+id/et_nome_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="textPersonName|textCapWords"
+
                 />
 
         </RelativeLayout>
@@ -82,14 +85,14 @@
                 android:id="@+id/tv_rua_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rua"
+                android:text="@string/rua"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@+id/tv_rua_editar_perfil"
                 android:id="@+id/et_rua_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="text|textCapWords"
                 android:foregroundGravity="fill_horizontal"
                 />
 
@@ -104,7 +107,7 @@
                     android:id="@+id/tv_numero_editar_perfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Numero"
+                    android:text="@string/numero"
                     android:layout_columnWeight="1"
                     android:layout_column="0"
                     android:layout_row="0"
@@ -132,7 +135,7 @@
                     android:id="@+id/et_complemento_editar_perfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="text|textCapWords"
                     android:layout_column="1"
                     android:layout_row="1"
                     />
@@ -144,14 +147,14 @@
                 android:id="@+id/tv_bairro_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bairro"
+                android:text="@string/bairro"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@+id/tv_bairro_editar_perfil"
                 android:id="@+id/et_bairro_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="text|textCapWords"
                 android:foregroundGravity="fill_horizontal"
                 />
 
@@ -160,14 +163,14 @@
                 android:id="@+id/tv_cidade_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cidade"
+                android:text="@string/cidade"
                 android:textSize="12sp"/>
             <EditText
                 android:layout_below="@+id/tv_cidade_editar_perfil"
                 android:id="@+id/et_cidade_editar_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
+                android:inputType="text|textCapWords"
                 android:foregroundGravity="fill_horizontal"
                 />
 
@@ -192,7 +195,8 @@
                     android:id="@+id/et_estado_editar_perfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="text|textCapWords"
+                    android:maxLength="2"
                     android:layout_column="0"
                     android:layout_row="1"
                     />
@@ -200,7 +204,7 @@
                     android:id="@+id/tv_cep_editar_perfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cep"
+                    android:text="@string/cep"
                     android:layout_columnWeight="4"
                     android:layout_column="1"
                     android:layout_row="0"
@@ -210,7 +214,7 @@
                     android:id="@+id/et_cep_editar_perfil"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:maxLength="9"
                     android:layout_column="1"
                     android:layout_row="1"
                     />
@@ -223,6 +227,7 @@
     </GridLayout>
 
     <Button
+        android:id="@+id/bt_confirma_edicao_perfil"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:textAllCaps="false"

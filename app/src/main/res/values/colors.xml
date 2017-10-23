@@ -8,4 +8,5 @@
     <color name="colorSecondaryDark">#c53d13</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#212121</color>
+    <color name="colorCheck">#89B03B</color>
 </resources>
