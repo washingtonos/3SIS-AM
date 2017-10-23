@@ -5,26 +5,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.fiap.am.amproject.InformacoesSobreVendaActivity">
+    tools:context="br.com.fiap.am.amproject.CadastrarCartaoActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_informacoes_sobre_venda"
+        android:id="@+id/tb_cadastrarCartao"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         android:popupTheme="@style/AppTheme"/>
 
+
     <ScrollView
-        android:id="@+id/sv_informacoessobrevenda"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        >
-        <include layout="@layout/content_informacoes_sobre_venda"/>
+        android:fillViewport="true">
+        <include layout="@layout/content_cadastro_cartao"/>
     </ScrollView>
-
-
 
 </LinearLayout>

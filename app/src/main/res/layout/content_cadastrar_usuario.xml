@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusableInTouchMode="true">
 
 
     <TextView
@@ -16,6 +17,7 @@
         android:text="@string/voc_precisa_preencher_apenas_as_informa_es_obrigat_rias_Cadastro"
         android:textAlignment="inherit"
         android:textSize="15sp" />
+
 
     <LinearLayout
         android:layout_width="287dp"
@@ -49,7 +51,7 @@
 
     <LinearLayout
         android:layout_width="287dp"
-        android:layout_height="228dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical">
 
@@ -60,49 +62,51 @@
             android:layout_marginTop="10dp"
             android:paddingEnd="0dp"
             android:paddingStart="5dp"
-            android:text="Dados pessoais"
+            android:text="@string/dados_pessoais"
             android:textSize="12sp"
             tools:ignore="HardcodedText" />
+
 
         <EditText
             android:id="@+id/et_Cpf"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/cpf_Cadastro"
-            android:inputType="number"
+            android:maxLength="14"
             android:paddingEnd="0dp"
             android:paddingStart="10dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+
+            />
 
         <EditText
             android:id="@+id/et_Nome"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/nome_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:textIsSelectable="true"
             android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_Senha"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/senha_Cadastro"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -110,8 +114,9 @@
         <EditText
             android:id="@+id/et_ConfirmaSenha"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
@@ -126,33 +131,30 @@
         android:layout_width="287dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:columnCount="2">
+        android:columnCount="2"
+        android:rowCount="8">
 
         <TextView
             android:id="@+id/tv_endereco"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_column="0"
-            android:layout_marginTop="10dp"
             android:layout_row="1"
-            android:paddingEnd="0dp"
-            android:paddingStart="5dp"
             android:text="@string/endereco_Cadastro"
-            android:textSize="12sp"
-            tools:ignore="ObsoleteLayoutParam" />
+            android:textSize="12sp" />
 
         <EditText
             android:id="@+id/et_Rua"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:layout_row="2"
             android:background="@drawable/edit_text_shape"
-            android:ems="10"
             android:hint="@string/rua_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
+            android:maxLength="20"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -160,7 +162,7 @@
         <EditText
             android:id="@+id/et_Numero"
             android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginTop="10dp"
             android:layout_row="3"
@@ -175,7 +177,7 @@
         <EditText
             android:id="@+id/et_Complemento"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginEnd="0dp"
             android:layout_marginStart="80dp"
@@ -184,7 +186,8 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/complemento_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
+            android:maxLength="15"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -192,7 +195,7 @@
         <EditText
             android:id="@+id/et_Bairro"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -200,15 +203,16 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/bairro_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="text|textCapWords"
             android:paddingEnd="10dp"
+            android:maxLength="15"
             android:paddingStart="10dp"
             android:textSize="14sp" />
 
         <EditText
             android:id="@+id/et_Cidade"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -216,7 +220,7 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/cidade_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapWords"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -224,14 +228,15 @@
         <EditText
             android:id="@+id/et_Estado"
             android:layout_width="70dp"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginTop="10dp"
             android:layout_row="6"
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/estado_Cadastro"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textCapWords"
+            android:maxLength="2"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textSize="14sp" />
@@ -239,7 +244,7 @@
         <EditText
             android:id="@+id/et_Cep"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:layout_column="0"
             android:layout_marginEnd="0dp"
             android:layout_marginStart="80dp"
@@ -248,10 +253,11 @@
             android:background="@drawable/edit_text_shape"
             android:ems="10"
             android:hint="@string/cep_Cadastro"
-            android:inputType="number"
+            android:maxLength="9"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            />
 
     </GridLayout>
 
@@ -264,7 +270,8 @@
         android:background="@drawable/button_shape"
         android:onClick="Cadastrar"
         android:text="@string/cadastrar_Cadastro"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:layout_marginBottom="64dp"/>
 
     <TextView
         android:id="@+id/tv_jaTemConta"
@@ -273,5 +280,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:onClick="haveAnAccount"
-        android:text="@string/j_possuo_uma_conta_Cadastro" />
+        android:text="@string/j_possuo_uma_conta_Cadastro"
+        android:layout_marginBottom="64dp"/>
 </LinearLayout>

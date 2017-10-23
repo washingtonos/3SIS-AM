@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,7 +14,7 @@
         android:id="@+id/tv_texto_cpf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Utilize seu CPF e Senha para realizar o login"
+        android:text="@string/utilize_seu_cpf_e_senha_para_realizar_o_login"
         />
 
     <EditText
@@ -24,9 +25,10 @@
         android:paddingLeft="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/edit_text_shape"
         android:inputType="text"
-        android:hint="Usuário"
+        android:hint="@string/cpf"
+        android:background="@drawable/edit_text_shape"
+        android:maxLength="14"
         />
     <EditText
         android:id="@+id/et_password"
@@ -37,7 +39,7 @@
         android:layout_height="50dp"
         android:background="@drawable/edit_text_shape"
         android:inputType="textPassword"
-        android:hint="Senha"
+        android:hint="@string/senha"
         />
 
     <Button
@@ -46,7 +48,7 @@
         android:background="@drawable/button_shape"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Entrar"
+        android:text="@string/entrar"
         android:textAllCaps="false"
         android:textColor="@color/colorSecondaryText"
         android:onClick="doLogin"/>
@@ -58,7 +60,7 @@
         android:id="@+id/tv_esqueci_senha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Esqueci minha Senha"
+        android:text="@string/esqueci_minha_senha"
         android:onClick="recuperarSenha"
         />
 

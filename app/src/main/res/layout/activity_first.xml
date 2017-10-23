@@ -12,7 +12,7 @@
         android:id="@+id/tv_ola"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ola :)"
+        android:text="@string/ola"
         android:textSize="24sp"
         android:gravity="center"
         android:layout_marginBottom="64dp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="8dp"
-        android:text="Para acessar o aplicativo,"/>
+        android:text="@string/para_acessar_o_aplicativo"/>
     <TextView
         android:id="@+id/tv_texto_dois"
         android:layout_below="@+id/tv_texto_um"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="16dp"
-        android:text="Voce precisa estar cadastrado"/>
+        android:text="@string/voc_precisa_estar_cadastrado"/>
 
     <TextView
         android:id="@+id/tv_text_tres"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="64dp"
-        android:text="Voce ja possui conta?"/>
+        android:text="@string/voce_ja_possui_conta"/>
 
     <Button
         android:layout_below="@id/tv_text_tres"
@@ -49,7 +49,7 @@
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
-        android:text="Ja possuo conta"
+        android:text="@string/ja_possuo_conta"
         android:textAllCaps="false"
         android:background="@drawable/button_shape"
         android:onClick="haveAnAccount"/>
@@ -59,7 +59,7 @@
         android:layout_below="@+id/bt_ja_possuo_conta"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:text="Quero me cadastrar"
+        android:text="@string/quero_me_cadastrar"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryText"
         android:background="@drawable/button_shape"

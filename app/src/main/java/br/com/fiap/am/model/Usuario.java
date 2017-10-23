@@ -5,14 +5,18 @@ package br.com.fiap.am.model;
  */
 
 public class Usuario {
+    private String id;
     private String nome;
     private String senha;
-    private double cpf;
+    private String cpf;
 
-    public Usuario(String nome, String senha, double cpf) {
-        this.nome = nome;
-        this.senha = senha;
-        this.cpf = cpf;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -31,11 +35,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public double getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(double cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 }
