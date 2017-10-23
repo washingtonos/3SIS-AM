@@ -179,7 +179,6 @@ public class MenuActivity extends AppCompatActivity {
                     try {
                         ArrayList<Produto> listaDeProdutos = new ArrayList<Produto>();
                         int index=0;
-                        //JSONObject jsonObjectDadosProdutoParaVender = new JSONObject(s);
                         JSONArray arrayOsItems = new JSONArray(s);
                         for (int i = 0;i<arrayOsItems.length();i++){
 
@@ -226,7 +225,6 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        //mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -242,19 +240,15 @@ public class MenuActivity extends AppCompatActivity {
 
 
         //Capturar Listview
-        //listView = (ListView) findViewById(R.id.lv_historico);
-        //listView.setVisibility(View.GONE);
 
         llProdutoCadastrado = (ListView)findViewById(R.id.ll_itens_cadastrados);
-        //llProdutoCadastrado.setVisibility(View.GONE);
 
         //Capturar Imagem de QrCode
         imageViewQrCode = (ImageView)findViewById(R.id.imv_qrcode);
-        //imageViewQrCode.setVisibility(View.INVISIBLE);
+
 
         //Coloca botao invisivel
         Button button = (Button)findViewById(R.id.button_ler_qr_code);
-        //button.setVisibility(View.INVISIBLE);
 
         //set Toolbar
         Toolbar mToolBar = (Toolbar)findViewById(R.id.toolbar_menuactivity);
@@ -267,7 +261,6 @@ public class MenuActivity extends AppCompatActivity {
 
 
         fab = (FloatingActionButton) findViewById(R.id.fbt_add);
-        //fab.setVisibility(View.GONE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
